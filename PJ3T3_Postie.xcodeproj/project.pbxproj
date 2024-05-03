@@ -54,13 +54,12 @@
 		9E9F6AB62B5762E5003DFE83 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F6AB52B5762E5003DFE83 /* HomeView.swift */; };
 		9E9F6AB82B5762EF003DFE83 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F6AB72B5762EF003DFE83 /* HomeViewModel.swift */; };
 		9E9F6ABA2B5762FC003DFE83 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F6AB92B5762FC003DFE83 /* MapView.swift */; };
-		9E9F6ABC2B576351003DFE83 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F6ABB2B576351003DFE83 /* MapCoordinator.swift */; };
 		9E9F6ABE2B576358003DFE83 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F6ABD2B576358003DFE83 /* MapViewModel.swift */; };
 		9E9F6AC02B576368003DFE83 /* ShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F6ABF2B576368003DFE83 /* ShopView.swift */; };
 		9E9F6AC22B576393003DFE83 /* MapApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F6AC12B576393003DFE83 /* MapApi.swift */; };
 		9E9F6AC42B57639D003DFE83 /* ShopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F6AC32B57639D003DFE83 /* ShopViewModel.swift */; };
 		9E9F6AC62B5763A3003DFE83 /* FirebaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F6AC52B5763A3003DFE83 /* FirebaseTestView.swift */; };
-		9E9F6AC82B5763AD003DFE83 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F6AC72B5763AD003DFE83 /* SettingViewModel.swift */; };
+		9E9F6AC82B5763AD003DFE83 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F6AC72B5763AD003DFE83 /* Person.swift */; };
 		9E9F6ACA2B5763B8003DFE83 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F6AC92B5763B8003DFE83 /* LoginView.swift */; };
 		9E9F6ACC2B5763C3003DFE83 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F6ACB2B5763C3003DFE83 /* RegistrationView.swift */; };
 		9E9F6AD02B5763D0003DFE83 /* LoginInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F6ACF2B5763D0003DFE83 /* LoginInputView.swift */; };
@@ -176,13 +175,12 @@
 		9E9F6AB52B5762E5003DFE83 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		9E9F6AB72B5762EF003DFE83 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		9E9F6AB92B5762FC003DFE83 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		9E9F6ABB2B576351003DFE83 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		9E9F6ABD2B576358003DFE83 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		9E9F6ABF2B576368003DFE83 /* ShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopView.swift; sourceTree = "<group>"; };
 		9E9F6AC12B576393003DFE83 /* MapApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapApi.swift; sourceTree = "<group>"; };
 		9E9F6AC32B57639D003DFE83 /* ShopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewModel.swift; sourceTree = "<group>"; };
 		9E9F6AC52B5763A3003DFE83 /* FirebaseTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTestView.swift; sourceTree = "<group>"; };
-		9E9F6AC72B5763AD003DFE83 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		9E9F6AC72B5763AD003DFE83 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		9E9F6AC92B5763B8003DFE83 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		9E9F6ACB2B5763C3003DFE83 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		9E9F6ACD2B5763CA003DFE83 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
@@ -371,6 +369,7 @@
 				9E9F6ADB2B57643F003DFE83 /* Letter.swift */,
 				9EA106762B63C5C90033E7A8 /* LetterPhoto.swift */,
 				9E7E05BA2B7DE96500ACF177 /* OfficialLetter.swift */,
+				9E9F6AC72B5763AD003DFE83 /* Person.swift */,
 				9E9A8BF02B6B85640072CB75 /* PostieUser.swift */,
 				019035572B7B38080080B370 /* Shop.swift */,
 			);
@@ -500,7 +499,6 @@
 			children = (
 				0E29F0DC2B5FDC6A005B86FB /* Coordinator.swift */,
 				0E882AEF2B6B79D800D8F2FC /* CoordinaterEtc.swift */,
-				9E9F6ABB2B576351003DFE83 /* MapCoordinator.swift */,
 				9E9F6AB92B5762FC003DFE83 /* MapView.swift */,
 			);
 			path = View;
@@ -535,17 +533,8 @@
 			isa = PBXGroup;
 			children = (
 				9E9F6AB42B5762C8003DFE83 /* View */,
-				9E9F6AB32B5762C3003DFE83 /* ViewModel */,
 			);
 			path = Setting;
-			sourceTree = "<group>";
-		};
-		9E9F6AB32B5762C3003DFE83 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				9E9F6AC72B5763AD003DFE83 /* SettingViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		9E9F6AB42B5762C8003DFE83 /* View */ = {
@@ -863,7 +852,6 @@
 				9EE31F9B2B84B19900B11D70 /* ReAuthButtonView.swift in Sources */,
 				9E7E05B92B7DE6D200ACF177 /* FirestoreNoticeManager.swift in Sources */,
 				9E9F6ACC2B5763C3003DFE83 /* RegistrationView.swift in Sources */,
-				9E9F6ABC2B576351003DFE83 /* MapCoordinator.swift in Sources */,
 				9E7E05792B7C465D00ACF177 /* ClearBackground.swift in Sources */,
 				CE6597042B5FB1E100A3C136 /* AddLetterView.swift in Sources */,
 				9E9F6AD02B5763D0003DFE83 /* LoginInputView.swift in Sources */,
@@ -896,7 +884,7 @@
 				E3EECAF52B5FD2E100E639F2 /* ProfileView.swift in Sources */,
 				9EBAFDC42B70ED900020EE6F /* AppleSignInHelper.swift in Sources */,
 				9E9F6ABE2B576358003DFE83 /* MapViewModel.swift in Sources */,
-				9E9F6AC82B5763AD003DFE83 /* SettingViewModel.swift in Sources */,
+				9E9F6AC82B5763AD003DFE83 /* Person.swift in Sources */,
 				9E93042F2B74A4B5000B7F75 /* View.swift in Sources */,
 				CE67D55C2B58E9F700C0050B /* PageViewController.swift in Sources */,
 				9E9F6AD22B5763F3003DFE83 /* FirebaseTestRowView.swift in Sources */,
@@ -1047,7 +1035,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = PJ3T3_Postie/Supports/PJ3T3_Postie.entitlements;
+				CODE_SIGN_ENTITLEMENTS = PJ3T3_Postie/PJ3T3_Postie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -1093,7 +1081,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = PJ3T3_Postie/Supports/PJ3T3_Postie.entitlements;
+				CODE_SIGN_ENTITLEMENTS = PJ3T3_Postie/PJ3T3_Postie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
