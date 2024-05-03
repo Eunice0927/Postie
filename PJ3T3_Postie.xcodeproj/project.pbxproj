@@ -166,7 +166,7 @@
 		9E7F8C772B5E69B000F1A6BF /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		9E865CC42B839CC300CD7CAD /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		9E93042E2B74A4B5000B7F75 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
-		9E9A8BDF2B6AB09D0072CB75 /* PJ3T3-Postie-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "PJ3T3-Postie-Info.plist"; sourceTree = SOURCE_ROOT; };
+		9E9A8BDF2B6AB09D0072CB75 /* PJ3T3-Postie-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PJ3T3-Postie-Info.plist"; path = "PJ3T3_Postie/Preview Content/Supports/PJ3T3-Postie-Info.plist"; sourceTree = SOURCE_ROOT; };
 		9E9A8BE82B6B704E0072CB75 /* GoogleSignInHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInHelper.swift; sourceTree = "<group>"; };
 		9E9A8BEA2B6B79870072CB75 /* EmailLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginView.swift; sourceTree = "<group>"; };
 		9E9A8BEE2B6B81050072CB75 /* GoogleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleUser.swift; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 		E36587A82B7C44EB00584965 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		E36587AA2B7E34E400584965 /* GroupedLetterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedLetterViewModel.swift; sourceTree = "<group>"; };
 		E36587AC2B7E6ED200584965 /* SummaryApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryApi.swift; sourceTree = "<group>"; };
-		E36587B02B7E987A00584965 /* SummaryApiKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = SummaryApiKeys.plist; path = PJ3T3_Postie/Core/Home/SummaryApiKeys.plist; sourceTree = SOURCE_ROOT; };
+		E36587B02B7E987A00584965 /* SummaryApiKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = SummaryApiKeys.plist; path = "PJ3T3_Postie/Preview Content/Supports/SummaryApiKeys.plist"; sourceTree = SOURCE_ROOT; };
 		E36587B22B7EF89D00584965 /* SairaStencilOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SairaStencilOne-Regular.ttf"; sourceTree = "<group>"; };
 		E39C35F02B71F820001F6E5F /* ContenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContenViewModel.swift; sourceTree = "<group>"; };
 		E3B41DA52B730E0300CB9E7A /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
@@ -302,9 +302,8 @@
 				9EB8740B2B68C6350025C2DB /* Manager */,
 				9E9F6AA12B5761C5003DFE83 /* Model */,
 				9E0FA1212B54D27C001CEEB9 /* Preview Content */,
+				9E1C7DAE2BE4C8440075EA58 /* Supports */,
 				9E0FA11F2B54D27C001CEEB9 /* Assets.xcassets */,
-				019035592B7B38690080B370 /* GoogleService-Info.plist */,
-				9E9A8BDF2B6AB09D0072CB75 /* PJ3T3-Postie-Info.plist */,
 				9E9A8BF52B70B6790072CB75 /* PJ3T3_Postie.entitlements */,
 			);
 			path = PJ3T3_Postie;
@@ -316,6 +315,18 @@
 				9E0FA1222B54D27C001CEEB9 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9E1C7DAE2BE4C8440075EA58 /* Supports */ = {
+			isa = PBXGroup;
+			children = (
+				019035592B7B38690080B370 /* GoogleService-Info.plist */,
+				9E9A8BDF2B6AB09D0072CB75 /* PJ3T3-Postie-Info.plist */,
+				E36587B02B7E987A00584965 /* SummaryApiKeys.plist */,
+				0E29F0D22B5ED136005B86FB /* MapApiKeys.plist */,
+			);
+			name = Supports;
+			path = "Preview Content/Supports";
 			sourceTree = "<group>";
 		};
 		9E9F6AA12B5761C5003DFE83 /* Model */ = {
@@ -399,7 +410,6 @@
 			children = (
 				9E9F6AAB2B576221003DFE83 /* View */,
 				9E9F6AAA2B57621D003DFE83 /* ViewModel */,
-				E36587B02B7E987A00584965 /* SummaryApiKeys.plist */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -445,7 +455,6 @@
 			children = (
 				9E9F6AAE2B57624C003DFE83 /* View */,
 				9E9F6AAD2B576247003DFE83 /* ViewModel */,
-				0E29F0D22B5ED136005B86FB /* MapApiKeys.plist */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -1014,7 +1023,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = PJ3T3_Postie/PJ3T3_Postie.entitlements;
+				CODE_SIGN_ENTITLEMENTS = PJ3T3_Postie/Supports/PJ3T3_Postie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -1025,7 +1034,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = X4Z4N42YGF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "PJ3T3-Postie-Info.plist";
+				INFOPLIST_FILE = "PJ3T3_Postie/Supports/PJ3T3-Postie-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "포스티";
 				INFOPLIST_KEY_NSCameraUsageDescription = "편지 사진을 찍기 위해 카메라 권한이 필요합니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "내 주변의 우체국/우체통 위치를 찾기 위해 권한이 필요합니다.";
@@ -1060,7 +1069,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = PJ3T3_Postie/PJ3T3_Postie.entitlements;
+				CODE_SIGN_ENTITLEMENTS = PJ3T3_Postie/Supports/PJ3T3_Postie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -1070,7 +1079,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = X4Z4N42YGF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "PJ3T3-Postie-Info.plist";
+				INFOPLIST_FILE = "PJ3T3_Postie/Supports/PJ3T3-Postie-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "포스티";
 				INFOPLIST_KEY_NSCameraUsageDescription = "편지 사진을 찍기 위해 카메라 권한이 필요합니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "내 주변의 우체국/우체통 위치를 찾기 위해 권한이 필요합니다.";
