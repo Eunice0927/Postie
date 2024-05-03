@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 struct Letter: Codable, Hashable, Identifiable {
     var id: String
