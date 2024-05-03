@@ -329,6 +329,40 @@
 			path = "Preview Content/Supports";
 			sourceTree = "<group>";
 		};
+		9E1C7DB12BE4CA0D0075EA58 /* Letter */ = {
+			isa = PBXGroup;
+			children = (
+				9E1C7DB22BE4CA160075EA58 /* View */,
+				9E1C7DB32BE4CA1B0075EA58 /* ViewModel */,
+			);
+			path = Letter;
+			sourceTree = "<group>";
+		};
+		9E1C7DB22BE4CA160075EA58 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE6597032B5FB1E100A3C136 /* AddLetterView.swift */,
+				CE4F1AD12B7CDF8800FE7CF6 /* EditLetterView.swift */,
+				9E9F6AD32B576411003DFE83 /* LetterDetailView.swift */,
+				CEF09E462B57BD8500BE67E4 /* LetterImageFullScreenView.swift */,
+				CE67D55B2B58E9F700C0050B /* PageViewController.swift */,
+				CEF09E442B57B6C500BE67E4 /* UIImagePicker.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9E1C7DB32BE4CA1B0075EA58 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CE7E50772B579D6800955F31 /* AddLetterViewModel.swift */,
+				CE4F1AD32B7CE06D00FE7CF6 /* EditLetterViewModel.swift */,
+				CE6E08442B5E09D800CFBF2A /* LetterDetailViewModel.swift */,
+				CEF09E482B57BFBF00BE67E4 /* TextRecognizer.swift */,
+				E36587AC2B7E6ED200584965 /* SummaryApi.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		9E9F6AA12B5761C5003DFE83 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,6 +381,7 @@
 			isa = PBXGroup;
 			children = (
 				9E9F6AA92B576210003DFE83 /* Home */,
+				9E1C7DB12BE4CA0D0075EA58 /* Letter */,
 				9E9F6AAC2B57622A003DFE83 /* Map */,
 				9E9F6AAF2B576251003DFE83 /* Shop */,
 				9E9F6AB22B5762BB003DFE83 /* Setting */,
@@ -417,14 +452,9 @@
 		9E9F6AAA2B57621D003DFE83 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				CE7E50772B579D6800955F31 /* AddLetterViewModel.swift */,
-				CE4F1AD32B7CE06D00FE7CF6 /* EditLetterViewModel.swift */,
 				9E9F6AB72B5762EF003DFE83 /* HomeViewModel.swift */,
-				CE6E08442B5E09D800CFBF2A /* LetterDetailViewModel.swift */,
-				CEF09E482B57BFBF00BE67E4 /* TextRecognizer.swift */,
 				E36587AA2B7E34E400584965 /* GroupedLetterViewModel.swift */,
 				CE8E670A2B87163B0090A6EE /* SlowPostBoxViewModel.swift */,
-				E36587AC2B7E6ED200584965 /* SummaryApi.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -432,20 +462,14 @@
 		9E9F6AAB2B576221003DFE83 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CE6597032B5FB1E100A3C136 /* AddLetterView.swift */,
-				CE4F1AD12B7CDF8800FE7CF6 /* EditLetterView.swift */,
 				E349F8872B6B673C00253B02 /* GroupedLetterView.swift */,
 				E35C10142B720FFE0007DE8C /* GroupedFavoriteListLetterView.swift */,
 				E3CD1CA32B872C7D009D96A5 /* GroupedMyListLetterView.swift */,
 				E349F8892B6B7DA500253B02 /* GroupedListLetterView.swift */,
 				9E9F6AB52B5762E5003DFE83 /* HomeView.swift */,
-				9E9F6AD32B576411003DFE83 /* LetterDetailView.swift */,
-				CEF09E462B57BD8500BE67E4 /* LetterImageFullScreenView.swift */,
 				E349F8852B6B672E00253B02 /* ListLetterView.swift */,
-				CE67D55B2B58E9F700C0050B /* PageViewController.swift */,
 				9E5889E22B72221B00B4AD20 /* SearchView.swift */,
 				CE8E67082B8715E50090A6EE /* SlowPostBoxView.swift */,
-				CEF09E442B57B6C500BE67E4 /* UIImagePicker.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
