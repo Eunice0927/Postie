@@ -13,13 +13,6 @@ struct SlowPostBoxView: View {
     @ObservedObject var firestoreManager = FirestoreManager.shared
     @ObservedObject var storageManager = StorageManager.shared
 
-    enum Field: Hashable {
-        case sender
-        case receiver
-        case text
-        case summary
-    }
-
     var isReceived: Bool
 
     @FocusState private var focusField: Field?

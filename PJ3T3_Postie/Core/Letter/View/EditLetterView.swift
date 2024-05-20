@@ -12,13 +12,6 @@ import Kingfisher
 struct EditLetterView: View {
     @StateObject private var editLetterViewModel = EditLetterViewModel()
 
-    enum Field: Hashable {
-        case sender
-        case receiver
-        case text
-        case summary
-    }
-
     let letter: Letter
 
     @FocusState private var focusField: Field?
