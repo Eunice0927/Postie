@@ -7,8 +7,9 @@
 
 import SwiftUI
 
+//MARK: - 폴더 Letter로 이동해야 할 것 같음
 struct SlowPostBoxView: View {
-    @StateObject private var slowPostBoxViewModel: SlowPostBoxViewModel
+    @StateObject private var slowPostBoxViewModel: SlowPostBoxItemViewModel
     @ObservedObject var firestoreManager = FirestoreManager.shared
     @ObservedObject var storageManager = StorageManager.shared
 
@@ -27,7 +28,7 @@ struct SlowPostBoxView: View {
 
     init(isReceived: Bool) {
         self.isReceived = isReceived
-        self._slowPostBoxViewModel = StateObject(wrappedValue: SlowPostBoxViewModel(isReceived: isReceived))
+        self._slowPostBoxViewModel = StateObject(wrappedValue: SlowPostBoxItemViewModel(isReceived: isReceived))
 
         // TextEditor 패딩
         UITextView.appearance().textContainerInset = UIEdgeInsets(
@@ -176,7 +177,7 @@ struct SlowPostBoxView: View {
 
             Button("AI 완성") {
                 Task {
-                    await slowPostBoxViewModel.getSummary()
+                    await slowPostBoxViewModel.getSummary(isReceived: slowPostBoxViewModel.isReceived)
                 }
                 focusField = .summary
             }
@@ -192,19 +193,23 @@ struct SlowPostBoxView: View {
 // MARK: - Computed Views
 
 extension SlowPostBoxView {
+    func textView() -> some View {
+        TextField("",
+                  text: .constant(slowPostBoxViewModel.currentUserName)
+        )
+        .padding(6)
+        .background(ThemeManager.themeColors[isThemeGroupButton].receivedLetterColor)
+        .clipShape(RoundedRectangle(cornerRadius: 4))
+        .focused($focusField, equals: .sender)
+    }
+    
     @ViewBuilder
     private var letterInfoSection: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
                 Text(isReceived ? "보낸 사람" : "받는 사람")
-
-                TextField("",
-                          text: .constant(slowPostBoxViewModel.currentUserName)
-                )
-                .padding(6)
-                .background(ThemeManager.themeColors[isThemeGroupButton].receivedLetterColor)
-                .clipShape(RoundedRectangle(cornerRadius: 4))
-                .focused($focusField, equals: .sender)
+                
+                textView()
                 .disabled(true)
             }
             .frame(maxWidth: .infinity)
@@ -330,7 +335,7 @@ extension SlowPostBoxView {
                     Image(systemName: "plus")
                 }
             }
-
+            
             if slowPostBoxViewModel.showingSummaryTextField || !slowPostBoxViewModel.summary.isEmpty {
                 TextField("", text: $slowPostBoxViewModel.summary)
                     .padding(6)

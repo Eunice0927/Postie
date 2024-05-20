@@ -186,7 +186,7 @@ class SlowPostBoxViewModel: ObservableObject {
             }
         }
     }
-
+    
     func setNotification(docId: String, date: Date) {
         let manager = NotificationManager.shared
         //title이나 body 부분의 문구 여러가지로 배열 작성 해 두었다가 알람 뜰 때 랜덤으로 설정되면 좋을 것 같아요~
