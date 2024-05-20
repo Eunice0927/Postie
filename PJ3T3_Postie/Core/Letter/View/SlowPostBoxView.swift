@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-//MARK: - 폴더 Letter로 이동해야 할 것 같음
 struct SlowPostBoxView: View {
-    @StateObject private var slowPostBoxViewModel: SlowPostBoxItemViewModel
+    @StateObject private var slowPostBoxViewModel: SlowPostBoxViewModel
     @ObservedObject var firestoreManager = FirestoreManager.shared
     @ObservedObject var storageManager = StorageManager.shared
 
@@ -21,7 +20,7 @@ struct SlowPostBoxView: View {
 
     init(isReceived: Bool) {
         self.isReceived = isReceived
-        self._slowPostBoxViewModel = StateObject(wrappedValue: SlowPostBoxItemViewModel(isReceived: isReceived))
+        self._slowPostBoxViewModel = StateObject(wrappedValue: SlowPostBoxViewModel(isReceived: isReceived))
 
         // TextEditor 패딩
         UITextView.appearance().textContainerInset = UIEdgeInsets(

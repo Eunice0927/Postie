@@ -89,7 +89,7 @@ struct EditLetterView: View {
         .sheet(isPresented: $editLetterViewModel.showingUIImagePicker) {
             UIImagePicker(
                 sourceType: editLetterViewModel.imagePickerSourceType,
-                selectedImages: $editLetterViewModel.newImages,
+                selectedImages: $editLetterViewModel.images,
                 text: $editLetterViewModel.text,
                 isLoading: $editLetterViewModel.isLoading,
                 showingTextRecognizerErrorAlert: $editLetterViewModel.showingTextRecognizerErrorAlert,
@@ -201,7 +201,7 @@ extension EditLetterView {
                     Image(systemName: "plus")
                 }
             }
-            if editLetterViewModel.fullPathsAndUrls.isEmpty && editLetterViewModel.newImages.isEmpty {
+            if editLetterViewModel.fullPathsAndUrls.isEmpty && editLetterViewModel.images.isEmpty {
                 Label("사진을 추가해주세요.", systemImage: "photo.on.rectangle")
                     .foregroundStyle(ThemeManager.themeColors[isThemeGroupButton].dividerColor)
                     .frame(maxWidth: .infinity)
@@ -244,12 +244,12 @@ extension EditLetterView {
                             }
                         }
 
-                        ForEach(0..<editLetterViewModel.newImages.count, id: \.self) { index in
+                        ForEach(0..<editLetterViewModel.images.count, id: \.self) { index in
                             ZStack(alignment: .topTrailing) {
                                 Button {
                                     editLetterViewModel.showLetterImageFullScreenView(index: index + editLetterViewModel.fullPathsAndUrls.count)
                                 } label: {
-                                    Image(uiImage: editLetterViewModel.newImages[index])
+                                    Image(uiImage: editLetterViewModel.images[index])
                                         .resizable()
                                         .scaledToFill()
                                         .frame(width: 100, height: 100)

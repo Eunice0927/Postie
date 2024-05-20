@@ -169,7 +169,7 @@ struct AddLetterView: View {
 
             Button("AI 완성") {
                 Task {
-                    await addLetterViewModel.getSummary()
+                    await addLetterViewModel.getSummary(isReceived: addLetterViewModel.isReceived)
                 }
                 focusField = .summary
             }
