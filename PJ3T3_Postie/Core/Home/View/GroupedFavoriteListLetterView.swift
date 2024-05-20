@@ -39,21 +39,32 @@ struct GroupedFavoriteListLetterView: View {
             
             AddLetterButton(isMenuActive: $isMenuActive)
         }
-        .onTapGesture {
-            if self.isMenuActive {
-                self.isMenuActive = false
+        .modifier(GroupedTitleBarViewModifier(isMenuActive: $isMenuActive, title: "좋아하는 편지들"))
+    }
+}
+
+struct GroupedTitleBarViewModifier: ViewModifier {
+    @Binding var isMenuActive: Bool
+    
+    let title: String
+    
+    func body(content: Content) -> some View {
+        content
+            .onTapGesture {
+                if self.isMenuActive {
+                    self.isMenuActive = false
+                }
             }
-        }
-        .toolbarBackground(postieColors.backGroundColor, for: .navigationBar)
-        .tint(postieColors.tabBarTintColor)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("좋아하는 편지들")
-                    .bold()
-                    .foregroundStyle(postieColors.tintColor)
+            .toolbarBackground(postieColors.backGroundColor, for: .navigationBar)
+            .tint(postieColors.tabBarTintColor)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(title)
+                        .bold()
+                        .foregroundStyle(postieColors.tintColor)
+                }
             }
-        }
     }
 }
 
