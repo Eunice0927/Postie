@@ -122,6 +122,7 @@
 		E36587AD2B7E6ED200584965 /* SummaryApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36587AC2B7E6ED200584965 /* SummaryApi.swift */; };
 		E36587B32B7EF89D00584965 /* SairaStencilOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E36587B22B7EF89D00584965 /* SairaStencilOne-Regular.ttf */; };
 		E39C35F12B71F820001F6E5F /* ContenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39C35F02B71F820001F6E5F /* ContenViewModel.swift */; };
+		E39EB8432C3031B2003B572E /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39EB8422C3031B2003B572E /* SettingView.swift */; };
 		E3CD1CA42B872C7D009D96A5 /* GroupedMyListLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CD1CA32B872C7D009D96A5 /* GroupedMyListLetterView.swift */; };
 		E3EECAF02B5F957A00E639F2 /* SourceSerifPro-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = E3EECAEF2B5F957A00E639F2 /* SourceSerifPro-Black.otf */; };
 		E3EECAF22B5F958300E639F2 /* SourceSerifPro-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = E3EECAF12B5F958300E639F2 /* SourceSerifPro-Light.otf */; };
@@ -224,6 +225,7 @@
 		E36587AC2B7E6ED200584965 /* SummaryApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryApi.swift; sourceTree = "<group>"; };
 		E36587B22B7EF89D00584965 /* SairaStencilOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SairaStencilOne-Regular.ttf"; sourceTree = "<group>"; };
 		E39C35F02B71F820001F6E5F /* ContenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContenViewModel.swift; sourceTree = "<group>"; };
+		E39EB8422C3031B2003B572E /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		E3B41DA52B730E0300CB9E7A /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
 		E3CD1CA32B872C7D009D96A5 /* GroupedMyListLetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedMyListLetterView.swift; sourceTree = "<group>"; };
 		E3D466DA2B733B5B00DFE93F /* MembershipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipView.swift; sourceTree = "<group>"; };
@@ -532,6 +534,7 @@
 			isa = PBXGroup;
 			children = (
 				9E9F6AB42B5762C8003DFE83 /* View */,
+				E39EB8442C303705003B572E /* ViewModel */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -549,6 +552,7 @@
 				E3B41DA52B730E0300CB9E7A /* ProfileEditView.swift */,
 				E3EECAF42B5FD2E000E639F2 /* ProfileView.swift */,
 				E365879A2B790ADA00584965 /* QuestionView.swift */,
+				E39EB8422C3031B2003B572E /* SettingView.swift */,
 				E30DED6E2B6FD25B00FA70A6 /* SplashScreenView.swift */,
 				E349F8702B6918B500253B02 /* ThemeView.swift */,
 			);
@@ -606,6 +610,13 @@
 			isa = PBXGroup;
 			children = (
 				E39C35F02B71F820001F6E5F /* ContenViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E39EB8442C303705003B572E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -865,6 +876,7 @@
 				0E29F0DD2B5FDC6A005B86FB /* Coordinator.swift in Sources */,
 				9E747CD32B88F4EE007DD0C3 /* InformationWebView.swift in Sources */,
 				9E9F6AC22B576393003DFE83 /* MapApi.swift in Sources */,
+				E39EB8432C3031B2003B572E /* SettingView.swift in Sources */,
 				9E25C2D12B7B8F8A00B04BA1 /* CryptoUtils.swift in Sources */,
 				9E7E05B52B7DE54200ACF177 /* FirestoreShopManager.swift in Sources */,
 				0E882AF02B6B79D800D8F2FC /* CoordinaterEtc.swift in Sources */,
