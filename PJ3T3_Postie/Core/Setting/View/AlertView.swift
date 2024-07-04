@@ -9,33 +9,8 @@ import SwiftUI
 import UserNotifications
 
 struct AlertView: View {
-    @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
-    @AppStorage("allAlert") private var allAlert: Bool = false
-    @AppStorage("slowAlert") private var slowAlert: Bool = false
-    
-    func moveToNotificationSetting() {
-        if let url = URL(string: UIApplication.openNotificationSettingsURLString) {
-            UIApplication.shared.open(url)
-        }
-    }
+    @StateObject private var viewModel = AlertViewModel()
 
-    func checkNotificationPermission() async -> Bool {
-        let center = UNUserNotificationCenter.current()
-        let settings = await center.notificationSettings()
-        
-        switch settings.authorizationStatus {
-        case .authorized: return true
-        case .provisional: return true
-        case .ephemeral: return true
-        default: return false
-        }
-    }
-
-    func changeToggleState() async {
-        self.allAlert = await self.checkNotificationPermission()
-        self.slowAlert = await self.checkNotificationPermission()
-    }
-    
     var body: some View {
         ZStack {
             postieColors.backGroundColor
@@ -43,7 +18,7 @@ struct AlertView: View {
             
             ScrollView {
                 VStack {
-                    Toggle(isOn: $allAlert) {
+                    Toggle(isOn: $viewModel.allAlert) {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("전체 알림")
                                 .foregroundStyle(postieColors.tabBarTintColor)
@@ -54,11 +29,11 @@ struct AlertView: View {
                         }
                     }
                     .onTapGesture {
-                        moveToNotificationSetting()
+                        viewModel.moveToNotificationSetting()
                     }
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                         Task {
-                            await changeToggleState()
+                            await viewModel.changeToggleState()
                         }
                     }
                     .padding(.bottom)
@@ -66,7 +41,7 @@ struct AlertView: View {
                     DividerView()
                         .padding(.bottom, 5)
                     
-                    Toggle(isOn: $slowAlert) {
+                    Toggle(isOn: $viewModel.slowAlert) {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("느린 우체통 알림")
                                 .foregroundStyle(postieColors.tabBarTintColor)
@@ -77,19 +52,19 @@ struct AlertView: View {
                         }
                     }
                     .onTapGesture {
-                        moveToNotificationSetting()
+                        viewModel.moveToNotificationSetting()
                     }
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                         Task {
-                            await changeToggleState()
+                            await viewModel.changeToggleState()
                         }
                     }
-                    .disabled(!allAlert)
+                    .disabled(!viewModel.allAlert)
                     
                 }
                 .padding()
             }
-            .tint(isThemeGroupButton == 4 ? .postieDarkGray : postieColors.tintColor)
+            .tint(viewModel.isThemeGroupButton == 4 ? .postieDarkGray : postieColors.tintColor)
         }
         .toolbar {
             ToolbarItemGroup(placement: .principal) {
