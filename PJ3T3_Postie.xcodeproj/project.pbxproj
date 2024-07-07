@@ -124,6 +124,7 @@
 		E39C35F12B71F820001F6E5F /* ContenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39C35F02B71F820001F6E5F /* ContenViewModel.swift */; };
 		E39EB8432C3031B2003B572E /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39EB8422C3031B2003B572E /* SettingView.swift */; };
 		E39EB8482C36A63C003B572E /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39EB8472C36A63C003B572E /* AlertViewModel.swift */; };
+		E39EB84C2C36B23E003B572E /* NoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39EB84B2C36B23E003B572E /* NoticeViewModel.swift */; };
 		E3CD1CA42B872C7D009D96A5 /* GroupedMyListLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CD1CA32B872C7D009D96A5 /* GroupedMyListLetterView.swift */; };
 		E3EECAF02B5F957A00E639F2 /* SourceSerifPro-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = E3EECAEF2B5F957A00E639F2 /* SourceSerifPro-Black.otf */; };
 		E3EECAF22B5F958300E639F2 /* SourceSerifPro-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = E3EECAF12B5F958300E639F2 /* SourceSerifPro-Light.otf */; };
@@ -228,6 +229,7 @@
 		E39C35F02B71F820001F6E5F /* ContenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContenViewModel.swift; sourceTree = "<group>"; };
 		E39EB8422C3031B2003B572E /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		E39EB8472C36A63C003B572E /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
+		E39EB84B2C36B23E003B572E /* NoticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewModel.swift; sourceTree = "<group>"; };
 		E3B41DA52B730E0300CB9E7A /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
 		E3CD1CA32B872C7D009D96A5 /* GroupedMyListLetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedMyListLetterView.swift; sourceTree = "<group>"; };
 		E3D466DA2B733B5B00DFE93F /* MembershipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipView.swift; sourceTree = "<group>"; };
@@ -620,6 +622,7 @@
 			isa = PBXGroup;
 			children = (
 				E39EB8472C36A63C003B572E /* AlertViewModel.swift */,
+				E39EB84B2C36B23E003B572E /* NoticeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -916,6 +919,7 @@
 				9E5889E32B72221B00B4AD20 /* SearchView.swift in Sources */,
 				9E9F6AB82B5762EF003DFE83 /* HomeViewModel.swift in Sources */,
 				9E865CC52B839CC300CD7CAD /* NotificationManager.swift in Sources */,
+				E39EB84C2C36B23E003B572E /* NoticeViewModel.swift in Sources */,
 				CE122D522B887BF900A3E8B1 /* Logger.swift in Sources */,
 				9E9F6ADC2B57643F003DFE83 /* Letter.swift in Sources */,
 				9E9F6AC62B5763A3003DFE83 /* FirebaseTestView.swift in Sources */,
