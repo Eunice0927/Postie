@@ -8,17 +8,10 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @StateObject private var viewModel = ProfileViewModel()
     @ObservedObject var authManager = AuthManager.shared
     
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
-    @State private var isLogOutAlert: Bool = false
-    @State private var isSignOutAlert: Bool = false
-    @State private var isshowingMembershipView = false
-    @State private var isShowingProfileEditView = false
-    @State private var isDeleteAccountDialogPresented = false
-    @State private var showLoading = false
-    @State private var showAlert = false
-    @State private var alertBody = ""
     @Binding var profileImage: String
     @Binding var profileImageTemp: String
     
@@ -33,7 +26,7 @@ struct ProfileView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 5) {
                         Button (action: {
-                            isShowingProfileEditView = true
+                            viewModel.isShowingProfileEditView = true
                             profileImageTemp = profileImage
                         }) {
                             HStack {
@@ -58,7 +51,7 @@ struct ProfileView: View {
                                 Spacer()
                             }
                         }
-                        .sheet(isPresented: $isShowingProfileEditView) {
+                        .sheet(isPresented: $viewModel.isShowingProfileEditView) {
                             ProfileEditView(profileImage: $profileImage, profileImageTemp: $profileImageTemp)
                                 .presentationDetents([.medium, .large])
                         }
@@ -139,14 +132,14 @@ struct ProfileView: View {
                             .padding(.bottom, 3)
                         
                         Button {
-                            isLogOutAlert = true
+                            viewModel.isLogOutAlert = true
                         } label: {
                             Text("로그아웃")
                                 .foregroundStyle(postieColors.tabBarTintColor)
                                 .padding(.bottom, 15)
                                 .padding(.leading, 3)
                         }
-                        .alert("로그아웃", isPresented: $isLogOutAlert) {
+                        .alert("로그아웃", isPresented: $viewModel.isLogOutAlert) {
                             Button(role: .cancel) {
                                 
                             } label: {
@@ -163,13 +156,13 @@ struct ProfileView: View {
                         }
                         
                         Button {
-                            isSignOutAlert = true
+                            viewModel.isSignOutAlert = true
                         } label: {
                             Text("회원 탈퇴")
                                 .foregroundStyle(postieColors.dividerColor)
                                 .padding(.leading, 3)
                         }
-                        .alert("회원 탈퇴", isPresented: $isSignOutAlert) {
+                        .alert("회원 탈퇴", isPresented: $viewModel.isSignOutAlert) {
                             Button(role: .cancel) {
                                 
                             } label: {
@@ -177,16 +170,16 @@ struct ProfileView: View {
                             }
                             
                             Button(role: .destructive) {
-                                isDeleteAccountDialogPresented = true
+                                viewModel.isDeleteAccountDialogPresented = true
                             } label: {
                                 Text("확인")
                             }
                         } message: {
                             Text("회원 탈퇴 하시겠습니까?")
                         }
-                        .alert(isPresented: $showAlert) {
+                        .alert(isPresented: $viewModel.showAlert) {
                             let title = Text("탈퇴 실패")
-                            let message = Text(alertBody)
+                            let message = Text(viewModel.alertBody)
                             let confirmButton = Alert.Button.cancel(Text("확인"))
 
                             return Alert(title: title, message: message, dismissButton: confirmButton)
@@ -208,12 +201,12 @@ struct ProfileView: View {
             .toolbarBackground(postieColors.backGroundColor, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
             .tint(postieColors.tabBarTintColor)
-            .confirmationDialog("포스티를 떠나시나요?", isPresented: $isDeleteAccountDialogPresented, titleVisibility: .visible) {
-                DeleteAccountButtonView(showLoading: $showLoading, showAlert: $showAlert, alertBody: $alertBody)
+            .confirmationDialog("포스티를 떠나시나요?", isPresented: $viewModel.isDeleteAccountDialogPresented, titleVisibility: .visible) {
+                DeleteAccountButtonView(showLoading: $viewModel.showLoading, showAlert: $viewModel.showAlert, alertBody: $viewModel.alertBody)
             } message: {
                 Text("회원 탈퇴 시에는 계정과 프로필 정보, 그리고 등록된 모든 편지와 편지 이미지가 삭제되며 복구할 수 없습니다.\n계정 삭제를 위해서는 재인증을 통해 다시 로그인 해야 합니다.")
             }
-            .fullScreenCover(isPresented: $showLoading) {
+            .fullScreenCover(isPresented: $viewModel.showLoading) {
                 LoadingView(text: "저장된 편지들을 안전하게 삭제하는 중이에요")
                     .background(ClearBackground())
             }
