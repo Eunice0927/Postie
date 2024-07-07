@@ -125,6 +125,7 @@
 		E39EB8432C3031B2003B572E /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39EB8422C3031B2003B572E /* SettingView.swift */; };
 		E39EB8482C36A63C003B572E /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39EB8472C36A63C003B572E /* AlertViewModel.swift */; };
 		E39EB84C2C36B23E003B572E /* NoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39EB84B2C36B23E003B572E /* NoticeViewModel.swift */; };
+		E39EB84E2C3AC15E003B572E /* InformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39EB84D2C3AC15E003B572E /* InformationViewModel.swift */; };
 		E3CD1CA42B872C7D009D96A5 /* GroupedMyListLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CD1CA32B872C7D009D96A5 /* GroupedMyListLetterView.swift */; };
 		E3EECAF02B5F957A00E639F2 /* SourceSerifPro-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = E3EECAEF2B5F957A00E639F2 /* SourceSerifPro-Black.otf */; };
 		E3EECAF22B5F958300E639F2 /* SourceSerifPro-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = E3EECAF12B5F958300E639F2 /* SourceSerifPro-Light.otf */; };
@@ -230,6 +231,7 @@
 		E39EB8422C3031B2003B572E /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		E39EB8472C36A63C003B572E /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
 		E39EB84B2C36B23E003B572E /* NoticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewModel.swift; sourceTree = "<group>"; };
+		E39EB84D2C3AC15E003B572E /* InformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewModel.swift; sourceTree = "<group>"; };
 		E3B41DA52B730E0300CB9E7A /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
 		E3CD1CA32B872C7D009D96A5 /* GroupedMyListLetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedMyListLetterView.swift; sourceTree = "<group>"; };
 		E3D466DA2B733B5B00DFE93F /* MembershipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipView.swift; sourceTree = "<group>"; };
@@ -623,6 +625,7 @@
 			children = (
 				E39EB8472C36A63C003B572E /* AlertViewModel.swift */,
 				E39EB84B2C36B23E003B572E /* NoticeViewModel.swift */,
+				E39EB84D2C3AC15E003B572E /* InformationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -910,6 +913,7 @@
 				9E0FA11C2B54D27A001CEEB9 /* PJ3T3_PostieApp.swift in Sources */,
 				9E9F6AC02B576368003DFE83 /* ShopView.swift in Sources */,
 				E39C35F12B71F820001F6E5F /* ContenViewModel.swift in Sources */,
+				E39EB84E2C3AC15E003B572E /* InformationViewModel.swift in Sources */,
 				9E9F6ACA2B5763B8003DFE83 /* LoginView.swift in Sources */,
 				9E7E05BB2B7DE96500ACF177 /* OfficialLetter.swift in Sources */,
 				CE8E67092B8715E50090A6EE /* SlowPostBoxView.swift in Sources */,
