@@ -208,6 +208,8 @@ struct StackedRoundedRectangleModifier: ViewModifier {
 }
 
 struct CustomLetterItemModifier: ViewModifier {
+    @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
+    
     let homeWidth: CGFloat
 
     func body(content: Content) -> some View {

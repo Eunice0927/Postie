@@ -108,6 +108,7 @@
 		CEF09E472B57BD8500BE67E4 /* LetterImageFullScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF09E462B57BD8500BE67E4 /* LetterImageFullScreenView.swift */; };
 		CEF09E492B57BFBF00BE67E4 /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF09E482B57BFBF00BE67E4 /* TextRecognizer.swift */; };
 		CEF18BC02B810362002669B7 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CEF18BBF2B810362002669B7 /* Kingfisher */; };
+		E305836C2CBD39A90050A9C0 /* ThemeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E305836B2CBD399E0050A9C0 /* ThemeViewModel.swift */; };
 		E30DED6F2B6FD25B00FA70A6 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30DED6E2B6FD25B00FA70A6 /* SplashScreenView.swift */; };
 		E349F8712B6918B500253B02 /* ThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E349F8702B6918B500253B02 /* ThemeView.swift */; };
 		E349F8862B6B672E00253B02 /* ListLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E349F8852B6B672E00253B02 /* ListLetterView.swift */; };
@@ -215,6 +216,7 @@
 		CEF09E442B57B6C500BE67E4 /* UIImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImagePicker.swift; sourceTree = "<group>"; };
 		CEF09E462B57BD8500BE67E4 /* LetterImageFullScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterImageFullScreenView.swift; sourceTree = "<group>"; };
 		CEF09E482B57BFBF00BE67E4 /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
+		E305836B2CBD399E0050A9C0 /* ThemeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeViewModel.swift; sourceTree = "<group>"; };
 		E30DED6E2B6FD25B00FA70A6 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		E349F8702B6918B500253B02 /* ThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeView.swift; sourceTree = "<group>"; };
 		E349F8852B6B672E00253B02 /* ListLetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListLetterView.swift; sourceTree = "<group>"; };
@@ -629,6 +631,7 @@
 				E39EB84B2C36B23E003B572E /* NoticeViewModel.swift */,
 				E39EB84D2C3AC15E003B572E /* InformationViewModel.swift */,
 				E39EB84F2C3AC543003B572E /* ProfileViewModel.swift */,
+				E305836B2CBD399E0050A9C0 /* ThemeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -887,6 +890,7 @@
 				CEF09E452B57B6C500BE67E4 /* UIImagePicker.swift in Sources */,
 				E349F88A2B6B7DA500253B02 /* GroupedListLetterView.swift in Sources */,
 				0E29F0DD2B5FDC6A005B86FB /* Coordinator.swift in Sources */,
+				E305836C2CBD39A90050A9C0 /* ThemeViewModel.swift in Sources */,
 				9E747CD32B88F4EE007DD0C3 /* InformationWebView.swift in Sources */,
 				9E9F6AC22B576393003DFE83 /* MapApi.swift in Sources */,
 				E39EB8432C3031B2003B572E /* SettingView.swift in Sources */,
