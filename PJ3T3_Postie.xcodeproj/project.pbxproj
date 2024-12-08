@@ -38,6 +38,7 @@
 		9E5889E32B72221B00B4AD20 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5889E22B72221B00B4AD20 /* SearchView.swift */; };
 		9E747CD32B88F4EE007DD0C3 /* InformationWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E747CD22B88F4EE007DD0C3 /* InformationWebView.swift */; };
 		9E78F7452D05989C001460E6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E78F7442D05989C001460E6 /* Utils.swift */; };
+		9E78F7472D05A5CD001460E6 /* FirebaseEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E78F7462D05A5CD001460E6 /* FirebaseEvent.swift */; };
 		9E7E05792B7C465D00ACF177 /* ClearBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7E05782B7C465D00ACF177 /* ClearBackground.swift */; };
 		9E7E057B2B7CC37800ACF177 /* AuthCaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7E057A2B7CC37800ACF177 /* AuthCaseHelper.swift */; };
 		9E7E05B52B7DE54200ACF177 /* FirestoreShopManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7E05B42B7DE54200ACF177 /* FirestoreShopManager.swift */; };
@@ -161,6 +162,7 @@
 		9E5889E22B72221B00B4AD20 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		9E747CD22B88F4EE007DD0C3 /* InformationWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationWebView.swift; sourceTree = "<group>"; };
 		9E78F7442D05989C001460E6 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		9E78F7462D05A5CD001460E6 /* FirebaseEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEvent.swift; sourceTree = "<group>"; };
 		9E7E05782B7C465D00ACF177 /* ClearBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBackground.swift; sourceTree = "<group>"; };
 		9E7E057A2B7CC37800ACF177 /* AuthCaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCaseHelper.swift; sourceTree = "<group>"; };
 		9E7E05B42B7DE54200ACF177 /* FirestoreShopManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreShopManager.swift; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 			isa = PBXGroup;
 			children = (
 				9E078CBF2B7207660072E5FC /* AppleUser.swift */,
+				9E78F7462D05A5CD001460E6 /* FirebaseEvent.swift */,
 				9E9A8BEE2B6B81050072CB75 /* GoogleUser.swift */,
 				9E9F6ADB2B57643F003DFE83 /* Letter.swift */,
 				9EA106762B63C5C90033E7A8 /* LetterPhoto.swift */,
@@ -831,6 +834,7 @@
 				E349F8712B6918B500253B02 /* ThemeView.swift in Sources */,
 				E36587AD2B7E6ED200584965 /* SummaryApi.swift in Sources */,
 				9E1D9DBB2B87659100651F6E /* AppStoreUpdateChecker.swift in Sources */,
+				9E78F7472D05A5CD001460E6 /* FirebaseEvent.swift in Sources */,
 				CE7E50782B579D6800955F31 /* AddLetterViewModel.swift in Sources */,
 				CE60AACD2B6F907500D6717A /* Font.swift in Sources */,
 				CE6E08452B5E09D900CFBF2A /* LetterDetailViewModel.swift in Sources */,

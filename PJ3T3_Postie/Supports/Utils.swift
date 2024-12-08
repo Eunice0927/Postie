@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAnalytics
 
 public class Utils {
     
@@ -22,5 +23,10 @@ public class Utils {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: date)
+    }
+    
+    public static func logEvent(event: FirebaseEvent, params: [String: Any]) {
+        log("logEvent event \(event), params: = \(params)")
+        Analytics.logEvent(event.rawValue, parameters: params)
     }
 }
