@@ -37,6 +37,7 @@
 		9E46837C2B7BBBA100EFB90B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E46837B2B7BBBA100EFB90B /* LoadingView.swift */; };
 		9E5889E32B72221B00B4AD20 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5889E22B72221B00B4AD20 /* SearchView.swift */; };
 		9E747CD32B88F4EE007DD0C3 /* InformationWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E747CD22B88F4EE007DD0C3 /* InformationWebView.swift */; };
+		9E78F7452D05989C001460E6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E78F7442D05989C001460E6 /* Utils.swift */; };
 		9E7E05792B7C465D00ACF177 /* ClearBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7E05782B7C465D00ACF177 /* ClearBackground.swift */; };
 		9E7E057B2B7CC37800ACF177 /* AuthCaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7E057A2B7CC37800ACF177 /* AuthCaseHelper.swift */; };
 		9E7E05B52B7DE54200ACF177 /* FirestoreShopManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7E05B42B7DE54200ACF177 /* FirestoreShopManager.swift */; };
@@ -159,6 +160,7 @@
 		9E46837B2B7BBBA100EFB90B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		9E5889E22B72221B00B4AD20 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		9E747CD22B88F4EE007DD0C3 /* InformationWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationWebView.swift; sourceTree = "<group>"; };
+		9E78F7442D05989C001460E6 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		9E7E05782B7C465D00ACF177 /* ClearBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBackground.swift; sourceTree = "<group>"; };
 		9E7E057A2B7CC37800ACF177 /* AuthCaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCaseHelper.swift; sourceTree = "<group>"; };
 		9E7E05B42B7DE54200ACF177 /* FirestoreShopManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreShopManager.swift; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 				9E1C7DF52BE8B4370075EA58 /* MapApiKeys.plist */,
 				9E1C7DF42BE8B4370075EA58 /* PJ3T3-Postie-Info.plist */,
 				9E1C7DF62BE8B4370075EA58 /* SummaryApiKeys.plist */,
+				9E78F7442D05989C001460E6 /* Utils.swift */,
 			);
 			path = Supports;
 			sourceTree = "<group>";
@@ -879,6 +882,7 @@
 				9E28934C2B7E9314009A7D40 /* DeleteAccountButtonView.swift in Sources */,
 				CE4F1AD42B7CE06D00FE7CF6 /* EditLetterViewModel.swift in Sources */,
 				E349F8862B6B672E00253B02 /* ListLetterView.swift in Sources */,
+				9E78F7452D05989C001460E6 /* Utils.swift in Sources */,
 				019035582B7B38080080B370 /* Shop.swift in Sources */,
 				E3EECAF52B5FD2E100E639F2 /* ProfileView.swift in Sources */,
 				9EBAFDC42B70ED900020EE6F /* AppleSignInHelper.swift in Sources */,
