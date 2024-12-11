@@ -18,6 +18,21 @@ struct SettingView: View {
     @Binding var profileImage: String
     @Binding var profileImageTemp: String
     
+    private func settingItemView(imageName: String, title: String) -> some View {
+        HStack {
+            Image(systemName: imageName)
+                .font(imageName == "megaphone" ? .callout : .body)
+            
+            Text(title)
+            
+            Spacer()
+            
+            Image(systemName: "chevron.right")
+                .foregroundStyle(postieColors.dividerColor)
+        }
+        .padding(.bottom)
+    }
+    
     var body: some View {
         let user = authManager.currentUser
         
@@ -87,7 +102,7 @@ struct SettingView: View {
                     .padding(.bottom)
                 
                 NavigationLink(destination: ThemeView(currentColorPage: $currentColorPage, isTabGroupButton: $isTabGroupButton, currentGroupPage: $currentGroupPage)) {
-                    SettingItemsView(imageName: "paintpalette", title: "테마 설정")
+                    settingItemView(imageName: "paintpalette", title: "테마 설정")
                 }
                 
                 Text("앱 설정")
@@ -98,19 +113,19 @@ struct SettingView: View {
                     .padding(.bottom)
                 
                 NavigationLink(destination: AlertView()) {
-                    SettingItemsView(imageName: "bell", title: "알림 설정")
+                    settingItemView(imageName: "bell", title: "알림 설정")
                 }
                 
                 NavigationLink(destination: NoticeView()) {
-                    SettingItemsView(imageName: "megaphone", title: "공지사항")
+                    settingItemView(imageName: "megaphone", title: "공지사항")
                 }
                 
                 NavigationLink(destination: QuestionView()) {
-                    SettingItemsView(imageName: "questionmark.circle", title: "문의하기")
+                    settingItemView(imageName: "questionmark.circle", title: "문의하기")
                 }
                 
                 NavigationLink(destination: InformationView()) {
-                    SettingItemsView(imageName: "info.circle", title: "앱 정보")
+                    settingItemView(imageName: "info.circle", title: "앱 정보")
                 }
                 
                 Spacer()
@@ -129,25 +144,5 @@ struct SettingView: View {
             currentColorPage = isThemeGroupButton
             currentGroupPage = isTabGroupButton ? 0 : 1
         }
-    }
-}
-
-struct SettingItemsView: View {
-    var imageName: String
-    var title: String
-    
-    var body: some View {
-        HStack {
-            Image(systemName: imageName)
-                .font(imageName == "megaphone" ? .callout : .body)
-            
-            Text(title)
-            
-            Spacer()
-            
-            Image(systemName: "chevron.right")
-                .foregroundStyle(postieColors.dividerColor)
-        }
-        .padding(.bottom)
     }
 }
