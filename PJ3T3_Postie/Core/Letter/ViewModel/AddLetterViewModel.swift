@@ -158,6 +158,7 @@ class AddLetterViewModel: ObservableObject {
 
         await MainActor.run {
             FirestoreManager.shared.letters.append(newLetter)
+            Utils.logEvent(event: .addLetter, params: ["type": isReceived ? "Receive" : "Send"])
         }
     }
 

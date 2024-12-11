@@ -37,6 +37,8 @@
 		9E46837C2B7BBBA100EFB90B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E46837B2B7BBBA100EFB90B /* LoadingView.swift */; };
 		9E5889E32B72221B00B4AD20 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5889E22B72221B00B4AD20 /* SearchView.swift */; };
 		9E747CD32B88F4EE007DD0C3 /* InformationWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E747CD22B88F4EE007DD0C3 /* InformationWebView.swift */; };
+		9E78F7452D05989C001460E6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E78F7442D05989C001460E6 /* Utils.swift */; };
+		9E78F7472D05A5CD001460E6 /* FirebaseEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E78F7462D05A5CD001460E6 /* FirebaseEvent.swift */; };
 		9E7E05792B7C465D00ACF177 /* ClearBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7E05782B7C465D00ACF177 /* ClearBackground.swift */; };
 		9E7E057B2B7CC37800ACF177 /* AuthCaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7E057A2B7CC37800ACF177 /* AuthCaseHelper.swift */; };
 		9E7E05B52B7DE54200ACF177 /* FirestoreShopManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7E05B42B7DE54200ACF177 /* FirestoreShopManager.swift */; };
@@ -167,6 +169,8 @@
 		9E46837B2B7BBBA100EFB90B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		9E5889E22B72221B00B4AD20 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		9E747CD22B88F4EE007DD0C3 /* InformationWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationWebView.swift; sourceTree = "<group>"; };
+		9E78F7442D05989C001460E6 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		9E78F7462D05A5CD001460E6 /* FirebaseEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEvent.swift; sourceTree = "<group>"; };
 		9E7E05782B7C465D00ACF177 /* ClearBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBackground.swift; sourceTree = "<group>"; };
 		9E7E057A2B7CC37800ACF177 /* AuthCaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCaseHelper.swift; sourceTree = "<group>"; };
 		9E7E05B42B7DE54200ACF177 /* FirestoreShopManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreShopManager.swift; sourceTree = "<group>"; };
@@ -348,6 +352,7 @@
 				9E9F6AD32B576411003DFE83 /* LetterDetailView.swift */,
 				CEF09E462B57BD8500BE67E4 /* LetterImageFullScreenView.swift */,
 				CE67D55B2B58E9F700C0050B /* PageViewController.swift */,
+				CE8E67082B8715E50090A6EE /* SlowPostBoxView.swift */,
 				CEF09E442B57B6C500BE67E4 /* UIImagePicker.swift */,
 			);
 			path = View;
@@ -360,6 +365,7 @@
 				CE4F1AD32B7CE06D00FE7CF6 /* EditLetterViewModel.swift */,
 				CE6E08442B5E09D800CFBF2A /* LetterDetailViewModel.swift */,
 				CEF09E482B57BFBF00BE67E4 /* TextRecognizer.swift */,
+				CE8E670A2B87163B0090A6EE /* SlowPostBoxViewModel.swift */,
 				E36587AC2B7E6ED200584965 /* SummaryApi.swift */,
 			);
 			path = ViewModel;
@@ -372,6 +378,7 @@
 				9E1C7DF52BE8B4370075EA58 /* MapApiKeys.plist */,
 				9E1C7DF42BE8B4370075EA58 /* PJ3T3-Postie-Info.plist */,
 				9E1C7DF62BE8B4370075EA58 /* SummaryApiKeys.plist */,
+				9E78F7442D05989C001460E6 /* Utils.swift */,
 			);
 			path = Supports;
 			sourceTree = "<group>";
@@ -380,6 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				9E078CBF2B7207660072E5FC /* AppleUser.swift */,
+				9E78F7462D05A5CD001460E6 /* FirebaseEvent.swift */,
 				9E9A8BEE2B6B81050072CB75 /* GoogleUser.swift */,
 				9E9F6ADB2B57643F003DFE83 /* Letter.swift */,
 				9EA106762B63C5C90033E7A8 /* LetterPhoto.swift */,
@@ -469,7 +477,6 @@
 			children = (
 				9E9F6AB72B5762EF003DFE83 /* HomeViewModel.swift */,
 				E36587AA2B7E34E400584965 /* GroupedLetterViewModel.swift */,
-				CE8E670A2B87163B0090A6EE /* SlowPostBoxViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -484,7 +491,6 @@
 				9E9F6AB52B5762E5003DFE83 /* HomeView.swift */,
 				E349F8852B6B672E00253B02 /* ListLetterView.swift */,
 				9E5889E22B72221B00B4AD20 /* SearchView.swift */,
-				CE8E67082B8715E50090A6EE /* SlowPostBoxView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -860,6 +866,7 @@
 				E349F8712B6918B500253B02 /* ThemeView.swift in Sources */,
 				E36587AD2B7E6ED200584965 /* SummaryApi.swift in Sources */,
 				9E1D9DBB2B87659100651F6E /* AppStoreUpdateChecker.swift in Sources */,
+				9E78F7472D05A5CD001460E6 /* FirebaseEvent.swift in Sources */,
 				CE7E50782B579D6800955F31 /* AddLetterViewModel.swift in Sources */,
 				CE60AACD2B6F907500D6717A /* Font.swift in Sources */,
 				CE6E08452B5E09D900CFBF2A /* LetterDetailViewModel.swift in Sources */,
@@ -915,6 +922,7 @@
 				9E28934C2B7E9314009A7D40 /* DeleteAccountButtonView.swift in Sources */,
 				CE4F1AD42B7CE06D00FE7CF6 /* EditLetterViewModel.swift in Sources */,
 				E349F8862B6B672E00253B02 /* ListLetterView.swift in Sources */,
+				9E78F7452D05989C001460E6 /* Utils.swift in Sources */,
 				019035582B7B38080080B370 /* Shop.swift in Sources */,
 				E39EB8502C3AC543003B572E /* ProfileViewModel.swift in Sources */,
 				E3EECAF52B5FD2E100E639F2 /* ProfileView.swift in Sources */,

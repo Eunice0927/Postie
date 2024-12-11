@@ -27,6 +27,7 @@ struct ContentView: View {
         tbAppearance.backgroundColor = UIColor.systemBackground
         UITabBar.appearance().scrollEdgeAppearance = tbAppearance
         UITabBar.appearance().standardAppearance = tbAppearance
+        Utils.logEvent(event: .appStart, params: [:])
     }
 
     var body: some View {
