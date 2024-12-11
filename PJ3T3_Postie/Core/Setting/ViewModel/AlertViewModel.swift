@@ -5,7 +5,7 @@
 //  Created by 권운기 on 7/4/24.
 //
 
-import SwiftUI
+import Foundation
 import UserNotifications
 
 class AlertViewModel: ObservableObject {
@@ -19,12 +19,6 @@ class AlertViewModel: ObservableObject {
         self.isThemeGroupButton = userDefaults.integer(forKey: "isThemeGroupButton")
         self.allAlert = userDefaults.bool(forKey: "allAlert")
         self.slowAlert = userDefaults.bool(forKey: "slowAlert")
-    }
-    
-    func moveToNotificationSetting() {
-        if let url = URL(string: UIApplication.openNotificationSettingsURLString) {
-            UIApplication.shared.open(url)
-        }
     }
     
     func checkNotificationPermission() async -> Bool {

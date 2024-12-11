@@ -14,31 +14,29 @@ class InformationViewModel: ObservableObject {
         var person: Person
         
         var body: some View {
-    //        Link(destination: URL(string: person.link)!) {
-                VStack {
-                    ZStack {
-                        Rectangle()
-                            .frame(height: 190)
-                            .clipShape(RoundedRectangle(cornerRadius: 25))
-                            .foregroundStyle(person.color)
-                            .shadow(color: .black, radius: 0.8)
+            VStack {
+                ZStack {
+                    Rectangle()
+                        .frame(height: 190)
+                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                        .foregroundStyle(person.color)
+                        .shadow(color: .black, radius: 0.8)
+                    
+                    VStack {
+                        Text(person.name)
+                            .bold()
                         
-                        VStack {
-                            Text(person.name)
-                                .bold()
-                            
-                            Text(person.subtitle)
-                                .font(.footnote)
-                            
-                            Image(person.image)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 100)
-                        }
-                        .foregroundStyle(.postieWhite)
+                        Text(person.subtitle)
+                            .font(.footnote)
+                        
+                        Image(person.image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100)
                     }
+                    .foregroundStyle(.postieWhite)
                 }
-    //        }
+            }
         }
     }
 }

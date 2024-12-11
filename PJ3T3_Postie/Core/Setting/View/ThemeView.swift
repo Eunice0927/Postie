@@ -24,6 +24,8 @@ struct ThemeView: View {
                 postieColors.backGroundColor
                     .ignoresSafeArea()
                 
+                let columns = Array(repeating: GridItem(.flexible()), count: viewModel.numberOfColumns)
+                
                 VStack {
                     HStack(spacing: 10) {
                         ForEach(0...1, id: \.self) { index in
@@ -167,7 +169,7 @@ struct ThemeView: View {
                             }
                         } else if selectedLayoutMode == 1 {
                             ScrollView {
-                                LazyVGrid(columns: viewModel.columns, spacing: 10) {
+                                LazyVGrid(columns: columns, spacing: 10) {
                                     ForEach(Array(zip(viewModel.items.indices, viewModel.items)), id: \.0) { index, item in
                                         Button (action: {
                                             isThemeGroupButton = index

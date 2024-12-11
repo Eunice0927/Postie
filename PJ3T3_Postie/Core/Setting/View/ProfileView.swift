@@ -11,7 +11,6 @@ struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
     @ObservedObject var authManager = AuthManager.shared
     
-    @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
     @Binding var profileImage: String
     @Binding var profileImageTemp: String
     

@@ -10,6 +10,12 @@ import UserNotifications
 
 struct AlertView: View {
     @StateObject private var viewModel = AlertViewModel()
+    
+    func moveToNotificationSetting() {
+        if let url = URL(string: UIApplication.openNotificationSettingsURLString) {
+            UIApplication.shared.open(url)
+        }
+    }
 
     var body: some View {
         ZStack {
@@ -29,7 +35,7 @@ struct AlertView: View {
                         }
                     }
                     .onTapGesture {
-                        viewModel.moveToNotificationSetting()
+                        moveToNotificationSetting()
                     }
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                         Task {
@@ -52,7 +58,7 @@ struct AlertView: View {
                         }
                     }
                     .onTapGesture {
-                        viewModel.moveToNotificationSetting()
+                        moveToNotificationSetting()
                     }
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                         Task {

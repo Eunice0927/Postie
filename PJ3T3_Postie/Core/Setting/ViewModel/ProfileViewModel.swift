@@ -5,7 +5,7 @@
 //  Created by 권운기 on 7/7/24.
 //
 
-import SwiftUI
+import Foundation
 
 class ProfileViewModel: ObservableObject {
     @Published var alertBody = ""
@@ -16,4 +16,5 @@ class ProfileViewModel: ObservableObject {
     @Published var isDeleteAccountDialogPresented = false
     @Published var showLoading = false
     @Published var showAlert = false
+    @Published var selectedThemeButton: Int = 0
 }

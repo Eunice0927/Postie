@@ -5,7 +5,7 @@
 //  Created by 권운기 on 10/14/24.
 //
 
-import SwiftUI
+import Foundation
 
 class ThemeViewModel: ObservableObject {
     @Published var selectedThemeButton: Int = 0
@@ -15,11 +15,7 @@ class ThemeViewModel: ObservableObject {
     let items = ["포스티 오렌지", "포스티 옐로우", "포스티 그린", "포스티 블루", "포스티 블랙"]
     let listImages = ["postieListOrange", "postieListYellow", "postieListGreen", "postieListBlue", "postieListBlack"]
     let groupImages = ["postieGroupOrange", "postieGroupYellow", "postieGroupGreen", "postieGroupBlue", "postieGroupBlack"]
-    
-    let columns: [GridItem] = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+    let numberOfColumns: Int = 2
     
     func stringFromNumber(_ number: Int) -> String {
         switch number {

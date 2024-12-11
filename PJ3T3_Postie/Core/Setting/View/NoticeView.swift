@@ -58,8 +58,13 @@ struct NoticeView: View {
 //                                            .scaledToFit()
 //                                    }
                                     
-                                    Text("\(viewModel.parseText(notice.content.replacingOccurrences(of: "\\n", with: "\n")))\n")
-                                        .font(.callout)
+                                    let noticeText = viewModel.parseText(notice.content.replacingOccurrences(of: "\\n", with: "\n"))
+                                    
+                                    ForEach(noticeText, id: \.0) { part in
+                                        Text(part.0)
+                                            .font(.callout)
+                                            .fontWeight(part.1 ? .bold : .regular)
+                                    }
                                     
                                     HStack {
                                         Spacer()
