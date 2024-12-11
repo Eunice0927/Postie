@@ -19,7 +19,7 @@ struct QuestionView: View {
                 postieColors.backGroundColor
                     .ignoresSafeArea()
                 
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading) {
                         Text("자주묻는 질문")
                             .bold()

@@ -42,20 +42,24 @@ struct ErrorDetail: Codable {
 class APIClient {
     static let shared = APIClient()
     private init() {}
-    
-    private let host = "https://clovastudio.apigw.ntruss.com"
-    private let requestId = "4aa60690921f47e2b3893edc3cba4b97"
+    private var requestId: String? {
+        get { getValueOfPlistFile("SummaryApiKeys", "RequestID")}
+    }
     private var apiKey: String? {
         get { getValueOfPlistFile("SummaryApiKeys", "APIKey")}
     }
     private var apiGatewayKey: String? {
         get { getValueOfPlistFile("SummaryApiKeys", "APIGatewayKey")}
     }
+    private var apiUrl: String? {
+        get { getValueOfPlistFile("SummaryApiKeys", "APIURL")}
+    }
     
     func postRequestToAPI(title: String, content: String) async throws -> String {
         guard let apiGatewayKey = apiGatewayKey else { return "" }
         guard let apiKey = apiKey else { return "" }
-        let apiEndpoint = "\(host)/testapp/v1/api-tools/summarization/v2/d733284ba28e4dd89cb1caa567bdb36f"
+        guard let requestId = requestId else { return "" }
+        guard let apiEndpoint = apiUrl else { return "" }
         guard let url = URL(string: apiEndpoint) else {
             throw URLError(.badURL)
         }
