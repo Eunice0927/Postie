@@ -43,31 +43,6 @@ struct GroupedFavoriteListLetterView: View {
     }
 }
 
-struct GroupedTitleBarViewModifier: ViewModifier {
-    @Binding var isMenuActive: Bool
-    
-    let title: String
-    
-    func body(content: Content) -> some View {
-        content
-            .onTapGesture {
-                if self.isMenuActive {
-                    self.isMenuActive = false
-                }
-            }
-            .toolbarBackground(postieColors.backGroundColor, for: .navigationBar)
-            .tint(postieColors.tabBarTintColor)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text(title)
-                        .bold()
-                        .foregroundStyle(postieColors.tintColor)
-                }
-            }
-    }
-}
-
 //#Preview {
 //    GroupedFavoriteListLetter()
 //}

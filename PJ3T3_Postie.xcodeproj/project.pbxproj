@@ -116,6 +116,7 @@
 		E349F8882B6B673C00253B02 /* GroupedLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E349F8872B6B673C00253B02 /* GroupedLetterView.swift */; };
 		E349F88A2B6B7DA500253B02 /* GroupedListLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E349F8892B6B7DA500253B02 /* GroupedListLetterView.swift */; };
 		E35C10152B720FFE0007DE8C /* GroupedFavoriteListLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35C10142B720FFE0007DE8C /* GroupedFavoriteListLetterView.swift */; };
+		E3615E262D09991D008FD56B /* GroupedTitleBarViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3615E252D09990C008FD56B /* GroupedTitleBarViewModifier.swift */; };
 		E36587972B78F30F00584965 /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36587962B78F30F00584965 /* NoticeView.swift */; };
 		E36587992B78F32900584965 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36587982B78F32900584965 /* InformationView.swift */; };
 		E365879B2B790ADA00584965 /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E365879A2B790ADA00584965 /* QuestionView.swift */; };
@@ -225,6 +226,7 @@
 		E349F8872B6B673C00253B02 /* GroupedLetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedLetterView.swift; sourceTree = "<group>"; };
 		E349F8892B6B7DA500253B02 /* GroupedListLetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedListLetterView.swift; sourceTree = "<group>"; };
 		E35C10142B720FFE0007DE8C /* GroupedFavoriteListLetterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupedFavoriteListLetterView.swift; sourceTree = "<group>"; };
+		E3615E252D09990C008FD56B /* GroupedTitleBarViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedTitleBarViewModifier.swift; sourceTree = "<group>"; };
 		E36587962B78F30F00584965 /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
 		E36587982B78F32900584965 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		E365879A2B790ADA00584965 /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 			children = (
 				0E29F0D72B5FA2FC005B86FB /* Button.swift */,
 				9E7E05782B7C465D00ACF177 /* ClearBackground.swift */,
+				E3615E252D09990C008FD56B /* GroupedTitleBarViewModifier.swift */,
 				9E46837B2B7BBBA100EFB90B /* LoadingView.swift */,
 			);
 			path = Components;
@@ -905,6 +908,7 @@
 				CE8E670B2B87163B0090A6EE /* SlowPostBoxViewModel.swift in Sources */,
 				E36587A92B7C44EB00584965 /* AlertView.swift in Sources */,
 				9E9F6AD42B576411003DFE83 /* LetterDetailView.swift in Sources */,
+				E3615E262D09991D008FD56B /* GroupedTitleBarViewModifier.swift in Sources */,
 				E365879B2B790ADA00584965 /* QuestionView.swift in Sources */,
 				9E9A8BF32B6CD8990072CB75 /* NicknameView.swift in Sources */,
 				CEF09E492B57BFBF00BE67E4 /* TextRecognizer.swift in Sources */,

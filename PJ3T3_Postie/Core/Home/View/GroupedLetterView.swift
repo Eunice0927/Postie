@@ -49,7 +49,7 @@ struct GroupedLetterView: View {
                 } label: {
                     HStack {
                         GroupedLetterItemView(firstWord: "My favorite.", title: "", content: "좋아하는 편지 꾸러미", isFavorite: true)
-                            .modifier(CustomLetterItemModifier(homeWidth: homeWidth))
+                            .modifier(CommonLetterItemModifier(homeWidth: homeWidth))
                             .modifier(StackedRoundedRectangleModifier(count: favoriteLetters.count, groupWidth: homeWidth))
                     }
                     
@@ -72,7 +72,7 @@ struct GroupedLetterView: View {
                     HStack {
                         ZStack {
                             GroupedLetterItemView(firstWord: "With.", title: recipient, content: "\(recipient)님과 주고받은 편지 꾸러미", isFavorite: false)
-                                .modifier(CustomLetterItemModifier(homeWidth: homeWidth))
+                                .modifier(CommonLetterItemModifier(homeWidth: homeWidth))
                                 .modifier(StackedRoundedRectangleModifier(count: countOfMatchingRecipients + countOfMatchingWriters, groupWidth: homeWidth))
                         }
                         .padding(.horizontal)
@@ -207,7 +207,7 @@ struct StackedRoundedRectangleModifier: ViewModifier {
     }
 }
 
-struct CustomLetterItemModifier: ViewModifier {
+struct CommonLetterItemModifier: ViewModifier {
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
     
     let homeWidth: CGFloat
