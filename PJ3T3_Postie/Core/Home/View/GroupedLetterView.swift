@@ -49,13 +49,7 @@ struct GroupedLetterView: View {
                 } label: {
                     HStack {
                         GroupedLetterItemView(firstWord: "My favorite.", title: "", content: "좋아하는 편지 꾸러미", isFavorite: true)
-                            .padding()
-                            .frame(width:homeWidth * 0.9, height: 130)
-                            .background(
-                                RoundedRectangle(cornerRadius: 4)
-                                    .foregroundStyle(postieColors.receivedLetterColor)
-                                    .shadow(color: .black.opacity(0.1), radius: 3, x: 3, y: 3)
-                            )
+                            .modifier(CommonLetterItemModifier(homeWidth: homeWidth))
                             .modifier(StackedRoundedRectangleModifier(count: favoriteLetters.count, groupWidth: homeWidth))
                     }
                     
@@ -78,13 +72,7 @@ struct GroupedLetterView: View {
                     HStack {
                         ZStack {
                             GroupedLetterItemView(firstWord: "With.", title: recipient, content: "\(recipient)님과 주고받은 편지 꾸러미", isFavorite: false)
-                                .padding()
-                                .frame(width: homeWidth * 0.9, height: 130)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .foregroundStyle(postieColors.receivedLetterColor)
-                                        .shadow(color: .black.opacity(0.1), radius: 3, x: 3, y: 3)
-                                )
+                                .modifier(CommonLetterItemModifier(homeWidth: homeWidth))
                                 .modifier(StackedRoundedRectangleModifier(count: countOfMatchingRecipients + countOfMatchingWriters, groupWidth: homeWidth))
                         }
                         .padding(.horizontal)
@@ -216,6 +204,23 @@ struct StackedRoundedRectangleModifier: ViewModifier {
             
             content
         }
+    }
+}
+
+struct CommonLetterItemModifier: ViewModifier {
+    @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
+    
+    let homeWidth: CGFloat
+
+    func body(content: Content) -> some View {
+        content
+            .padding()
+            .frame(width: homeWidth * 0.9, height: 130)
+            .background(
+                RoundedRectangle(cornerRadius: 4)
+                    .foregroundStyle(postieColors.receivedLetterColor)
+                    .shadow(color: .black.opacity(0.1), radius: 3, x: 3, y: 3)
+            )
     }
 }
 
