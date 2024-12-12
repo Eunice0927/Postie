@@ -6,9 +6,6 @@
 //
 
 import Foundation
-import UIKit
-
-import FirebaseFirestore
 
 struct Letter: Codable, Hashable, Identifiable {
     var id: String

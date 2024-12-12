@@ -59,21 +59,7 @@ struct GroupedMyListLetterView: View {
             
             AddLetterButton(isMenuActive: $isMenuActive)
         }
-        .onTapGesture {
-            if self.isMenuActive {
-                self.isMenuActive = false
-            }
-        }
-        .toolbarBackground(postieColors.backGroundColor, for: .navigationBar)
-        .tint(postieColors.tabBarTintColor)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("나의 느린 우체통")
-                    .bold()
-                    .foregroundStyle(postieColors.tintColor)
-            }
-        }
+        .modifier(GroupedTitleBarViewModifier(isMenuActive: $isMenuActive, title: "나의 느린 우체통"))
     }
 }
 

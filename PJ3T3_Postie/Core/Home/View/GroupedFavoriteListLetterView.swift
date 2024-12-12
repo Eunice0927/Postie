@@ -39,21 +39,7 @@ struct GroupedFavoriteListLetterView: View {
             
             AddLetterButton(isMenuActive: $isMenuActive)
         }
-        .onTapGesture {
-            if self.isMenuActive {
-                self.isMenuActive = false
-            }
-        }
-        .toolbarBackground(postieColors.backGroundColor, for: .navigationBar)
-        .tint(postieColors.tabBarTintColor)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("좋아하는 편지들")
-                    .bold()
-                    .foregroundStyle(postieColors.tintColor)
-            }
-        }
+        .modifier(GroupedTitleBarViewModifier(isMenuActive: $isMenuActive, title: "좋아하는 편지들"))
     }
 }
 

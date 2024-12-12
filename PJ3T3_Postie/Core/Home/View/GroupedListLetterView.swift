@@ -42,21 +42,7 @@ struct GroupedListLetterView: View {
             
             AddLetterButton(isMenuActive: $isMenuActive)
         }
-        .onTapGesture {
-            if self.isMenuActive {
-                self.isMenuActive = false
-            }
-        }
-        .toolbarBackground(postieColors.backGroundColor, for: .navigationBar)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("\(recipient)")
-                    .bold()
-                    .foregroundStyle(postieColors.tintColor)
-            }
-        }
-        .tint(postieColors.tabBarTintColor)
+        .modifier(GroupedTitleBarViewModifier(isMenuActive: $isMenuActive, title: recipient))
     }
 }
 

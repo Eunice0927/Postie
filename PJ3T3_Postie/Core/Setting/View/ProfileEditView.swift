@@ -9,13 +9,12 @@ import SwiftUI
 
 struct ProfileEditView: View {
     @Environment(\.dismiss) var dismiss
-    
+    @StateObject private var viewModel = ProfileEditViewModel()
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
     @Binding var profileImage: String
     @Binding var profileImageTemp: String
     
     var body: some View {
-        let profileImages = ["postySmileSketch", "postySmileLine", "postySmileLineColor", "postyThinkingSketch", "postyThinkingLine", "postyThinkingLineColor", "postySendingSketch", "postySendingLine", "postySendingLineColor", "postyReceivingSketch", "postyReceivingLine", "postyReceivingLineColor", "postyHeartSketch", "postyHeartLine", "postyHeartLineColor", "postyTrumpetSketch", "postyTrumpetLine", "postyTrumpetLineColor", "postyQuestionSketch", "postyQuestionLine", "postyQuestionLineColor", "postyNormalSketch", "postyNormalLine", "postyNormalLineColor", "postyWinkSketch", "postyWinkLine", "postyWinkLineColor", "postySleepingSketch", "postySleepingLine", "postySleepingLineColor", "postyNotGoodSketch", "postyNotGoodLine", "postyNotGoodLineColor"]
         let rows3: [GridItem] = Array(repeating: .init(.fixed(180)), count: 3)
         let rows2: [GridItem] = Array(repeating: .init(.fixed(180)), count: 2)
         
@@ -36,19 +35,19 @@ struct ProfileEditView: View {
                     ScrollView(.horizontal) {
                         if geometry.size.height > 710 {
                             LazyHGrid(rows: rows3, alignment: .top) {
-                                ForEach(profileImages, id: \.self) { imageName in
+                                ForEach(viewModel.profileImages, id: \.self) { imageName in
                                     ProfileImageItemView(imageName: imageName, profileImageTemp: $profileImageTemp)
                                 }
                             }
                         } else if geometry.size.height > 600 && geometry.size.height < 710  {
                             LazyHGrid(rows: rows2, alignment: .top) {
-                                ForEach(profileImages, id: \.self) { imageName in
+                                ForEach(viewModel.profileImages, id: \.self) { imageName in
                                     ProfileImageItemView(imageName: imageName, profileImageTemp: $profileImageTemp)
                                 }
                             }
                         } else {
                             HStack {
-                                ForEach(profileImages, id: \.self) { imageName in
+                                ForEach(viewModel.profileImages, id: \.self) { imageName in
                                     ProfileImageItemView(imageName: imageName, profileImageTemp: $profileImageTemp)
                                 }
                             }

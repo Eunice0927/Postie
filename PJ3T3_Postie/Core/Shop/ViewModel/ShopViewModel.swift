@@ -2,7 +2,7 @@
 //  ShopViewModel.swift
 //  PJ3T3_Postie
 //
-//  Created by Eunsu JEONG on 1/17/24.
+//  Created by 양주원 on 1/17/24.
 //
 
 import Foundation
