@@ -112,7 +112,6 @@
 		CEF09E492B57BFBF00BE67E4 /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF09E482B57BFBF00BE67E4 /* TextRecognizer.swift */; };
 		CEF18BC02B810362002669B7 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CEF18BBF2B810362002669B7 /* Kingfisher */; };
 		E305836C2CBD39A90050A9C0 /* ThemeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E305836B2CBD399E0050A9C0 /* ThemeViewModel.swift */; };
-		E305836E2CBD46530050A9C0 /* ProfileEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E305836D2CBD46530050A9C0 /* ProfileEditViewModel.swift */; };
 		E30DED6F2B6FD25B00FA70A6 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30DED6E2B6FD25B00FA70A6 /* SplashScreenView.swift */; };
 		E349F8712B6918B500253B02 /* ThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E349F8702B6918B500253B02 /* ThemeView.swift */; };
 		E349F8862B6B672E00253B02 /* ListLetterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E349F8852B6B672E00253B02 /* ListLetterView.swift */; };
@@ -225,7 +224,6 @@
 		CEF09E462B57BD8500BE67E4 /* LetterImageFullScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterImageFullScreenView.swift; sourceTree = "<group>"; };
 		CEF09E482B57BFBF00BE67E4 /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
 		E305836B2CBD399E0050A9C0 /* ThemeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeViewModel.swift; sourceTree = "<group>"; };
-		E305836D2CBD46530050A9C0 /* ProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewModel.swift; sourceTree = "<group>"; };
 		E30DED6E2B6FD25B00FA70A6 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		E349F8702B6918B500253B02 /* ThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeView.swift; sourceTree = "<group>"; };
 		E349F8852B6B672E00253B02 /* ListLetterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListLetterView.swift; sourceTree = "<group>"; };
@@ -645,7 +643,6 @@
 				E39EB84D2C3AC15E003B572E /* InformationViewModel.swift */,
 				E39EB84B2C36B23E003B572E /* NoticeViewModel.swift */,
 				E39EB84F2C3AC543003B572E /* ProfileViewModel.swift */,
-				E305836D2CBD46530050A9C0 /* ProfileEditViewModel.swift */,
 				E305836B2CBD399E0050A9C0 /* ThemeViewModel.swift */,
 			);
 			path = ViewModel;
@@ -945,7 +942,6 @@
 				9E7E05BB2B7DE96500ACF177 /* OfficialLetter.swift in Sources */,
 				CE8E67092B8715E50090A6EE /* SlowPostBoxView.swift in Sources */,
 				E349F8882B6B673C00253B02 /* GroupedLetterView.swift in Sources */,
-				E305836E2CBD46530050A9C0 /* ProfileEditViewModel.swift in Sources */,
 				9E25C2CD2B7B454000B04BA1 /* EnvironmentValues.swift in Sources */,
 				9E46837C2B7BBBA100EFB90B /* LoadingView.swift in Sources */,
 				9E5889E32B72221B00B4AD20 /* SearchView.swift in Sources */,
