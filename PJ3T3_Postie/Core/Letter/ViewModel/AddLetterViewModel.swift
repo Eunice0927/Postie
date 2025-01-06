@@ -20,6 +20,7 @@ class AddLetterViewModel: ObservableObject {
     @Published var showingLetterImageFullScreenView: Bool = false
     @Published var showingTextRecognizerErrorAlert: Bool = false
     @Published var showingDismissAlert: Bool = false
+    @Published var showingPopup: Bool = false
     @Published var showingSummaryTextField: Bool = false
     @Published var showingSummaryAlert: Bool = false
     @Published var showingNotEnoughInfoAlert: Bool = false
@@ -62,6 +63,10 @@ class AddLetterViewModel: ObservableObject {
     func showLetterImageFullScreenView(index: Int) {
         selectedIndex = index
         showingLetterImageFullScreenView = true
+    }
+    
+    func showPopup() {
+        showingPopup = true
     }
 
     func showSummaryTextField() {
@@ -171,7 +176,8 @@ class AddLetterViewModel: ObservableObject {
 
             await MainActor.run {
                 summary = summaryResponse
-                showSummaryTextField()
+                showPopup()
+                //showSummaryTextField()
             }
         } catch {
             await MainActor.run {

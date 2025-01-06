@@ -178,14 +178,20 @@ struct AddLetterView: View {
                 Task {
                     await addLetterViewModel.getSummary()
                 }
+//                if !addLetterViewModel.showingSummaryErrorAlert {
+//                    showPopup.toggle()
+//                }
                 focusField = .summary
             }
         }
-        .customOnChange(addLetterViewModel.shouldDismiss) { shouldDismiss in
-            if shouldDismiss {
-                dismiss()
-            }
-        }
+        .sheet(isPresented: $addLetterViewModel.showingPopup) {
+                    PopupView
+                }
+//        .customOnChange(addLetterViewModel.shouldDismiss) { shouldDismiss in
+//            if shouldDismiss {
+//                dismiss()
+//            }
+//        }
     }
 }
 
@@ -345,6 +351,28 @@ extension AddLetterView {
                         addLetterViewModel.showSummaryConfirmationDialog()
                     }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var PopupView: some View {
+        NavigationView {
+            VStack {
+                HStack {
+                    Button("취소") {
+                        addLetterViewModel.showingPopup = false
+                    }
+                    .padding()
+                    
+                    Spacer()
+                    
+                    Button("확인") {
+                        addLetterViewModel.showingPopup = false
+                    }
+                    .padding()
+                }
+            }
+            .navigationTitle("항목 선택")
         }
     }
 }
