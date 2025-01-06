@@ -20,7 +20,6 @@ class AddLetterViewModel: ObservableObject {
     @Published var showingLetterImageFullScreenView: Bool = false
     @Published var showingTextRecognizerErrorAlert: Bool = false
     @Published var showingDismissAlert: Bool = false
-    @Published var showingPopup: Bool = false
     @Published var showingSummaryTextField: Bool = false
     @Published var showingSummaryAlert: Bool = false
     @Published var showingNotEnoughInfoAlert: Bool = false
@@ -31,6 +30,9 @@ class AddLetterViewModel: ObservableObject {
     @Published var shouldDismiss: Bool = false
     @Published var isLoading: Bool = false
     @Published var loadingText: String = "편지를 저장하고 있어요."
+    @Published var showingPopup: Bool = false
+    @Published var summaryList: [String] = []
+    @Published var selectedSummary: String = ""
 
     private(set) var imagePickerSourceType: UIImagePickerController.SourceType = .camera
     var isReceived: Bool
@@ -67,6 +69,10 @@ class AddLetterViewModel: ObservableObject {
     
     func showPopup() {
         showingPopup = true
+    }
+    
+    func closePopup() {
+        showingPopup = false
     }
 
     func showSummaryTextField() {
@@ -169,15 +175,14 @@ class AddLetterViewModel: ObservableObject {
 
     func getSummary() async {
         do {
-            let summaryResponse = try await APIClient.shared.postRequestToAPI(
+            let summaries = try await APIClient.shared.postRequestToAPI(
                 title: isReceived ? "\(sender)에게 받은 편지" : "\(receiver)에게 쓴 편지",
                 content: text
             )
 
             await MainActor.run {
-                summary = summaryResponse
+                summaryList = summaries
                 showPopup()
-                //showSummaryTextField()
             }
         } catch {
             await MainActor.run {

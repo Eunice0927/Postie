@@ -55,11 +55,11 @@ class APIClient {
         get { getValueOfPlistFile("SummaryApiKeys", "APIURL")}
     }
     
-    func postRequestToAPI(title: String, content: String) async throws -> String {
-        guard let apiGatewayKey = apiGatewayKey else { return "" }
-        guard let apiKey = apiKey else { return "" }
-        guard let requestId = requestId else { return "" }
-        guard let apiEndpoint = apiUrl else { return "" }
+    func postRequestToAPI(title: String, content: String) async throws -> [String] {
+        guard let apiGatewayKey = apiGatewayKey else { return [] }
+        guard let apiKey = apiKey else { return [] }
+        guard let requestId = requestId else { return [] }
+        guard let apiEndpoint = apiUrl else { return [] }
         guard let url = URL(string: apiEndpoint) else {
             throw URLError(.badURL)
         }
@@ -98,13 +98,11 @@ class APIClient {
                let result = json["result"] as? [String: Any],
                let text = result["text"] as? String {
                 
-                // 문단을 랜덤으로 한개만 선택
-                let paragraphs = text.split(separator: "-").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-                if let randomParagraph = paragraphs.randomElement() {
-                    return randomParagraph
-                } else {
-                    throw NSError(domain: "NoParagraphsError", code: 1, userInfo: [NSLocalizedDescriptionKey: "No paragraphs found in the summary"])
-                }
+                let summaryList = text
+                    .split(separator: "-")
+                    .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                    .filter { !$0.isEmpty }
+                return summaryList
             } else {
                 throw NSError(domain: "UnexpectedAPIResponse", code: 1, userInfo: [NSLocalizedDescriptionKey: "Unexpected API response format"])
             }

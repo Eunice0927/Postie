@@ -177,7 +177,7 @@ class SlowPostBoxViewModel: ObservableObject {
             )
 
             await MainActor.run {
-                summary = summaryResponse
+                //summary = summaryResponse
                 showSummaryTextField()
             }
         } catch {

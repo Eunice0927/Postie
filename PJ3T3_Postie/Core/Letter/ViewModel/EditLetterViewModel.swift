@@ -191,7 +191,7 @@ class EditLetterViewModel: ObservableObject {
             )
 
             await MainActor.run {
-                summary = summaryResponse
+//                summary = summaryResponse
                 showSummaryTextField()
             }
         } catch {

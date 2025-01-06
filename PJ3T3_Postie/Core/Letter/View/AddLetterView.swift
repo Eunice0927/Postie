@@ -178,20 +178,17 @@ struct AddLetterView: View {
                 Task {
                     await addLetterViewModel.getSummary()
                 }
-//                if !addLetterViewModel.showingSummaryErrorAlert {
-//                    showPopup.toggle()
-//                }
                 focusField = .summary
             }
         }
         .sheet(isPresented: $addLetterViewModel.showingPopup) {
                     PopupView
                 }
-//        .customOnChange(addLetterViewModel.shouldDismiss) { shouldDismiss in
-//            if shouldDismiss {
-//                dismiss()
-//            }
-//        }
+        .customOnChange(addLetterViewModel.shouldDismiss) { shouldDismiss in
+            if shouldDismiss {
+                dismiss()
+            }
+        }
     }
 }
 
@@ -356,23 +353,35 @@ extension AddLetterView {
     
     @ViewBuilder
     private var PopupView: some View {
-        NavigationView {
-            VStack {
-                HStack {
-                    Button("취소") {
-                        addLetterViewModel.showingPopup = false
-                    }
-                    .padding()
+        VStack {
+            Text("요약 선택")
+                .font(.headline)
+                .padding()
+
+            // summaryList에서 하나를 선택할 수 있는 기능
+            List(addLetterViewModel.summaryList, id: \.self) { summary in
+                Button(action: {
+                    addLetterViewModel.selectedSummary = summary
+                }) {
                     
-                    Spacer()
-                    
-                    Button("확인") {
-                        addLetterViewModel.showingPopup = false
-                    }
+                Text(summary)
                     .padding()
+                    .foregroundColor(addLetterViewModel.selectedSummary == summary ? .blue : .black)
                 }
             }
-            .navigationTitle("항목 선택")
+
+            Button("확인") {
+                addLetterViewModel.summary = addLetterViewModel.selectedSummary
+                addLetterViewModel.showSummaryTextField()
+                addLetterViewModel.closePopup()
+            }
+            .padding()
+            .disabled(addLetterViewModel.selectedSummary.isEmpty) // 선택해야 확인 버튼 활성화
+
+            Button("취소") {
+                addLetterViewModel.closePopup()
+            }
+            .padding()
         }
     }
 }
