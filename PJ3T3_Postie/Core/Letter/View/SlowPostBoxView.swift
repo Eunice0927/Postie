@@ -181,6 +181,11 @@ struct SlowPostBoxView: View {
                 focusField = .summary
             }
         }
+        .sheet(isPresented: $slowPostBoxViewModel.showingPopup) {
+            PopupView
+                .presentationDetents([.fraction(0.7)])
+                .interactiveDismissDisabled(true)
+        }
         .customOnChange(slowPostBoxViewModel.shouldDismiss) { shouldDismiss in
             if shouldDismiss {
                 dismiss()
@@ -346,6 +351,60 @@ extension SlowPostBoxView {
                     .onTapGesture {
                         slowPostBoxViewModel.showSummaryConfirmationDialog()
                     }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var PopupView: some View {
+        ZStack {
+            postieColors.backGroundColor
+                .ignoresSafeArea()
+            
+            VStack {
+                Text("요약 선택")
+                    .font(.title)
+                    .bold()
+                    .foregroundStyle(postieColors.tintColor)
+                    .padding(.top)
+                
+                // summaryList에서 하나를 선택할 수 있는 기능
+                List(slowPostBoxViewModel.summaryList, id: \.self) { summary in
+                    Button(action: {
+                        slowPostBoxViewModel.selectedSummary = summary
+                    }) {
+                        Text(summary)
+                            .padding()
+                            .foregroundColor(slowPostBoxViewModel.selectedSummary == summary ? postieColors.tintColor : postieColors.tabBarTintColor)
+                            .fontWeight(slowPostBoxViewModel.selectedSummary == summary ? .bold : .regular)
+                    }
+                    .listRowBackground(postieColors.receivedLetterColor)
+                }
+                .scrollContentBackground(.hidden)
+                
+                HStack {
+                    Spacer()
+                    
+                    Button("취소") {
+                        slowPostBoxViewModel.closePopup()
+                    }
+                    .foregroundStyle(postieColors.tabBarTintColor)
+                    .padding()
+                    
+                    Spacer()
+                    
+                    Button("확인") {
+                        slowPostBoxViewModel.summary = slowPostBoxViewModel.selectedSummary
+                        slowPostBoxViewModel.showSummaryTextField()
+                        slowPostBoxViewModel.closePopup()
+                    }
+                    .foregroundStyle(slowPostBoxViewModel.selectedSummary.isEmpty ? postieColors.profileColor : postieColors.tintColor)
+                    .fontWeight(slowPostBoxViewModel.selectedSummary.isEmpty ? .regular : .bold)
+                    .padding()
+                    .disabled(slowPostBoxViewModel.selectedSummary.isEmpty) // 선택해야 확인 버튼 활성화
+                    
+                    Spacer()
+                }
             }
         }
     }

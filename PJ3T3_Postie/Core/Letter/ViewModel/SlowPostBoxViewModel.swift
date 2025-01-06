@@ -30,6 +30,9 @@ class SlowPostBoxViewModel: ObservableObject {
     @Published var shouldDismiss: Bool = false
     @Published var isLoading: Bool = false
     @Published var loadingText: String = "편지를 저장하고 있어요."
+    @Published var showingPopup: Bool = false
+    @Published var summaryList: [String] = []
+    @Published var selectedSummary: String = ""
 
     private(set) var imagePickerSourceType: UIImagePickerController.SourceType = .camera
     var isReceived: Bool
@@ -67,6 +70,14 @@ class SlowPostBoxViewModel: ObservableObject {
     func showLetterImageFullScreenView(index: Int) {
         selectedIndex = index
         showingLetterImageFullScreenView = true
+    }
+    
+    func showPopup() {
+        showingPopup = true
+    }
+    
+    func closePopup() {
+        showingPopup = false
     }
 
     func showSummaryTextField() {
@@ -171,14 +182,14 @@ class SlowPostBoxViewModel: ObservableObject {
 
     func getSummary() async {
         do {
-            let summaryResponse = try await APIClient.shared.postRequestToAPI(
+            let summaries = try await APIClient.shared.postRequestToAPI(
                 title: isReceived ? "\(sender)에게 받은 편지" : "\(receiver)에게 쓴 편지",
                 content: text
             )
 
             await MainActor.run {
-                //summary = summaryResponse
-                showSummaryTextField()
+                summaryList = summaries
+                showPopup()
             }
         } catch {
             await MainActor.run {
