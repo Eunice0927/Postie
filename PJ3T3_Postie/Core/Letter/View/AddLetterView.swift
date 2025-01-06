@@ -182,8 +182,10 @@ struct AddLetterView: View {
             }
         }
         .sheet(isPresented: $addLetterViewModel.showingPopup) {
-                    PopupView
-                }
+            PopupView
+                .presentationDetents([.fraction(0.7)])
+                .interactiveDismissDisabled(true)
+        }
         .customOnChange(addLetterViewModel.shouldDismiss) { shouldDismiss in
             if shouldDismiss {
                 dismiss()
@@ -353,35 +355,55 @@ extension AddLetterView {
     
     @ViewBuilder
     private var PopupView: some View {
-        VStack {
-            Text("요약 선택")
-                .font(.headline)
-                .padding()
-
-            // summaryList에서 하나를 선택할 수 있는 기능
-            List(addLetterViewModel.summaryList, id: \.self) { summary in
-                Button(action: {
-                    addLetterViewModel.selectedSummary = summary
-                }) {
+        ZStack {
+            postieColors.backGroundColor
+                .ignoresSafeArea()
+            
+            VStack {
+                Text("요약 선택")
+                    .font(.title)
+                    .bold()
+                    .foregroundStyle(postieColors.tintColor)
+                    .padding(.top)
+                
+                // summaryList에서 하나를 선택할 수 있는 기능
+                List(addLetterViewModel.summaryList, id: \.self) { summary in
+                    Button(action: {
+                        addLetterViewModel.selectedSummary = summary
+                    }) {
+                        Text(summary)
+                            .padding()
+                            .foregroundColor(addLetterViewModel.selectedSummary == summary ? postieColors.tintColor : postieColors.tabBarTintColor)
+                            .fontWeight(addLetterViewModel.selectedSummary == summary ? .bold : .regular)
+                    }
+                    .listRowBackground(postieColors.receivedLetterColor)
+                }
+                .scrollContentBackground(.hidden)
+                
+                HStack {
+                    Spacer()
                     
-                Text(summary)
+                    Button("취소") {
+                        addLetterViewModel.closePopup()
+                    }
+                    .foregroundStyle(postieColors.tabBarTintColor)
                     .padding()
-                    .foregroundColor(addLetterViewModel.selectedSummary == summary ? .blue : .black)
+                    
+                    Spacer()
+                    
+                    Button("확인") {
+                        addLetterViewModel.summary = addLetterViewModel.selectedSummary
+                        addLetterViewModel.showSummaryTextField()
+                        addLetterViewModel.closePopup()
+                    }
+                    .foregroundStyle(addLetterViewModel.selectedSummary.isEmpty ? postieColors.profileColor : postieColors.tintColor)
+                    .fontWeight(addLetterViewModel.selectedSummary.isEmpty ? .regular : .bold)
+                    .padding()
+                    .disabled(addLetterViewModel.selectedSummary.isEmpty) // 선택해야 확인 버튼 활성화
+                    
+                    Spacer()
                 }
             }
-
-            Button("확인") {
-                addLetterViewModel.summary = addLetterViewModel.selectedSummary
-                addLetterViewModel.showSummaryTextField()
-                addLetterViewModel.closePopup()
-            }
-            .padding()
-            .disabled(addLetterViewModel.selectedSummary.isEmpty) // 선택해야 확인 버튼 활성화
-
-            Button("취소") {
-                addLetterViewModel.closePopup()
-            }
-            .padding()
         }
     }
 }
