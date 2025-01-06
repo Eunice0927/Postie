@@ -176,7 +176,6 @@ class AddLetterViewModel: ObservableObject {
     func getSummary() async {
         do {
             let summaries = try await APIClient.shared.postRequestToAPI(
-                title: isReceived ? "\(sender)에게 받은 편지" : "\(receiver)에게 쓴 편지",
                 content: text
             )
 
