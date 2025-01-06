@@ -30,7 +30,7 @@ class SlowPostBoxViewModel: ObservableObject {
     @Published var shouldDismiss: Bool = false
     @Published var isLoading: Bool = false
     @Published var loadingText: String = "편지를 저장하고 있어요."
-    @Published var showingPopup: Bool = false
+    @Published var showingSelectSummaryView: Bool = false
     @Published var summaryList: [String] = []
     @Published var selectedSummary: String = ""
 
@@ -72,12 +72,12 @@ class SlowPostBoxViewModel: ObservableObject {
         showingLetterImageFullScreenView = true
     }
     
-    func showPopup() {
-        showingPopup = true
+    func showSelectSummaryView() {
+        showingSelectSummaryView = true
     }
     
-    func closePopup() {
-        showingPopup = false
+    func closeSelectSummaryView() {
+        showingSelectSummaryView = false
     }
 
     func showSummaryTextField() {
@@ -188,7 +188,7 @@ class SlowPostBoxViewModel: ObservableObject {
 
             await MainActor.run {
                 summaryList = summaries
-                showPopup()
+                showSelectSummaryView()
             }
         } catch {
             await MainActor.run {

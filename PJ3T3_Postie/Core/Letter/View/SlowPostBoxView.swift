@@ -181,8 +181,8 @@ struct SlowPostBoxView: View {
                 focusField = .summary
             }
         }
-        .sheet(isPresented: $slowPostBoxViewModel.showingPopup) {
-            PopupView
+        .sheet(isPresented: $slowPostBoxViewModel.showingSelectSummaryView) {
+            SelectSummaryView
                 .presentationDetents([.fraction(0.7)])
                 .interactiveDismissDisabled(true)
         }
@@ -356,7 +356,7 @@ extension SlowPostBoxView {
     }
     
     @ViewBuilder
-    private var PopupView: some View {
+    private var SelectSummaryView: some View {
         ZStack {
             postieColors.backGroundColor
                 .ignoresSafeArea()
@@ -386,7 +386,7 @@ extension SlowPostBoxView {
                     Spacer()
                     
                     Button("취소") {
-                        slowPostBoxViewModel.closePopup()
+                        slowPostBoxViewModel.closeSelectSummaryView()
                     }
                     .foregroundStyle(postieColors.tabBarTintColor)
                     .padding()
@@ -396,7 +396,7 @@ extension SlowPostBoxView {
                     Button("확인") {
                         slowPostBoxViewModel.summary = slowPostBoxViewModel.selectedSummary
                         slowPostBoxViewModel.showSummaryTextField()
-                        slowPostBoxViewModel.closePopup()
+                        slowPostBoxViewModel.closeSelectSummaryView()
                     }
                     .foregroundStyle(slowPostBoxViewModel.selectedSummary.isEmpty ? postieColors.profileColor : postieColors.tintColor)
                     .fontWeight(slowPostBoxViewModel.selectedSummary.isEmpty ? .regular : .bold)

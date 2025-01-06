@@ -153,8 +153,8 @@ struct EditLetterView: View {
                 focusField = .summary
             }
         }
-        .sheet(isPresented: $editLetterViewModel.showingPopup) {
-            PopupView
+        .sheet(isPresented: $editLetterViewModel.showingSelectSummaryView) {
+            SelectSummaryView
                 .presentationDetents([.fraction(0.7)])
                 .interactiveDismissDisabled(true)
         }
@@ -356,7 +356,7 @@ extension EditLetterView {
     }
     
     @ViewBuilder
-    private var PopupView: some View {
+    private var SelectSummaryView: some View {
         ZStack {
             postieColors.backGroundColor
                 .ignoresSafeArea()
@@ -386,7 +386,7 @@ extension EditLetterView {
                     Spacer()
                     
                     Button("취소") {
-                        editLetterViewModel.closePopup()
+                        editLetterViewModel.closeSelectSummaryView()
                     }
                     .foregroundStyle(postieColors.tabBarTintColor)
                     .padding()
@@ -396,7 +396,7 @@ extension EditLetterView {
                     Button("확인") {
                         editLetterViewModel.summary = editLetterViewModel.selectedSummary
                         editLetterViewModel.showSummaryTextField()
-                        editLetterViewModel.closePopup()
+                        editLetterViewModel.closeSelectSummaryView()
                     }
                     .foregroundStyle(editLetterViewModel.selectedSummary.isEmpty ? postieColors.profileColor : postieColors.tintColor)
                     .fontWeight(editLetterViewModel.selectedSummary.isEmpty ? .regular : .bold)
