@@ -6,5 +6,5 @@ target 'PJ3T3_Postie' do
   use_frameworks!
 
   # Pods for PJ3T3_Postie
-  pod 'NMapsMap'
+  pod 'NMapsMap', '3.18.0'
 end
