@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AddLetterView: View {
+    
+    @EnvironmentObject var alertManager: AlertManager
     @StateObject private var addLetterViewModel: AddLetterViewModel
     @ObservedObject var firestoreManager = FirestoreManager.shared
     @ObservedObject var storageManager = StorageManager.shared
@@ -110,18 +112,13 @@ struct AddLetterView: View {
         .sheet(isPresented: $addLetterViewModel.showingUIImagePicker) {
             UIImagePicker(
                 sourceType: addLetterViewModel.imagePickerSourceType,
+                alertManager: alertManager,
                 selectedImages: $addLetterViewModel.images,
                 text: $addLetterViewModel.text,
                 isLoading: $addLetterViewModel.isLoading,
-                showingTextRecognizerErrorAlert: $addLetterViewModel.showingTextRecognizerErrorAlert,
                 loadingText: $addLetterViewModel.loadingText
             )
             .ignoresSafeArea(.all, edges: .bottom)
-        }
-        .alert("문자 인식 실패", isPresented: $addLetterViewModel.showingTextRecognizerErrorAlert) {
-
-        } message: {
-            Text("문자 인식에 실패했습니다. 다시 시도해 주세요.")
         }
         .alert("편지 정보 부족", isPresented: $addLetterViewModel.showingNotEnoughInfoAlert) {
 

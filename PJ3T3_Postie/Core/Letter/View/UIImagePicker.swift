@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct UIImagePicker: UIViewControllerRepresentable {
+    
     var sourceType: UIImagePickerController.SourceType = .camera
+    var alertManager: AlertManager
 
     @Binding var selectedImages: [UIImage]
     @Binding var text: String
     @Binding var isLoading: Bool
-    @Binding var showingTextRecognizerErrorAlert: Bool
     @Binding var loadingText: String
 
     func makeUIViewController(context: Context) -> UIImagePickerController {
@@ -55,7 +56,7 @@ struct UIImagePicker: UIViewControllerRepresentable {
                             self.parent.text.append("\(recognizedText)")
                             self.parent.isLoading = false
                         case.failure(let error):
-                            self.parent.showingTextRecognizerErrorAlert = true
+                            self.parent.alertManager.showOneButtonAlert(title: "문자 인식 실패", message: "문자 인식에 실패했습니다. 다시 시도해 주세요.")
                             self.parent.isLoading = false
                         }
                     }

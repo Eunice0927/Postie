@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SlowPostBoxView: View {
+    
+    @EnvironmentObject var alertManager: AlertManager
     @StateObject private var slowPostBoxViewModel: SlowPostBoxViewModel
     @ObservedObject var firestoreManager = FirestoreManager.shared
     @ObservedObject var storageManager = StorageManager.shared
@@ -110,18 +112,13 @@ struct SlowPostBoxView: View {
         .sheet(isPresented: $slowPostBoxViewModel.showingUIImagePicker) {
             UIImagePicker(
                 sourceType: slowPostBoxViewModel.imagePickerSourceType,
+                alertManager: alertManager,
                 selectedImages: $slowPostBoxViewModel.images,
                 text: $slowPostBoxViewModel.text,
                 isLoading: $slowPostBoxViewModel.isLoading,
-                showingTextRecognizerErrorAlert: $slowPostBoxViewModel.showingTextRecognizerErrorAlert,
                 loadingText: $slowPostBoxViewModel.loadingText
             )
             .ignoresSafeArea(.all, edges: .bottom)
-        }
-        .alert("문자 인식 실패", isPresented: $slowPostBoxViewModel.showingTextRecognizerErrorAlert) {
-
-        } message: {
-            Text("문자 인식에 실패했습니다. 다시 시도해 주세요.")
         }
         .alert("편지 정보 부족", isPresented: $slowPostBoxViewModel.showingNotEnoughInfoAlert) {
 

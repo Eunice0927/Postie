@@ -18,7 +18,6 @@ class AddLetterViewModel: ObservableObject {
     @Published var selectedIndex: Int = 0
     @Published var showingUIImagePicker = false
     @Published var showingLetterImageFullScreenView: Bool = false
-    @Published var showingTextRecognizerErrorAlert: Bool = false
     @Published var showingDismissAlert: Bool = false
     @Published var showingSummaryTextField: Bool = false
     @Published var showingSummaryAlert: Bool = false

@@ -10,6 +10,8 @@ import SwiftUI
 import Kingfisher
 
 struct EditLetterView: View {
+    
+    @EnvironmentObject var alertManager: AlertManager
     @StateObject private var editLetterViewModel = EditLetterViewModel()
 
     enum Field: Hashable {
@@ -96,17 +98,13 @@ struct EditLetterView: View {
         .sheet(isPresented: $editLetterViewModel.showingUIImagePicker) {
             UIImagePicker(
                 sourceType: editLetterViewModel.imagePickerSourceType,
+                alertManager: alertManager,
                 selectedImages: $editLetterViewModel.newImages,
                 text: $editLetterViewModel.text,
                 isLoading: $editLetterViewModel.isLoading,
-                showingTextRecognizerErrorAlert: $editLetterViewModel.showingTextRecognizerErrorAlert,
                 loadingText: $editLetterViewModel.loadingText
             )
             .ignoresSafeArea(.all, edges: .bottom)
-        }
-        .alert("문자 인식 실패", isPresented: $editLetterViewModel.showingTextRecognizerErrorAlert) {
-        } message: {
-            Text("문자 인식에 실패했습니다. 다시 시도해 주세요.")
         }
         .alert("편지 수정 실패", isPresented: $editLetterViewModel.showingEditErrorAlert) {
             
