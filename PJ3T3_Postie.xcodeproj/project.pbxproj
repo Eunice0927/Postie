@@ -26,8 +26,8 @@
 		9E0FA1232B54D27C001CEEB9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E0FA1222B54D27C001CEEB9 /* Preview Assets.xcassets */; };
 		9E0FA12A2B54D2EF001CEEB9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9E0FA1292B54D2EF001CEEB9 /* README.md */; };
 		9E0FA12C2B54D2FC001CEEB9 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 9E0FA12B2B54D2FC001CEEB9 /* .gitignore */; };
-		9E10CB1F2D2921790000F201 /* ImageAssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E10CB1E2D2921790000F201 /* ImageAssetManager.swift */; };
 		9E10CB1D2D291A600000F201 /* Appdelegate+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E10CB1C2D291A600000F201 /* Appdelegate+extensions.swift */; };
+		9E10CB1F2D2921790000F201 /* ImageAssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E10CB1E2D2921790000F201 /* ImageAssetManager.swift */; };
 		9E1C7DF82BE8B4370075EA58 /* PJ3T3-Postie-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E1C7DF42BE8B4370075EA58 /* PJ3T3-Postie-Info.plist */; };
 		9E1C7DF92BE8B4370075EA58 /* MapApiKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E1C7DF52BE8B4370075EA58 /* MapApiKeys.plist */; };
 		9E1C7DFA2BE8B4370075EA58 /* SummaryApiKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E1C7DF62BE8B4370075EA58 /* SummaryApiKeys.plist */; };
@@ -159,8 +159,8 @@
 		9E0FA1222B54D27C001CEEB9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9E0FA1292B54D2EF001CEEB9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9E0FA12B2B54D2FC001CEEB9 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		9E10CB1E2D2921790000F201 /* ImageAssetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAssetManager.swift; sourceTree = "<group>"; };
 		9E10CB1C2D291A600000F201 /* Appdelegate+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Appdelegate+extensions.swift"; sourceTree = "<group>"; };
+		9E10CB1E2D2921790000F201 /* ImageAssetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAssetManager.swift; sourceTree = "<group>"; };
 		9E1C7DF42BE8B4370075EA58 /* PJ3T3-Postie-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PJ3T3-Postie-Info.plist"; sourceTree = "<group>"; };
 		9E1C7DF52BE8B4370075EA58 /* MapApiKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MapApiKeys.plist; sourceTree = "<group>"; };
 		9E1C7DF62BE8B4370075EA58 /* SummaryApiKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SummaryApiKeys.plist; sourceTree = "<group>"; };
@@ -1198,32 +1198,32 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CoreOffice/XMLCoder";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.17.1;
+				kind = exactVersion;
+				version = 0.17.1;
 			};
 		};
 		9E9A8BE12B6B51940072CB75 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
+				kind = exactVersion;
+				version = 7.0.0;
 			};
 		};
 		9E9F6AE22B5769AA003DFE83 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.20.0;
+				kind = exactVersion;
+				version = 10.28.1;
 			};
 		};
 		CEF18BBE2B810362002669B7 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.11.0;
+				kind = exactVersion;
+				version = 7.11.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
