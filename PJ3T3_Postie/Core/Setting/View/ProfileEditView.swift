@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ProfileEditView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject private var viewModel = ProfileEditViewModel()
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
     @Binding var profileImage: String
     @Binding var profileImageTemp: String
@@ -35,19 +34,19 @@ struct ProfileEditView: View {
                     ScrollView(.horizontal) {
                         if geometry.size.height > 710 {
                             LazyHGrid(rows: rows3, alignment: .top) {
-                                ForEach(viewModel.profileImages, id: \.self) { imageName in
+                                ForEach(ImageAssetManager.profileImages, id: \.self) { imageName in
                                     ProfileImageItemView(imageName: imageName, profileImageTemp: $profileImageTemp)
                                 }
                             }
                         } else if geometry.size.height > 600 && geometry.size.height < 710  {
                             LazyHGrid(rows: rows2, alignment: .top) {
-                                ForEach(viewModel.profileImages, id: \.self) { imageName in
+                                ForEach(ImageAssetManager.profileImages, id: \.self) { imageName in
                                     ProfileImageItemView(imageName: imageName, profileImageTemp: $profileImageTemp)
                                 }
                             }
                         } else {
                             HStack {
-                                ForEach(viewModel.profileImages, id: \.self) { imageName in
+                                ForEach(ImageAssetManager.profileImages, id: \.self) { imageName in
                                     ProfileImageItemView(imageName: imageName, profileImageTemp: $profileImageTemp)
                                 }
                             }
