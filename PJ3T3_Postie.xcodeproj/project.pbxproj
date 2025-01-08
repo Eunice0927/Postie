@@ -27,6 +27,7 @@
 		9E0FA12A2B54D2EF001CEEB9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9E0FA1292B54D2EF001CEEB9 /* README.md */; };
 		9E0FA12C2B54D2FC001CEEB9 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 9E0FA12B2B54D2FC001CEEB9 /* .gitignore */; };
 		9E10CB1F2D2921790000F201 /* ImageAssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E10CB1E2D2921790000F201 /* ImageAssetManager.swift */; };
+		9E10CB1D2D291A600000F201 /* Appdelegate+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E10CB1C2D291A600000F201 /* Appdelegate+extensions.swift */; };
 		9E1C7DF82BE8B4370075EA58 /* PJ3T3-Postie-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E1C7DF42BE8B4370075EA58 /* PJ3T3-Postie-Info.plist */; };
 		9E1C7DF92BE8B4370075EA58 /* MapApiKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E1C7DF52BE8B4370075EA58 /* MapApiKeys.plist */; };
 		9E1C7DFA2BE8B4370075EA58 /* SummaryApiKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E1C7DF62BE8B4370075EA58 /* SummaryApiKeys.plist */; };
@@ -159,6 +160,7 @@
 		9E0FA1292B54D2EF001CEEB9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9E0FA12B2B54D2FC001CEEB9 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		9E10CB1E2D2921790000F201 /* ImageAssetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAssetManager.swift; sourceTree = "<group>"; };
+		9E10CB1C2D291A600000F201 /* Appdelegate+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Appdelegate+extensions.swift"; sourceTree = "<group>"; };
 		9E1C7DF42BE8B4370075EA58 /* PJ3T3-Postie-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PJ3T3-Postie-Info.plist"; sourceTree = "<group>"; };
 		9E1C7DF52BE8B4370075EA58 /* MapApiKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MapApiKeys.plist; sourceTree = "<group>"; };
 		9E1C7DF62BE8B4370075EA58 /* SummaryApiKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SummaryApiKeys.plist; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				9E0FA11B2B54D27A001CEEB9 /* PJ3T3_PostieApp.swift */,
+				9E10CB1C2D291A600000F201 /* Appdelegate+extensions.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -887,6 +890,7 @@
 				9E7F8C782B5E69B000F1A6BF /* StorageManager.swift in Sources */,
 				9E9F6ADF2B5765DE003DFE83 /* Color.swift in Sources */,
 				0E29F0D82B5FA2FC005B86FB /* Button.swift in Sources */,
+				9E10CB1D2D291A600000F201 /* Appdelegate+extensions.swift in Sources */,
 				9E9F6ABA2B5762FC003DFE83 /* MapView.swift in Sources */,
 				E39EB8482C36A63C003B572E /* AlertViewModel.swift in Sources */,
 				9EE31F9B2B84B19900B11D70 /* ReAuthButtonView.swift in Sources */,

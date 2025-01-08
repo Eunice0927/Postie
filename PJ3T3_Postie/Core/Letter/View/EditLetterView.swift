@@ -153,6 +153,11 @@ struct EditLetterView: View {
                 focusField = .summary
             }
         }
+        .sheet(isPresented: $editLetterViewModel.showingSelectSummaryView) {
+            SelectSummaryView
+                .presentationDetents([.medium])
+                .interactiveDismissDisabled(true)
+        }
         .customOnChange(editLetterViewModel.shouldDismiss) { shouldDismiss in
             if shouldDismiss {
                 dismiss()
@@ -346,6 +351,73 @@ extension EditLetterView {
                     .onTapGesture {
                         editLetterViewModel.showSummaryConfirmationDialog()
                     }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var SelectSummaryView: some View {
+        ZStack {
+            postieColors.backGroundColor
+                .ignoresSafeArea()
+            
+            VStack(spacing : 0) {
+                Text("요약 선택")
+                    .font(.title)
+                    .bold()
+                    .foregroundStyle(postieColors.tintColor)
+                    .padding()
+                    .padding(.top, 5)
+                
+                ScrollView (showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        // summaryList에서 하나를 선택할 수 있는 기능
+                        ForEach(editLetterViewModel.summaryList.indices, id: \.self) { index in
+                            let summary = editLetterViewModel.summaryList[index]
+
+                            Button(action: {
+                                editLetterViewModel.selectedSummary = summary
+                            }) {
+                                Text(summary)
+                                    .padding()
+                                    .foregroundColor(editLetterViewModel.selectedSummary == summary ? postieColors.tintColor : postieColors.tabBarTintColor)
+                                    .fontWeight(editLetterViewModel.selectedSummary == summary ? .bold : .regular)
+                                    .frame(maxWidth: .infinity)
+                                    .background(postieColors.receivedLetterColor)
+                                    .cornerRadius(10)
+                            }
+                            .padding(.horizontal)
+                            .padding(.vertical, 5)
+                        }
+                    }
+                }
+                .scrollContentBackground(.hidden)
+                
+                Spacer()
+                
+                HStack {
+                    Spacer()
+                    
+                    Button("취소") {
+                        editLetterViewModel.closeSelectSummaryView()
+                    }
+                    .foregroundStyle(postieColors.tabBarTintColor)
+                    .padding()
+                    
+                    Spacer()
+                    
+                    Button("확인") {
+                        editLetterViewModel.summary = editLetterViewModel.selectedSummary
+                        editLetterViewModel.showSummaryTextField()
+                        editLetterViewModel.closeSelectSummaryView()
+                    }
+                    .foregroundStyle(editLetterViewModel.selectedSummary.isEmpty ? postieColors.profileColor : postieColors.tintColor)
+                    .fontWeight(editLetterViewModel.selectedSummary.isEmpty ? .regular : .bold)
+                    .padding()
+                    .disabled(editLetterViewModel.selectedSummary.isEmpty) // 선택해야 확인 버튼 활성화
+                    
+                    Spacer()
+                }
             }
         }
     }
