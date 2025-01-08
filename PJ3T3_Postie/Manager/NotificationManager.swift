@@ -41,8 +41,8 @@ class NotificationManager {
     /// 뱃지, 사운드, 알림에 대한 권한을 요청한다.
     func requestPermission() {
         notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
-                if granted == true && error == nil { }
-            }
+            if granted == true && error == nil { }
+        }
     }
     
     /// 알림을 추가한다.
