@@ -16,7 +16,7 @@ struct FirebaseTestView: View {
     private let profileBackgroundColor: Color = .gray
     private let signOutIconColor: Color = Color(uiColor: .lightGray)
     @State private var content: String = ""
-    @State private var summary: String = ""
+    @State private var summary: [String] = []
     @State private var isDeleteAccountDialogPresented = false
     @State private var showLoading = false
     @State private var showAlert = false
@@ -73,24 +73,24 @@ struct FirebaseTestView: View {
                         }
                     }
                     
-//                    Section("SummaryTest") {
-//                        
-//                        TextField("content", text: $content)
-//                        
-//                        Text(summary)
-//                        
-//                        Button(action: {
-//                            Task {
-//                                do {
-//                                    summary = try await APIClient.shared.postRequestToAPI(title: "", content: content)
-//                                } catch {
-//                                    summary = "에러 발생"
-//                                    Logger.firebase.info("에러 정보: \(error)")
-//                                }
-//                            }}, label: {
-//                                Text("요약하기")
-//                            })
-//                    }
+                    Section("SummaryTest") {
+                        
+                        TextField("텍스트를 입력하세요" , text: $content)
+                        
+                        Text(summary.joined(separator: "\n"))
+                        
+                        Button(action: {
+                            Task {
+                                do {
+                                    summary = try await APIClient.shared.postRequestToAPI(content: content)
+                                } catch {
+                                    summary = ["에러 발생"]
+                                    Logger.firebase.info("에러 정보: \(error)")
+                                }
+                            }}, label: {
+                                Text("요약하기")
+                            })
+                    }
                     
                     Section("Account") {
                         Button {
