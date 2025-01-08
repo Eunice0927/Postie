@@ -183,7 +183,7 @@ struct SlowPostBoxView: View {
         }
         .sheet(isPresented: $slowPostBoxViewModel.showingSelectSummaryView) {
             SelectSummaryView
-                .presentationDetents([.fraction(0.7)])
+                .presentationDetents([.medium])
                 .interactiveDismissDisabled(true)
         }
         .customOnChange(slowPostBoxViewModel.shouldDismiss) { shouldDismiss in
@@ -361,26 +361,39 @@ extension SlowPostBoxView {
             postieColors.backGroundColor
                 .ignoresSafeArea()
             
-            VStack {
+            VStack(spacing : 0) {
                 Text("요약 선택")
                     .font(.title)
                     .bold()
                     .foregroundStyle(postieColors.tintColor)
-                    .padding(.top)
+                    .padding()
+                    .padding(.top, 5)
                 
-                // summaryList에서 하나를 선택할 수 있는 기능
-                List(slowPostBoxViewModel.summaryList, id: \.self) { summary in
-                    Button(action: {
-                        slowPostBoxViewModel.selectedSummary = summary
-                    }) {
-                        Text(summary)
-                            .padding()
-                            .foregroundColor(slowPostBoxViewModel.selectedSummary == summary ? postieColors.tintColor : postieColors.tabBarTintColor)
-                            .fontWeight(slowPostBoxViewModel.selectedSummary == summary ? .bold : .regular)
+                ScrollView (showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        // summaryList에서 하나를 선택할 수 있는 기능
+                        ForEach(slowPostBoxViewModel.summaryList.indices, id: \.self) { index in
+                            let summary = slowPostBoxViewModel.summaryList[index]
+
+                            Button(action: {
+                                slowPostBoxViewModel.selectedSummary = summary
+                            }) {
+                                Text(summary)
+                                    .padding()
+                                    .foregroundColor(slowPostBoxViewModel.selectedSummary == summary ? postieColors.tintColor : postieColors.tabBarTintColor)
+                                    .fontWeight(slowPostBoxViewModel.selectedSummary == summary ? .bold : .regular)
+                                    .frame(maxWidth: .infinity)
+                                    .background(postieColors.receivedLetterColor)
+                                    .cornerRadius(10)
+                            }
+                            .padding(.horizontal)
+                            .padding(.vertical, 5)
+                        }
                     }
-                    .listRowBackground(postieColors.receivedLetterColor)
                 }
                 .scrollContentBackground(.hidden)
+                
+                Spacer()
                 
                 HStack {
                     Spacer()

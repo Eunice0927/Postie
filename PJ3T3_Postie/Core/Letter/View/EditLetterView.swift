@@ -155,7 +155,7 @@ struct EditLetterView: View {
         }
         .sheet(isPresented: $editLetterViewModel.showingSelectSummaryView) {
             SelectSummaryView
-                .presentationDetents([.fraction(0.7)])
+                .presentationDetents([.medium])
                 .interactiveDismissDisabled(true)
         }
         .customOnChange(editLetterViewModel.shouldDismiss) { shouldDismiss in
@@ -361,26 +361,39 @@ extension EditLetterView {
             postieColors.backGroundColor
                 .ignoresSafeArea()
             
-            VStack {
+            VStack(spacing : 0) {
                 Text("요약 선택")
                     .font(.title)
                     .bold()
                     .foregroundStyle(postieColors.tintColor)
-                    .padding(.top)
+                    .padding()
+                    .padding(.top, 5)
                 
-                // summaryList에서 하나를 선택할 수 있는 기능
-                List(editLetterViewModel.summaryList, id: \.self) { summary in
-                    Button(action: {
-                        editLetterViewModel.selectedSummary = summary
-                    }) {
-                        Text(summary)
-                            .padding()
-                            .foregroundColor(editLetterViewModel.selectedSummary == summary ? postieColors.tintColor : postieColors.tabBarTintColor)
-                            .fontWeight(editLetterViewModel.selectedSummary == summary ? .bold : .regular)
+                ScrollView (showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        // summaryList에서 하나를 선택할 수 있는 기능
+                        ForEach(editLetterViewModel.summaryList.indices, id: \.self) { index in
+                            let summary = editLetterViewModel.summaryList[index]
+
+                            Button(action: {
+                                editLetterViewModel.selectedSummary = summary
+                            }) {
+                                Text(summary)
+                                    .padding()
+                                    .foregroundColor(editLetterViewModel.selectedSummary == summary ? postieColors.tintColor : postieColors.tabBarTintColor)
+                                    .fontWeight(editLetterViewModel.selectedSummary == summary ? .bold : .regular)
+                                    .frame(maxWidth: .infinity)
+                                    .background(postieColors.receivedLetterColor)
+                                    .cornerRadius(10)
+                            }
+                            .padding(.horizontal)
+                            .padding(.vertical, 5)
+                        }
                     }
-                    .listRowBackground(postieColors.receivedLetterColor)
                 }
                 .scrollContentBackground(.hidden)
+                
+                Spacer()
                 
                 HStack {
                     Spacer()

@@ -183,7 +183,7 @@ struct AddLetterView: View {
         }
         .sheet(isPresented: $addLetterViewModel.showingSelectSummaryView) {
             SelectSummaryView
-                .presentationDetents([.fraction(0.7)])
+                .presentationDetents([.medium])
                 .interactiveDismissDisabled(true)
         }
         .customOnChange(addLetterViewModel.shouldDismiss) { shouldDismiss in
@@ -359,26 +359,39 @@ extension AddLetterView {
             postieColors.backGroundColor
                 .ignoresSafeArea()
             
-            VStack {
+            VStack(spacing : 0) {
                 Text("요약 선택")
                     .font(.title)
                     .bold()
                     .foregroundStyle(postieColors.tintColor)
-                    .padding(.top)
+                    .padding()
+                    .padding(.top, 5)
                 
-                // summaryList에서 하나를 선택할 수 있는 기능
-                List(addLetterViewModel.summaryList, id: \.self) { summary in
-                    Button(action: {
-                        addLetterViewModel.selectedSummary = summary
-                    }) {
-                        Text(summary)
-                            .padding()
-                            .foregroundColor(addLetterViewModel.selectedSummary == summary ? postieColors.tintColor : postieColors.tabBarTintColor)
-                            .fontWeight(addLetterViewModel.selectedSummary == summary ? .bold : .regular)
+                ScrollView (showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        // summaryList에서 하나를 선택할 수 있는 기능
+                        ForEach(addLetterViewModel.summaryList.indices, id: \.self) { index in
+                            let summary = addLetterViewModel.summaryList[index]
+
+                            Button(action: {
+                                addLetterViewModel.selectedSummary = summary
+                            }) {
+                                Text(summary)
+                                    .padding()
+                                    .foregroundColor(addLetterViewModel.selectedSummary == summary ? postieColors.tintColor : postieColors.tabBarTintColor)
+                                    .fontWeight(addLetterViewModel.selectedSummary == summary ? .bold : .regular)
+                                    .frame(maxWidth: .infinity)
+                                    .background(postieColors.receivedLetterColor)
+                                    .cornerRadius(10)
+                            }
+                            .padding(.horizontal)
+                            .padding(.vertical, 5)
+                        }
                     }
-                    .listRowBackground(postieColors.receivedLetterColor)
                 }
                 .scrollContentBackground(.hidden)
+                
+                Spacer()
                 
                 HStack {
                     Spacer()
