@@ -9,26 +9,40 @@ import OSLog
 import SwiftUI
 
 import FirebaseCore
+import FirebaseMessaging
 import NMapsMap
 
-class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        UNUserNotificationCenter.current().delegate = self
         FirebaseApp.configure()
+        
+        UNUserNotificationCenter.current().delegate = self
+        
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound] // 필요한 알림 권한을 설정
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions,
+            completionHandler: { _, _ in }
+        )
+        
+        // UNUserNotificationCenterDelegate를 구현한 메서드를 실행시킴
+        application.registerForRemoteNotifications()
+        
+        // 파이어베이스 Meesaging 설정
+        Messaging.messaging().delegate = self
         
         return true
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.list, .banner, .badge, .sound])
+    // 백그라운드에서 푸시 알림을 탭했을 때 실행
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Logger.firebase.info("APNs Token: \(deviceToken)")
+        Messaging.messaging().apnsToken = deviceToken
     }
     
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         return UISceneConfiguration(name: "Defult Configuration", sessionRole: connectingSceneSession.role)
     }
-    
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) { }
 }
 
 @main

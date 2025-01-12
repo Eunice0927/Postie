@@ -162,6 +162,13 @@ struct HomeView: View {
                         self.isMenuActive = false
                     }
                 }
+                .onAppear {
+                    UNUserNotificationCenter.current().getNotificationSettings { setting in
+                        if setting.authorizationStatus == .notDetermined {
+                            NotificationManager.shared.requestPermission()
+                        }
+                    }
+                }
             }
         }
     }
