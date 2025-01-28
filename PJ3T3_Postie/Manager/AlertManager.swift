@@ -36,5 +36,16 @@ final class AlertManager: ObservableObject {
         self.leftButton = AlertButton(title: leftButtonLabel, role: leftButtonRole, action: leftButtonAction)
         self.rightButton = AlertButton(title: rightButtonLabel, role: rightButtonRole, action: rightButtonAction)
         self.isTwoButtonAlertPresented = true
+    
+    func showNotEnoughInfoAlert(isReceived: Bool) {
+        showOneButtonAlert(title: "편지 정보 부족", message: "편지를 저장하기 위한 정보가 부족해요. \(isReceived ? "보낸 사람" : "받는 사람")과 내용을 채워주세요.")
+    }
+    
+    func showUploadErrorAlert() {
+        showOneButtonAlert(title: "편지 저장 실패", message: "편지 저장에 실패했어요. 다시 시도해주세요.")
+    }
+    
+    func showSummaryErrorAlert() {
+        showOneButtonAlert(title: "편지 요약 실패", message: "편지 요약에 실패했어요. 직접 요약해주세요.")
     }
 }

@@ -168,12 +168,14 @@ struct HomeView: View {
 }
 
 struct AddLetterButton: View {
+    
+    @EnvironmentObject var alertManager: AlertManager
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
     @Binding var isMenuActive: Bool
     
     var body: some View {
         Menu {
-            NavigationLink(destination: SlowPostBoxView(isReceived: false)) {
+            NavigationLink(destination: SlowPostBoxView(isReceived: false, alertManager: alertManager)) {
                 Label("나의 느린 우체통", systemImage: "envelope.open.badge.clock")
             }
             
