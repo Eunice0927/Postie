@@ -112,15 +112,19 @@ struct ContentView: View {
             Text(alertManager.message)
         }
         .alert(alertManager.title, isPresented: $alertManager.isTwoButtonAlertPresented) {
-            if let leftButton = alertManager.leftButton, let action = leftButton.action, let title = leftButton.title {
+            if let leftButton = alertManager.leftButton, let title = leftButton.title {
                 Button(title, role: leftButton.role) {
-                    action()
+                    if let action = leftButton.action {
+                        action()
+                    }
                 }
             }
             
-            if let rightButton = alertManager.rightButton, let action = rightButton.action, let title = rightButton.title {
+            if let rightButton = alertManager.rightButton, let title = rightButton.title {
                 Button(title, role: rightButton.role) {
-                    action()
+                    if let action = rightButton.action {
+                        action()
+                    }
                 }
             }
         } message: {
