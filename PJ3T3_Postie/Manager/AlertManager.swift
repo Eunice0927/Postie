@@ -27,7 +27,9 @@ final class AlertManager: ObservableObject {
         self.title = title
         self.message = message
         self.singleButton = AlertButton(title: buttonLabel, role: buttonRole, action: buttonAction)
-        self.isOneButtonAlertPresented = true
+        DispatchQueue.main.async {
+            self.isOneButtonAlertPresented = true
+        }
     }
     
     func showTwoButtonAlert(title: String, message: String, leftButtonLabel: String, leftButtonRole: ButtonRole? = nil, leftButtonAction: (() -> Void)? = nil, rightButtonLabel: String, rightButtonRole: ButtonRole? = nil, rightButtonAction: (() -> Void)? = nil) {
@@ -35,7 +37,10 @@ final class AlertManager: ObservableObject {
         self.message = message
         self.leftButton = AlertButton(title: leftButtonLabel, role: leftButtonRole, action: leftButtonAction)
         self.rightButton = AlertButton(title: rightButtonLabel, role: rightButtonRole, action: rightButtonAction)
-        self.isTwoButtonAlertPresented = true
+        DispatchQueue.main.async {
+            self.isTwoButtonAlertPresented = true
+        }
+    }
     
     func showNotEnoughInfoAlert(isReceived: Bool) {
         showOneButtonAlert(title: "편지 정보 부족", message: "편지를 저장하기 위한 정보가 부족해요. \(isReceived ? "보낸 사람" : "받는 사람")과 내용을 채워주세요.")
