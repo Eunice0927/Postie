@@ -48,4 +48,16 @@ final class AlertManager: ObservableObject {
     func showSummaryErrorAlert() {
         showOneButtonAlert(title: "편지 요약 실패", message: "편지 요약에 실패했어요. 직접 요약해주세요.")
     }
+    
+    func showLetterDismissAlert(rightButtonAction: (() -> Void)? = nil) {
+        showTwoButtonAlert(
+            title: "작성을 취소하실 건가요?",
+            message: "변경된 내용이 저장되지 않아요!",
+            leftButtonLabel: "계속 쓸래요",
+            leftButtonRole: .cancel,
+            rightButtonLabel: "그만 할래요",
+            rightButtonRole: .destructive,
+            rightButtonAction: rightButtonAction
+        )
+    }
 }

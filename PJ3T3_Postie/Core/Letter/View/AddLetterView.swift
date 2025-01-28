@@ -62,7 +62,7 @@ struct AddLetterView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    addLetterViewModel.showDismissAlert()
+                    alertManager.showLetterDismissAlert(rightButtonAction: { dismiss() })
                 } label: {
                     HStack {
                         Image(systemName: "chevron.backward")
@@ -103,6 +103,9 @@ struct AddLetterView: View {
         .toolbar(.hidden, for: .tabBar)
         .scrollDismissesKeyboard(.interactively)
         .modifier(LoadingModifier(isLoading: $addLetterViewModel.isLoading, text: addLetterViewModel.loadingText))
+        .onAppear {
+            addLetterViewModel.setAlertManager(alertManager: alertManager)
+        }
         .fullScreenCover(isPresented: $addLetterViewModel.showingLetterImageFullScreenView) {
             LetterImageFullScreenView(
                 images: addLetterViewModel.images,
@@ -119,32 +122,6 @@ struct AddLetterView: View {
                 loadingText: $addLetterViewModel.loadingText
             )
             .ignoresSafeArea(.all, edges: .bottom)
-        }
-        .alert("편지 정보 부족", isPresented: $addLetterViewModel.showingNotEnoughInfoAlert) {
-
-        } message: {
-            Text("편지를 저장하기 위한 정보가 부족해요. \(isReceived ? "보낸 사람" : "받는 사람")과 내용을 채워주세요.")
-        }
-        .alert("편지 저장 실패", isPresented: $addLetterViewModel.showingUploadErrorAlert) {
-
-        } message: {
-            Text("편지 저장에 실패했어요. 다시 시도해주세요.")
-        }
-        .alert("편지 요약 실패", isPresented: $addLetterViewModel.showingSummaryErrorAlert) {
-
-        } message: {
-            Text("편지 요약에 실패했어요. 직접 요약해주세요.")
-        }
-        .alert("편지 작성을 그만두시겠어요?", isPresented: $addLetterViewModel.showingDismissAlert) {
-            Button("계속 쓸래요", role: .cancel) {
-
-            }
-
-            Button("그만 할래요", role: .destructive) {
-                dismiss()
-            }
-        } message: {
-            Text("작성을 그만두면 내용이 사라져요")
         }
         .confirmationDialog("편지 사진 가져오기", isPresented: $addLetterViewModel.showingImageConfirmationDialog, titleVisibility: .visible) {
             Button {
