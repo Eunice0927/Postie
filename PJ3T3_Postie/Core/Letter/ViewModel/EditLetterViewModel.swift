@@ -23,17 +23,19 @@ class EditLetterViewModel: ObservableObject {
     @Published var showingUIImagePicker = false
     @Published var showingLetterImageFullScreenView: Bool = false
     @Published var showingSummaryTextField: Bool = false
-    @Published var showingSummaryAlert: Bool = false
-    @Published var showingEditErrorAlert: Bool = false
     @Published var showingImageConfirmationDialog: Bool = false
     @Published var showingSummaryConfirmationDialog: Bool = false
-    @Published var showingSummaryErrorAlert: Bool = false
     @Published var selectedIndex: Int = 0
     @Published var shouldDismiss: Bool = false
     @Published var isLoading: Bool = false
     @Published var loadingText: String = ""
 
+    private var alertManager: AlertManager?
     private(set) var imagePickerSourceType: UIImagePickerController.SourceType = .camera
+    
+    func setAlertManager(alertManager: AlertManager) {
+        self.alertManager = alertManager
+    }
 
     func removeImage(at index: Int) {
         newImages.remove(at: index)
@@ -44,10 +46,6 @@ class EditLetterViewModel: ObservableObject {
         showingUIImagePicker = true
     }
 
-    func showEditErrorAlert() {
-        showingEditErrorAlert = true
-    }
-
     func showLetterImageFullScreenView(index: Int) {
         selectedIndex = index
         showingLetterImageFullScreenView = true
@@ -55,14 +53,6 @@ class EditLetterViewModel: ObservableObject {
 
     func showSummaryTextField() {
         showingSummaryTextField = true
-    }
-
-    func showSummaryAlert() {
-        showingSummaryAlert = true
-    }
-
-    func showSummaryErrorAlert() {
-        showingSummaryErrorAlert = true
     }
 
     private func dismissView() {
@@ -161,8 +151,7 @@ class EditLetterViewModel: ObservableObject {
         } catch {
             await MainActor.run {
                 isLoading = false
-
-                showEditErrorAlert()
+                alertManager?.showEditErrorAlert()
             }
             Logger.firebase.error("Failed to edit letter: \(error)")
         }
@@ -194,9 +183,7 @@ class EditLetterViewModel: ObservableObject {
                 showSummaryTextField()
             }
         } catch {
-            await MainActor.run {
-                showSummaryErrorAlert()
-            }
+            alertManager?.showSummaryErrorAlert()
         }
     }
 }

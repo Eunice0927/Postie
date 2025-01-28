@@ -60,4 +60,8 @@ final class AlertManager: ObservableObject {
             rightButtonAction: rightButtonAction
         )
     }
+    
+    func showEditErrorAlert() {
+        showOneButtonAlert(title: "편지 수정 실패", message: "편지 수정에 실패했어요. 다시 시도해 주세요")
+    }
 }

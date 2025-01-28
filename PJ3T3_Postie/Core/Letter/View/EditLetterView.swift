@@ -106,18 +106,9 @@ struct EditLetterView: View {
             )
             .ignoresSafeArea(.all, edges: .bottom)
         }
-        .alert("편지 수정 실패", isPresented: $editLetterViewModel.showingEditErrorAlert) {
-            
-        } message: {
-            Text("편지 수정에 실패했어요. 다시 시도해 주세요")
-        }
-        .alert("편지 요약 실패", isPresented: $editLetterViewModel.showingSummaryErrorAlert) {
-
-        } message: {
-            Text("편지 요약에 실패했어요. 직접 요약해주세요.")
-        }
         .onAppear {
             editLetterViewModel.syncViewModelProperties(letter: letter)
+            editLetterViewModel.setAlertManager(alertManager: alertManager)
         }
         .confirmationDialog("편지 사진 가져오기", isPresented: $editLetterViewModel.showingImageConfirmationDialog, titleVisibility: .visible) {
             Button {
