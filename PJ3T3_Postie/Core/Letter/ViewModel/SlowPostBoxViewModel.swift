@@ -26,7 +26,7 @@ class SlowPostBoxViewModel: ObservableObject {
     @Published var loadingText: String = "편지를 저장하고 있어요."
 
     private(set) var imagePickerSourceType: UIImagePickerController.SourceType = .camera
-    private let alertManager: AlertManager
+    private var alertManager: AlertManager?
     var isReceived: Bool
     var isNotEnoughInfo: Bool {
         text.isEmpty
@@ -38,8 +38,11 @@ class SlowPostBoxViewModel: ObservableObject {
         "유저"
     }
 
-    init(isReceived: Bool, alertManager: AlertManager) {
+    init(isReceived: Bool) {
         self.isReceived = isReceived
+    }
+    
+    func setAlertManager(alertManager: AlertManager) {
         self.alertManager = alertManager
     }
 
@@ -75,7 +78,7 @@ class SlowPostBoxViewModel: ObservableObject {
 
     func uploadLetter() async {
         if isNotEnoughInfo {
-            alertManager.showNotEnoughInfoAlert(isReceived: isReceived)
+            alertManager?.showNotEnoughInfoAlert(isReceived: isReceived)
         } else {
             await MainActor.run {
                 isLoading = true
@@ -98,7 +101,7 @@ class SlowPostBoxViewModel: ObservableObject {
                 await MainActor.run {
                     isLoading = false
 
-                    alertManager.showUploadErrorAlert()
+                    alertManager?.showUploadErrorAlert()
                 }
             }
         }
@@ -156,7 +159,7 @@ class SlowPostBoxViewModel: ObservableObject {
             }
         } catch {
             await MainActor.run {
-                alertManager.showSummaryErrorAlert()
+                alertManager?.showSummaryErrorAlert()
             }
         }
     }

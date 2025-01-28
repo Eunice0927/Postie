@@ -27,8 +27,8 @@ struct SlowPostBoxView: View {
     @Environment(\.dismiss) var dismiss
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
 
-    init(isReceived: Bool, alertManager: AlertManager) {
-        self._slowPostBoxViewModel = StateObject(wrappedValue: SlowPostBoxViewModel(isReceived: isReceived, alertManager: alertManager))
+    init(isReceived: Bool) {
+        self._slowPostBoxViewModel = StateObject(wrappedValue: SlowPostBoxViewModel(isReceived: isReceived))
         self.isReceived = isReceived
 
         // TextEditor 패딩
@@ -111,6 +111,9 @@ struct SlowPostBoxView: View {
         .toolbar(.hidden, for: .tabBar)
         .scrollDismissesKeyboard(.interactively)
         .modifier(LoadingModifier(isLoading: $slowPostBoxViewModel.isLoading, text: slowPostBoxViewModel.loadingText))
+        .onAppear {
+            slowPostBoxViewModel.setAlertManager(alertManager: alertManager)
+        }
         .fullScreenCover(isPresented: $slowPostBoxViewModel.showingLetterImageFullScreenView) {
             LetterImageFullScreenView(
                 images: slowPostBoxViewModel.images,
@@ -332,5 +335,5 @@ extension SlowPostBoxView {
 
 
 #Preview {
-    SlowPostBoxView(isReceived: false, alertManager: AlertManager())
+    SlowPostBoxView(isReceived: false)
 }
