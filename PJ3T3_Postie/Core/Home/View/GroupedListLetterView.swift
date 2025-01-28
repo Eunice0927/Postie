@@ -18,7 +18,11 @@ struct GroupedListLetterView: View {
     @State private var isSideMenuOpen = false
     
     var body: some View {
-        let filteredLetters = firestoreManager.letters.filter { $0.recipient == recipient || $0.writer == recipient }.sorted { $0.date < $1.date }
+        let filteredLetters = firestoreManager.letters.filter {
+            $0.recipient == recipient || $0.writer == recipient
+        }.sorted {
+            $0.date < $1.date
+        }
         
         ZStack(alignment: .bottomTrailing) {
             postieColors.backGroundColor
@@ -40,7 +44,7 @@ struct GroupedListLetterView: View {
                     .foregroundStyle(Color.postieBlack.opacity(0))
             }
             
-            AddLetterButton(isMenuActive: $isMenuActive)
+            AddLetterButton(isMenuActive: $isMenuActive, autoFilledName: recipient)
         }
         .modifier(GroupedTitleBarViewModifier(isMenuActive: $isMenuActive, title: recipient))
     }

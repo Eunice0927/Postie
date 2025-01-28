@@ -20,13 +20,15 @@ struct AddLetterView: View {
     }
 
     var isReceived: Bool
+    var autoFilledName: String?
 
     @FocusState private var focusField: Field?
     @Environment(\.dismiss) var dismiss
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
 
-    init(isReceived: Bool) {
+    init(isReceived: Bool, autoFilledName: String? = nil) {
         self.isReceived = isReceived
+        self.autoFilledName = autoFilledName
         self._addLetterViewModel = StateObject(wrappedValue: AddLetterViewModel(isReceived: isReceived))
 
         // TextEditor 패딩
@@ -210,6 +212,15 @@ extension AddLetterView {
                 .background(ThemeManager.themeColors[isThemeGroupButton].receivedLetterColor)
                 .clipShape(RoundedRectangle(cornerRadius: 4))
                 .focused($focusField, equals: .sender)
+                .onAppear {
+                    if let autoFilledName {
+                        if isReceived {
+                            addLetterViewModel.sender = autoFilledName
+                        } else {
+                            addLetterViewModel.receiver = autoFilledName
+                        }
+                    }
+                }
             }
             .frame(maxWidth: .infinity)
 
