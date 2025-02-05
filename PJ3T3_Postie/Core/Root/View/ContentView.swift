@@ -16,6 +16,8 @@ import CoreLocation
 //}
 
 struct ContentView: View {
+    
+    @EnvironmentObject var alertManager: AlertManager
     @ObservedObject var authViewModel = AuthManager.shared
     @StateObject private var viewModel = AppViewModel()
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
@@ -99,6 +101,34 @@ struct ContentView: View {
 //            Button("나중에", role: .cancel) {}
         } message: {
             Text("새로운 버전 업데이트가 있어요! 더 나은 서비스를 위해 포스티를 업데이트 해 주세요.")
+        }
+        .alert(alertManager.title, isPresented: $alertManager.isOneButtonAlertPresented) {
+            if let button = alertManager.singleButton, let action = button.action, let title = button.title {
+                Button(title, role: button.role) {
+                    action()
+                }
+            }
+        } message: {
+            Text(alertManager.message)
+        }
+        .alert(alertManager.title, isPresented: $alertManager.isTwoButtonAlertPresented) {
+            if let leftButton = alertManager.leftButton, let title = leftButton.title {
+                Button(title, role: leftButton.role) {
+                    if let action = leftButton.action {
+                        action()
+                    }
+                }
+            }
+            
+            if let rightButton = alertManager.rightButton, let title = rightButton.title {
+                Button(title, role: rightButton.role) {
+                    if let action = rightButton.action {
+                        action()
+                    }
+                }
+            }
+        } message: {
+            Text(alertManager.message)
         }
         .onAppear {
             Task {

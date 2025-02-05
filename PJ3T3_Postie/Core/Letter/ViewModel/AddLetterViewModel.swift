@@ -18,13 +18,7 @@ class AddLetterViewModel: ObservableObject {
     @Published var selectedIndex: Int = 0
     @Published var showingUIImagePicker = false
     @Published var showingLetterImageFullScreenView: Bool = false
-    @Published var showingTextRecognizerErrorAlert: Bool = false
-    @Published var showingDismissAlert: Bool = false
     @Published var showingSummaryTextField: Bool = false
-    @Published var showingSummaryAlert: Bool = false
-    @Published var showingNotEnoughInfoAlert: Bool = false
-    @Published var showingUploadErrorAlert: Bool = false
-    @Published var showingSummaryErrorAlert: Bool = false
     @Published var showingImageConfirmationDialog: Bool = false
     @Published var showingSummaryConfirmationDialog: Bool = false
     @Published var shouldDismiss: Bool = false
@@ -35,6 +29,7 @@ class AddLetterViewModel: ObservableObject {
     @Published var selectedSummary: String = ""
 
     private(set) var imagePickerSourceType: UIImagePickerController.SourceType = .camera
+    private var alertManager: AlertManager?
     var isReceived: Bool
     var isNotEnoughInfo: Bool {
         (isReceived && (sender.isEmpty || text.isEmpty))
@@ -43,6 +38,10 @@ class AddLetterViewModel: ObservableObject {
 
     init(isReceived: Bool) {
         self.isReceived = isReceived
+    }
+    
+    func setAlertManager(alertManager: AlertManager) {
+        self.alertManager = alertManager
     }
 
     private func dismissView() {
@@ -56,10 +55,6 @@ class AddLetterViewModel: ObservableObject {
     func showUIImagePicker(sourceType: UIImagePickerController.SourceType) {
         imagePickerSourceType = sourceType
         showingUIImagePicker = true 
-    }
-    
-    func showNotEnoughInfoAlert() {
-        showingNotEnoughInfoAlert = true
     }
 
     func showLetterImageFullScreenView(index: Int) {
@@ -79,22 +74,6 @@ class AddLetterViewModel: ObservableObject {
         showingSummaryTextField = true
     }
 
-    func showSummaryAlert() {
-        showingSummaryAlert = true
-    }
-
-    func showSummaryErrorAlert() {
-        showingSummaryErrorAlert = true
-    }
-
-    func showUploadErrorAlert() {
-        showingUploadErrorAlert = true
-    }
-
-    func showDismissAlert() {
-        showingDismissAlert = true
-    }
-
     func showConfirmationDialog() {
         showingImageConfirmationDialog = true
     }
@@ -105,9 +84,7 @@ class AddLetterViewModel: ObservableObject {
 
     func uploadLetter() async {
         if isNotEnoughInfo {
-            await MainActor.run {
-                showNotEnoughInfoAlert()
-            }
+            alertManager?.showNotEnoughInfoAlert(isReceived: isReceived)
         } else {
             await MainActor.run {
                 isLoading = true
@@ -126,8 +103,7 @@ class AddLetterViewModel: ObservableObject {
             } catch {
                 await MainActor.run {
                     isLoading = false
-
-                    showUploadErrorAlert()
+                    alertManager?.showUploadErrorAlert()
                 }
             }
         }
@@ -184,9 +160,7 @@ class AddLetterViewModel: ObservableObject {
                 showSelectSummaryView()
             }
         } catch {
-            await MainActor.run {
-                showSummaryErrorAlert()
-            }
+            alertManager?.showSummaryErrorAlert()
         }
     }
 }

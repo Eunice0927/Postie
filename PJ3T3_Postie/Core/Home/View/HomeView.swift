@@ -175,6 +175,8 @@ struct HomeView: View {
 }
 
 struct AddLetterButton: View {
+    
+    @EnvironmentObject var alertManager: AlertManager
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
     @Binding var isMenuActive: Bool
     var autoFilledName: String? = nil
