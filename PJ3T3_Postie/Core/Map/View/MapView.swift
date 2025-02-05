@@ -247,6 +247,7 @@ struct MapView: View {
                     
                     Button {
                         isSearchFocused = false
+                        hideKeyboard()
                     } label: {
                         Image(systemName: "keyboard.chevron.compact.down")
                     }
