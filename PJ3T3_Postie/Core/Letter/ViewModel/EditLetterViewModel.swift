@@ -28,7 +28,10 @@ class EditLetterViewModel: ObservableObject {
     @Published var selectedIndex: Int = 0
     @Published var shouldDismiss: Bool = false
     @Published var isLoading: Bool = false
-    @Published var loadingText: String = ""
+    @Published var loadingText: String = "편지를 저장하고 있어요."
+    @Published var showingSelectSummaryView: Bool = false
+    @Published var summaryList: [String] = []
+    @Published var selectedSummary: String = ""
 
     private var alertManager: AlertManager?
     private(set) var imagePickerSourceType: UIImagePickerController.SourceType = .camera
@@ -49,6 +52,14 @@ class EditLetterViewModel: ObservableObject {
     func showLetterImageFullScreenView(index: Int) {
         selectedIndex = index
         showingLetterImageFullScreenView = true
+    }
+    
+    func showSelectSummaryView() {
+        showingSelectSummaryView = true
+    }
+    
+    func closeSelectSummaryView() {
+        showingSelectSummaryView = false
     }
 
     func showSummaryTextField() {
@@ -173,14 +184,13 @@ class EditLetterViewModel: ObservableObject {
 
     func getSummary(isReceived: Bool) async {
         do {
-            let summaryResponse = try await APIClient.shared.postRequestToAPI(
-                title: isReceived ? "\(sender)에게 받은 편지" : "\(receiver)에게 쓴 편지",
+            let summaries = try await APIClient.shared.postRequestToAPI(
                 content: text
             )
 
             await MainActor.run {
-                summary = summaryResponse
-                showSummaryTextField()
+                summaryList = summaries
+                showSelectSummaryView()
             }
         } catch {
             alertManager?.showSummaryErrorAlert()

@@ -49,7 +49,7 @@ struct NoticeView: View {
                                     .ignoresSafeArea()
                                 
                                 VStack(alignment: .leading) {
-                                    Text("안녕하세요. 포스티 팀입니다.\n")
+                                    Text("안녕하세요. 포스티 팀입니다! 💌\n")
                                         .font(.callout)
                                     
 //                                    if let imageURL = post.imageURL {

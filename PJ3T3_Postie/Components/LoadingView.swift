@@ -9,8 +9,7 @@ import SwiftUI
 
 struct LoadingView: View {
     @ObservedObject private var counter = Counter(interval: 1)
-    let profileImages = ["postySmileSketch", "postySmileLine", "postySmileLineColor", "postyThinkingSketch", "postyThinkingLine", "postyThinkingLineColor", "postySendingSketch", "postySendingLine", "postySendingLineColor", "postyReceivingSketch", "postyReceivingLine", "postyReceivingLineColor", "postyHeartSketch", "postyHeartLine", "postyHeartLineColor", "postyTrumpetSketch", "postyTrumpetLine", "postyTrumpetLineColor", "postyQuestionSketch", "postyQuestionLine", "postyQuestionLineColor", "postyNormalSketch", "postyNormalLine", "postyNormalLineColor", "postyWinkSketch", "postyWinkLine", "postyWinkLineColor", "postySleepingSketch", "postySleepingLine", "postySleepingLineColor", "postyNotGoodSketch", "postyNotGoodLine", "postyNotGoodLineColor"].shuffled()
-    let sketchPostys = ["postySmileSketch", "postyThinkingSketch", "postySendingSketch", "postyReceivingSketch", "postyHeartSketch", "postyTrumpetSketch", "postyQuestionSketch", "postyNormalSketch", "postyWinkSketch", "postyWinkSketch", "postySleepingSketch", "postyNotGoodSketch"].shuffled()
+    
     var text: String
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
     
@@ -28,7 +27,7 @@ struct LoadingView: View {
             
             
             VStack {
-                Image("\(sketchPostys[counter.value % sketchPostys.count])")
+                Image("\(ImageAssetManager.sketchPostys[counter.value % ImageAssetManager.sketchPostys.count])")
                     .resizable()
                     .frame(width: 150, height: 150)
                     .padding(.bottom, 20)

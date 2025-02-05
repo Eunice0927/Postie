@@ -9,7 +9,7 @@ import OSLog
 import UserNotifications
 import UIKit
 
-struct Notification {
+struct SlowPostNotificationModel {
     var id: String
     var title: String
     var body: String
@@ -18,7 +18,7 @@ struct Notification {
 class NotificationManager {
     static let shared = NotificationManager()
     let notificationCenter = UNUserNotificationCenter.current()
-    var notifications = [Notification]()
+    var notifications = [SlowPostNotificationModel]()
     
     private init() { }
     
@@ -41,13 +41,13 @@ class NotificationManager {
     /// 뱃지, 사운드, 알림에 대한 권한을 요청한다.
     func requestPermission() {
         notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
-                if granted == true && error == nil { }
-            }
+            if granted == true && error == nil { }
+        }
     }
     
     /// 알림을 추가한다.
     func addNotification(id: String, title: String, body: String) {
-        notifications.append(Notification(id: id, title: title, body: body))
+        notifications.append(SlowPostNotificationModel(id: id, title: title, body: body))
     }
     
     ///날짜를 파라미터로 받아 알람을 설정한다.

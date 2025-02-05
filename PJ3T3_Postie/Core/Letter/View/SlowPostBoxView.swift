@@ -163,6 +163,11 @@ struct SlowPostBoxView: View {
                 focusField = .summary
             }
         }
+        .sheet(isPresented: $slowPostBoxViewModel.showingSelectSummaryView) {
+            SelectSummaryView
+                .presentationDetents([.medium])
+                .interactiveDismissDisabled(true)
+        }
         .customOnChange(slowPostBoxViewModel.shouldDismiss) { shouldDismiss in
             if shouldDismiss {
                 dismiss()
@@ -328,6 +333,73 @@ extension SlowPostBoxView {
                     .onTapGesture {
                         slowPostBoxViewModel.showSummaryConfirmationDialog()
                     }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var SelectSummaryView: some View {
+        ZStack {
+            postieColors.backGroundColor
+                .ignoresSafeArea()
+            
+            VStack(spacing : 0) {
+                Text("요약 선택")
+                    .font(.title)
+                    .bold()
+                    .foregroundStyle(postieColors.tintColor)
+                    .padding()
+                    .padding(.top, 5)
+                
+                ScrollView (showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        // summaryList에서 하나를 선택할 수 있는 기능
+                        ForEach(slowPostBoxViewModel.summaryList.indices, id: \.self) { index in
+                            let summary = slowPostBoxViewModel.summaryList[index]
+
+                            Button(action: {
+                                slowPostBoxViewModel.selectedSummary = summary
+                            }) {
+                                Text(summary)
+                                    .padding()
+                                    .foregroundColor(slowPostBoxViewModel.selectedSummary == summary ? postieColors.tintColor : postieColors.tabBarTintColor)
+                                    .fontWeight(slowPostBoxViewModel.selectedSummary == summary ? .bold : .regular)
+                                    .frame(maxWidth: .infinity)
+                                    .background(postieColors.receivedLetterColor)
+                                    .cornerRadius(10)
+                            }
+                            .padding(.horizontal)
+                            .padding(.vertical, 5)
+                        }
+                    }
+                }
+                .scrollContentBackground(.hidden)
+                
+                Spacer()
+                
+                HStack {
+                    Spacer()
+                    
+                    Button("취소") {
+                        slowPostBoxViewModel.closeSelectSummaryView()
+                    }
+                    .foregroundStyle(postieColors.tabBarTintColor)
+                    .padding()
+                    
+                    Spacer()
+                    
+                    Button("확인") {
+                        slowPostBoxViewModel.summary = slowPostBoxViewModel.selectedSummary
+                        slowPostBoxViewModel.showSummaryTextField()
+                        slowPostBoxViewModel.closeSelectSummaryView()
+                    }
+                    .foregroundStyle(slowPostBoxViewModel.selectedSummary.isEmpty ? postieColors.profileColor : postieColors.tintColor)
+                    .fontWeight(slowPostBoxViewModel.selectedSummary.isEmpty ? .regular : .bold)
+                    .padding()
+                    .disabled(slowPostBoxViewModel.selectedSummary.isEmpty) // 선택해야 확인 버튼 활성화
+                    
+                    Spacer()
+                }
             }
         }
     }
