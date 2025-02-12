@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SlowPostBoxView: View {
+    
+    @EnvironmentObject var alertManager: AlertManager
     @StateObject private var slowPostBoxViewModel: SlowPostBoxViewModel
     @ObservedObject var firestoreManager = FirestoreManager.shared
     @ObservedObject var storageManager = StorageManager.shared
@@ -26,8 +28,8 @@ struct SlowPostBoxView: View {
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
 
     init(isReceived: Bool) {
-        self.isReceived = isReceived
         self._slowPostBoxViewModel = StateObject(wrappedValue: SlowPostBoxViewModel(isReceived: isReceived))
+        self.isReceived = isReceived
 
         // TextEditor 패딩
         UITextView.appearance().textContainerInset = UIEdgeInsets(
@@ -60,7 +62,15 @@ struct SlowPostBoxView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    slowPostBoxViewModel.showDismissAlert()
+                    alertManager.showTwoButtonAlert(
+                        title: "작성을 취소하실 건가요?",
+                        message: "변경된 내용이 저장되지 않아요!",
+                        leftButtonLabel: "아니요",
+                        leftButtonRole: .cancel,
+                        rightButtonLabel: "네",
+                        rightButtonRole: .destructive,
+                        rightButtonAction: { dismiss() }
+                    )
                 } label: {
                     HStack {
                         Image(systemName: "chevron.backward")
@@ -101,6 +111,9 @@ struct SlowPostBoxView: View {
         .toolbar(.hidden, for: .tabBar)
         .scrollDismissesKeyboard(.interactively)
         .modifier(LoadingModifier(isLoading: $slowPostBoxViewModel.isLoading, text: slowPostBoxViewModel.loadingText))
+        .onAppear {
+            slowPostBoxViewModel.setAlertManager(alertManager: alertManager)
+        }
         .fullScreenCover(isPresented: $slowPostBoxViewModel.showingLetterImageFullScreenView) {
             LetterImageFullScreenView(
                 images: slowPostBoxViewModel.images,
@@ -110,44 +123,13 @@ struct SlowPostBoxView: View {
         .sheet(isPresented: $slowPostBoxViewModel.showingUIImagePicker) {
             UIImagePicker(
                 sourceType: slowPostBoxViewModel.imagePickerSourceType,
+                alertManager: alertManager,
                 selectedImages: $slowPostBoxViewModel.images,
                 text: $slowPostBoxViewModel.text,
                 isLoading: $slowPostBoxViewModel.isLoading,
-                showingTextRecognizerErrorAlert: $slowPostBoxViewModel.showingTextRecognizerErrorAlert,
                 loadingText: $slowPostBoxViewModel.loadingText
             )
             .ignoresSafeArea(.all, edges: .bottom)
-        }
-        .alert("문자 인식 실패", isPresented: $slowPostBoxViewModel.showingTextRecognizerErrorAlert) {
-
-        } message: {
-            Text("문자 인식에 실패했습니다. 다시 시도해 주세요.")
-        }
-        .alert("편지 정보 부족", isPresented: $slowPostBoxViewModel.showingNotEnoughInfoAlert) {
-
-        } message: {
-            Text("편지를 저장하기 위한 정보가 부족해요. \(isReceived ? "보낸 사람" : "받는 사람")과 내용을 채워주세요.")
-        }
-        .alert("편지 저장 실패", isPresented: $slowPostBoxViewModel.showingUploadErrorAlert) {
-
-        } message: {
-            Text("편지 저장에 실패했어요. 다시 시도해주세요.")
-        }
-        .alert("편지 요약 실패", isPresented: $slowPostBoxViewModel.showingSummaryErrorAlert) {
-
-        } message: {
-            Text("편지 요약에 실패했어요. 직접 요약해주세요.")
-        }
-        .alert("작성을 취소하실 건가요?", isPresented: $slowPostBoxViewModel.showingDismissAlert) {
-            Button("아니요", role: .cancel) {
-
-            }
-
-            Button("네", role: .destructive) {
-                dismiss()
-            }
-        } message: {
-            Text("변경된 내용이 저장되지 않아요!")
         }
         .confirmationDialog("편지 사진 가져오기", isPresented: $slowPostBoxViewModel.showingImageConfirmationDialog, titleVisibility: .visible) {
             Button {

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AddLetterView: View {
+    
+    @EnvironmentObject var alertManager: AlertManager
     @StateObject private var addLetterViewModel: AddLetterViewModel
     @ObservedObject var firestoreManager = FirestoreManager.shared
     @ObservedObject var storageManager = StorageManager.shared
@@ -20,13 +22,15 @@ struct AddLetterView: View {
     }
 
     var isReceived: Bool
+    var autoFilledName: String?
 
     @FocusState private var focusField: Field?
     @Environment(\.dismiss) var dismiss
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
 
-    init(isReceived: Bool) {
+    init(isReceived: Bool, autoFilledName: String? = nil) {
         self.isReceived = isReceived
+        self.autoFilledName = autoFilledName
         self._addLetterViewModel = StateObject(wrappedValue: AddLetterViewModel(isReceived: isReceived))
 
         // TextEditor 패딩
@@ -60,7 +64,7 @@ struct AddLetterView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    addLetterViewModel.showDismissAlert()
+                    alertManager.showLetterDismissAlert(rightButtonAction: { dismiss() })
                 } label: {
                     HStack {
                         Image(systemName: "chevron.backward")
@@ -101,6 +105,9 @@ struct AddLetterView: View {
         .toolbar(.hidden, for: .tabBar)
         .scrollDismissesKeyboard(.interactively)
         .modifier(LoadingModifier(isLoading: $addLetterViewModel.isLoading, text: addLetterViewModel.loadingText))
+        .onAppear {
+            addLetterViewModel.setAlertManager(alertManager: alertManager)
+        }
         .fullScreenCover(isPresented: $addLetterViewModel.showingLetterImageFullScreenView) {
             LetterImageFullScreenView(
                 images: addLetterViewModel.images,
@@ -110,44 +117,13 @@ struct AddLetterView: View {
         .sheet(isPresented: $addLetterViewModel.showingUIImagePicker) {
             UIImagePicker(
                 sourceType: addLetterViewModel.imagePickerSourceType,
+                alertManager: alertManager,
                 selectedImages: $addLetterViewModel.images,
                 text: $addLetterViewModel.text,
                 isLoading: $addLetterViewModel.isLoading,
-                showingTextRecognizerErrorAlert: $addLetterViewModel.showingTextRecognizerErrorAlert,
                 loadingText: $addLetterViewModel.loadingText
             )
             .ignoresSafeArea(.all, edges: .bottom)
-        }
-        .alert("문자 인식 실패", isPresented: $addLetterViewModel.showingTextRecognizerErrorAlert) {
-
-        } message: {
-            Text("문자 인식에 실패했습니다. 다시 시도해 주세요.")
-        }
-        .alert("편지 정보 부족", isPresented: $addLetterViewModel.showingNotEnoughInfoAlert) {
-
-        } message: {
-            Text("편지를 저장하기 위한 정보가 부족해요. \(isReceived ? "보낸 사람" : "받는 사람")과 내용을 채워주세요.")
-        }
-        .alert("편지 저장 실패", isPresented: $addLetterViewModel.showingUploadErrorAlert) {
-
-        } message: {
-            Text("편지 저장에 실패했어요. 다시 시도해주세요.")
-        }
-        .alert("편지 요약 실패", isPresented: $addLetterViewModel.showingSummaryErrorAlert) {
-
-        } message: {
-            Text("편지 요약에 실패했어요. 직접 요약해주세요.")
-        }
-        .alert("편지 작성을 그만두시겠어요?", isPresented: $addLetterViewModel.showingDismissAlert) {
-            Button("계속 쓸래요", role: .cancel) {
-
-            }
-
-            Button("그만 할래요", role: .destructive) {
-                dismiss()
-            }
-        } message: {
-            Text("작성을 그만두면 내용이 사라져요")
         }
         .confirmationDialog("편지 사진 가져오기", isPresented: $addLetterViewModel.showingImageConfirmationDialog, titleVisibility: .visible) {
             Button {
@@ -210,6 +186,15 @@ extension AddLetterView {
                 .background(ThemeManager.themeColors[isThemeGroupButton].receivedLetterColor)
                 .clipShape(RoundedRectangle(cornerRadius: 4))
                 .focused($focusField, equals: .sender)
+                .onAppear {
+                    if let autoFilledName {
+                        if isReceived {
+                            addLetterViewModel.sender = autoFilledName
+                        } else {
+                            addLetterViewModel.receiver = autoFilledName
+                        }
+                    }
+                }
             }
             .frame(maxWidth: .infinity)
 

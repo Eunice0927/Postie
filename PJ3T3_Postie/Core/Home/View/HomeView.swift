@@ -175,8 +175,11 @@ struct HomeView: View {
 }
 
 struct AddLetterButton: View {
+    
+    @EnvironmentObject var alertManager: AlertManager
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
     @Binding var isMenuActive: Bool
+    var autoFilledName: String? = nil
     
     var body: some View {
         Menu {
@@ -184,11 +187,11 @@ struct AddLetterButton: View {
                 Label("나의 느린 우체통", systemImage: "envelope.open.badge.clock")
             }
             
-            NavigationLink(destination: AddLetterView(isReceived: true)) {
+            NavigationLink(destination: AddLetterView(isReceived: true, autoFilledName: autoFilledName)) {
                 Label("받은 편지 보관", systemImage: "envelope.open")
             }
             
-            NavigationLink(destination: AddLetterView(isReceived: false)) {
+            NavigationLink(destination: AddLetterView(isReceived: false, autoFilledName: autoFilledName)) {
                 Label("보낸 편지 보관", systemImage: "paperplane")
             }
         } label: {

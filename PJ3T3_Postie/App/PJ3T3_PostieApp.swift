@@ -47,9 +47,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct PJ3T3_PostieApp: App {
+    
     @Environment(\.scenePhase) var scenePhase
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
+    
+    @StateObject private var alertManager = AlertManager()
     
     private var clientID: String? {
         get { getValueOfPlistFile("MapApiKeys", "NAVER_GEOCODE_ID") }
@@ -75,6 +78,7 @@ struct PJ3T3_PostieApp: App {
                           }
                     }
                 }
+                .environmentObject(alertManager)
         }
     }
 }
