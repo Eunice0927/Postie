@@ -24,6 +24,7 @@ struct AddLetterView: View {
     var isReceived: Bool
     var autoFilledName: String?
 
+    @State var extraBottomPadding: CGFloat = 0 
     @FocusState private var focusField: Field?
     @Environment(\.dismiss) var dismiss
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
@@ -47,15 +48,20 @@ struct AddLetterView: View {
             ThemeManager.themeColors[isThemeGroupButton].backGroundColor
                 .ignoresSafeArea()
 
-            ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-                    letterInfoSection
-
-                    letterImagesSection
-
-                    letterTextSection
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 16) {
+                        letterInfoSection
+                        
+                        letterImagesSection
+                        
+                        letterTextSection
+                    }
+                    .padding()
                 }
-                .padding()
+                .customOnChange(focusField) {
+                    scrollToBotton(to: $0, proxy: proxy)
+                }
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -165,6 +171,20 @@ struct AddLetterView: View {
         .customOnChange(addLetterViewModel.shouldDismiss) { shouldDismiss in
             if shouldDismiss {
                 dismiss()
+            }
+        }
+    }
+    
+    private func scrollToBotton(to focusedField: Field?, proxy: ScrollViewProxy) {
+        guard focusedField == .summary else {
+            extraBottomPadding = 0
+            return
+        }
+        
+        extraBottomPadding = 10
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation {
+                proxy.scrollTo("summaryField", anchor: .bottom) // 자동 스크롤
             }
         }
     }
@@ -325,6 +345,8 @@ extension AddLetterView {
                     .background(ThemeManager.themeColors[isThemeGroupButton].receivedLetterColor)
                     .clipShape(RoundedRectangle(cornerRadius: 4))
                     .focused($focusField, equals: .summary)
+                    .padding(.bottom, extraBottomPadding)
+                    .id("summaryField")
             } else {
                 Label("편지를 요약해드릴게요.", systemImage: "text.quote.rtl")
                     .foregroundStyle(ThemeManager.themeColors[isThemeGroupButton].dividerColor)
