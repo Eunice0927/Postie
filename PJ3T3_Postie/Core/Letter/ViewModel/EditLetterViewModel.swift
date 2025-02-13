@@ -32,12 +32,17 @@ class EditLetterViewModel: ObservableObject {
     @Published var showingSelectSummaryView: Bool = false
     @Published var summaryList: [String] = []
     @Published var selectedSummary: String = ""
+    @Published var showingDismissAlert: Bool = false
 
     private var alertManager: AlertManager?
     private(set) var imagePickerSourceType: UIImagePickerController.SourceType = .camera
     
     func setAlertManager(alertManager: AlertManager) {
         self.alertManager = alertManager
+    }
+    
+    func showDismissAlert() {
+        showingDismissAlert = true
     }
 
     func removeImage(at index: Int) {

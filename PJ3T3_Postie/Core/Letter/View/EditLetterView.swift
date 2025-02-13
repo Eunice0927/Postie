@@ -55,6 +55,7 @@ struct EditLetterView: View {
                 .padding()
             }
         }
+        .interactiveDismissDisabled(true)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(ThemeManager.themeColors[isThemeGroupButton].backGroundColor, for: .navigationBar)
         .toolbar {
@@ -66,10 +67,8 @@ struct EditLetterView: View {
             
             ToolbarItemGroup(placement: .topBarLeading) {
                 Button {
-                    Task {
-                        dismiss()
-                    }
-                } label : {
+                    editLetterViewModel.showDismissAlert()
+                } label: {
                     Text("취소")
                 }
             }
@@ -161,6 +160,20 @@ struct EditLetterView: View {
             if shouldDismiss {
                 dismiss()
             }
+        }
+        .alert("수정사항을 취소하실 건가요?", isPresented: $editLetterViewModel.showingDismissAlert) {
+            Button(role: .destructive) {
+                dismiss()
+            } label: {
+                Text("그만 할래요")
+            }
+            Button(role: .cancel) {
+                
+            } label: {
+                Text("계속 쓸래요")
+            }
+        } message: {
+            Text("변경된 내용이 저장되지 않아요!")
         }
     }
 }
