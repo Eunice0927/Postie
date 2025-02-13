@@ -63,6 +63,16 @@ struct EditLetterView: View {
                     .bold()
                     .foregroundStyle(ThemeManager.themeColors[isThemeGroupButton].tintColor)
             }
+            
+            ToolbarItemGroup(placement: .topBarLeading) {
+                Button {
+                    Task {
+                        dismiss()
+                    }
+                } label : {
+                    Text("취소")
+                }
+            }
 
             ToolbarItemGroup(placement: .topBarTrailing) {
                 Button {
