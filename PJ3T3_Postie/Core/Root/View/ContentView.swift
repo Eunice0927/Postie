@@ -18,6 +18,7 @@ import CoreLocation
 struct ContentView: View {
     
     @EnvironmentObject var alertManager: AlertManager
+    @EnvironmentObject var remoteConfigManager: RemoteConfigManager
     @ObservedObject var authViewModel = AuthManager.shared
     @StateObject private var viewModel = AppViewModel()
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
@@ -129,7 +130,9 @@ struct ContentView: View {
                 
                 showUpdate = true
                 Logger.version.info("신규 버전 있음, alert 띄우자")
-                alertManager.showUpdateAlert(isForceUpdate: false)
+                let isForceUpdate = remoteConfigManager.getBool(from: .is_force_update)
+                print("remoteConfigManager - force update: \(isForceUpdate)")
+                alertManager.showUpdateAlert(isForceUpdate: isForceUpdate)
             }
         }
     }
