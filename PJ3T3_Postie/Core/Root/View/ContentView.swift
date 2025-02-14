@@ -17,6 +17,7 @@ import CoreLocation
 
 struct ContentView: View {
     
+    @Environment(\.scenePhase) var scenePhase
     @EnvironmentObject var alertManager: AlertManager
     @EnvironmentObject var remoteConfigManager: RemoteConfigManager
     @ObservedObject var authViewModel = AuthManager.shared
@@ -134,6 +135,11 @@ struct ContentView: View {
                 print("remoteConfigManager - force update: \(isForceUpdate)")
                 alertManager.showUpdateAlert(isForceUpdate: isForceUpdate)
             }
+        }
+        .customOnChange(scenePhase) { appStatus in
+            let isForceUpdate = remoteConfigManager.getBool(from: .is_force_update)
+            guard appStatus == .active, isForceUpdate  else { return }
+            alertManager.showUpdateAlert(isForceUpdate: isForceUpdate)
         }
     }
 //    func requestLocationPermission() {
