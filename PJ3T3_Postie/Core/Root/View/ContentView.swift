@@ -24,7 +24,6 @@ struct ContentView: View {
     @StateObject private var viewModel = AppViewModel()
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
     @StateObject private var tabSelection = TabSelection()
-    @State var showUpdate: Bool = false
     
     init() {
         let tbAppearance: UITabBarAppearance = UITabBarAppearance()
@@ -129,7 +128,6 @@ struct ContentView: View {
                     return
                 }
                 
-                showUpdate = true
                 Logger.version.info("신규 버전 있음, alert 띄우자")
                 let isForceUpdate = remoteConfigManager.getBool(from: .is_force_update)
                 print("remoteConfigManager - force update: \(isForceUpdate)")
