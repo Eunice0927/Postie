@@ -53,6 +53,7 @@ struct PJ3T3_PostieApp: App {
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
     
     @StateObject private var alertManager = AlertManager()
+    @StateObject private var remoteConfig = RemoteConfigManager()
     
     private var clientID: String? {
         get { getValueOfPlistFile("MapApiKeys", "NAVER_GEOCODE_ID") }
@@ -79,6 +80,7 @@ struct PJ3T3_PostieApp: App {
                     }
                 }
                 .environmentObject(alertManager)
+                .environmentObject(remoteConfig)
         }
     }
 }
