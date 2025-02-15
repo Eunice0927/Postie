@@ -67,7 +67,11 @@ struct EditLetterView: View {
             
             ToolbarItemGroup(placement: .topBarLeading) {
                 Button {
-                    editLetterViewModel.showDismissAlert()
+                    if editLetterViewModel.isEdited() {
+                        editLetterViewModel.showDismissAlert()
+                    } else {
+                        dismiss()
+                    }
                 } label: {
                     Text("취소")
                 }
@@ -76,7 +80,11 @@ struct EditLetterView: View {
             ToolbarItemGroup(placement: .topBarTrailing) {
                 Button {
                     Task {
-                        await editLetterViewModel.updateLetter(letter: letter)
+                        if editLetterViewModel.isEdited() {
+                            editLetterViewModel.showSaveAlert()
+                        } else {
+                            dismiss()
+                        }
                     }
                 } label : {
                     Text("완료")
@@ -117,6 +125,7 @@ struct EditLetterView: View {
         }
         .onAppear {
             editLetterViewModel.syncViewModelProperties(letter: letter)
+            editLetterViewModel.initViewModelProperties(letter: letter)
             editLetterViewModel.setAlertManager(alertManager: alertManager)
         }
         .confirmationDialog("편지 사진 가져오기", isPresented: $editLetterViewModel.showingImageConfirmationDialog, titleVisibility: .visible) {
@@ -174,6 +183,22 @@ struct EditLetterView: View {
             }
         } message: {
             Text("변경된 내용이 저장되지 않아요!")
+        }
+        .alert("이렇게 저장 할까요?", isPresented: $editLetterViewModel.showingSaveAlert) {
+            Button(role: .cancel) {
+                Task {
+                    await editLetterViewModel.updateLetter(letter: letter)
+                }
+            } label: {
+                Text("저장 할래요")
+            }
+            Button(role: .destructive) {
+                
+            } label: {
+                Text("계속 쓸래요")
+            }
+        } message: {
+            Text("수정사항에 따라 시간이 조금 걸릴 수 있어요.")
         }
     }
 }
