@@ -61,6 +61,7 @@ struct EditLetterView: View {
                 }
             }
         }
+        .interactiveDismissDisabled(true)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(ThemeManager.themeColors[isThemeGroupButton].backGroundColor, for: .navigationBar)
         .toolbar {
@@ -69,12 +70,18 @@ struct EditLetterView: View {
                     .bold()
                     .foregroundStyle(ThemeManager.themeColors[isThemeGroupButton].tintColor)
             }
+            
+            ToolbarItemGroup(placement: .topBarLeading) {
+                Button {
+                    editLetterViewModel.isEdited() ? editLetterViewModel.showDismissAlert() : dismiss()
+                } label: {
+                    Text("취소")
+                }
+            }
 
             ToolbarItemGroup(placement: .topBarTrailing) {
                 Button {
-                    Task {
-                        await editLetterViewModel.updateLetter(letter: letter)
-                    }
+                    editLetterViewModel.isEdited() ? editLetterViewModel.showSaveAlert() : dismiss()
                 } label : {
                     Text("완료")
                 }
@@ -157,6 +164,38 @@ struct EditLetterView: View {
             if shouldDismiss {
                 dismiss()
             }
+        }
+        .alert("편지 수정을 그만할까요?", isPresented: $editLetterViewModel.showingDismissAlert) {
+            Button {
+                
+            } label: {
+                Text("취소")
+            }
+            
+            Button {
+                dismiss()
+            } label: {
+                Text("확인")
+            }
+        } message: {
+            Text("변경된 내용이 저장되지 않아요!")
+        }
+        .alert("변경 사항을 저장 할까요?", isPresented: $editLetterViewModel.showingSaveAlert) {
+            Button {
+
+            } label: {
+                Text("취소")
+            }
+            
+            Button {
+                Task {
+                    await editLetterViewModel.updateLetter(letter: letter)
+                }
+            } label: {
+                Text("확인")
+            }
+        } message: {
+            Text("편지의 내용이 수정 되었어요!")
         }
     }
     
