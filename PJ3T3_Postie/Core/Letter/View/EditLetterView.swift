@@ -67,11 +67,7 @@ struct EditLetterView: View {
             
             ToolbarItemGroup(placement: .topBarLeading) {
                 Button {
-                    if editLetterViewModel.isEdited() {
-                        editLetterViewModel.showDismissAlert()
-                    } else {
-                        dismiss()
-                    }
+                    editLetterViewModel.isEdited() ? editLetterViewModel.showDismissAlert() : dismiss()
                 } label: {
                     Text("취소")
                 }
@@ -79,13 +75,7 @@ struct EditLetterView: View {
 
             ToolbarItemGroup(placement: .topBarTrailing) {
                 Button {
-                    Task {
-                        if editLetterViewModel.isEdited() {
-                            editLetterViewModel.showSaveAlert()
-                        } else {
-                            dismiss()
-                        }
-                    }
+                    editLetterViewModel.isEdited() ? editLetterViewModel.showSaveAlert() : dismiss()
                 } label : {
                     Text("완료")
                 }
@@ -125,7 +115,6 @@ struct EditLetterView: View {
         }
         .onAppear {
             editLetterViewModel.syncViewModelProperties(letter: letter)
-            editLetterViewModel.initViewModelProperties(letter: letter)
             editLetterViewModel.setAlertManager(alertManager: alertManager)
         }
         .confirmationDialog("편지 사진 가져오기", isPresented: $editLetterViewModel.showingImageConfirmationDialog, titleVisibility: .visible) {
@@ -170,7 +159,7 @@ struct EditLetterView: View {
                 dismiss()
             }
         }
-        .alert("수정사항을 취소하실 건가요?", isPresented: $editLetterViewModel.showingDismissAlert) {
+        .alert("편지 수정을 그만할까요?", isPresented: $editLetterViewModel.showingDismissAlert) {
             Button(role: .destructive) {
                 dismiss()
             } label: {
@@ -184,21 +173,21 @@ struct EditLetterView: View {
         } message: {
             Text("변경된 내용이 저장되지 않아요!")
         }
-        .alert("이렇게 저장 할까요?", isPresented: $editLetterViewModel.showingSaveAlert) {
+        .alert("변경 사항을 저장 할까요?", isPresented: $editLetterViewModel.showingSaveAlert) {
+            Button(role: .destructive) {
+
+            } label: {
+                Text("취소")
+            }
             Button(role: .cancel) {
                 Task {
                     await editLetterViewModel.updateLetter(letter: letter)
                 }
             } label: {
-                Text("저장 할래요")
-            }
-            Button(role: .destructive) {
-                
-            } label: {
-                Text("계속 쓸래요")
+                Text("확인")
             }
         } message: {
-            Text("수정사항에 따라 시간이 조금 걸릴 수 있어요.")
+            Text("편지의 내용이 수정 되었어요!")
         }
     }
 }

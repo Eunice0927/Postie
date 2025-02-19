@@ -34,42 +34,7 @@ class EditLetterViewModel: ObservableObject {
     @Published var selectedSummary: String = ""
     @Published var showingDismissAlert: Bool = false
     @Published var showingSaveAlert: Bool = false
-
-    private var initSender: String = ""
-    private var initReceiver: String = ""
-    private var initDate: Date = Date()
-    private var initText: String = ""
-    private var initSummary: String = ""
-    private var initImagesCount: Int = 0
-
-    func initViewModelProperties(letter: Letter) {
-        // 현재 값 저장
-        sender = letter.writer
-        receiver = letter.recipient
-        date = letter.date
-        text = letter.text
-        summary = letter.summary
-
-        // 원본 값 저장
-        initSender = letter.writer
-        initReceiver = letter.recipient
-        initDate = letter.date
-        initText = letter.text
-        initSummary = letter.summary
-        initImagesCount = fullPathsAndUrls.count
-    }
-
-    // 변경 여부 확인 함수
-    func isEdited() -> Bool {
-        return sender != initSender ||
-            receiver != initReceiver ||
-            date != initDate ||
-            text != initText ||
-            summary != initSummary ||
-            !newImages.isEmpty || // 이미지 x -> 이미지 추가. 변경점 확인
-            initImagesCount != fullPathsAndUrls.count // 그 외의 이미지 변경점 확인
-    }
-
+    
     private var alertManager: AlertManager?
     private(set) var imagePickerSourceType: UIImagePickerController.SourceType = .camera
     
@@ -121,6 +86,26 @@ class EditLetterViewModel: ObservableObject {
 
     func showSummaryConfirmationDialog() {
         showingSummaryConfirmationDialog = true
+    }
+    
+    // MARK: - checkIsEdited
+    
+    private var initSender: String = ""
+    private var initReceiver: String = ""
+    private var initDate: Date = Date()
+    private var initText: String = ""
+    private var initSummary: String = ""
+    private var initImagesCount: Int = 0
+
+    // 변경 여부 확인 함수
+    func isEdited() -> Bool {
+        return sender != initSender ||
+            receiver != initReceiver ||
+            date != initDate ||
+            text != initText ||
+            summary != initSummary ||
+            !newImages.isEmpty || // 이미지 x -> 이미지 추가. 변경점 확인
+            initImagesCount != fullPathsAndUrls.count // 그 외의 이미지 변경점 확인
     }
 
     // MARK: - Images
@@ -225,6 +210,14 @@ class EditLetterViewModel: ObservableObject {
 
         guard let urls = letter.imageURLs, let fullPaths = letter.imageFullPaths else { return }
         fullPathsAndUrls = zip(urls, fullPaths).map { FullPathAndUrl(fullPath: $0.1, url: $0.0) }
+        
+        // 편지 수정 완료 시 비교할 원본 값
+        initSender = letter.writer
+        initReceiver = letter.recipient
+        initDate = letter.date
+        initText = letter.text
+        initSummary = letter.summary
+        initImagesCount = fullPathsAndUrls.count
     }
 
     func getSummary(isReceived: Bool) async {
