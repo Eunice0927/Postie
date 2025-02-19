@@ -165,6 +165,7 @@ struct EditLetterView: View {
             } label: {
                 Text("취소")
             }
+            
             Button {
                 dismiss()
             } label: {
@@ -179,6 +180,7 @@ struct EditLetterView: View {
             } label: {
                 Text("취소")
             }
+            
             Button {
                 Task {
                     await editLetterViewModel.updateLetter(letter: letter)
