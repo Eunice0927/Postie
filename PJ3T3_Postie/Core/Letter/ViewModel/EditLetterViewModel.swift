@@ -90,22 +90,18 @@ class EditLetterViewModel: ObservableObject {
     
     // MARK: - checkIsEdited
     
-    private var initSender: String = ""
-    private var initReceiver: String = ""
-    private var initDate: Date = Date()
-    private var initText: String = ""
-    private var initSummary: String = ""
-    private var initImagesCount: Int = 0
+    private var originalLetter: Letter? = nil
+    private var originalImagesCount: Int = 0
 
     // 변경 여부 확인 함수
     func isEdited() -> Bool {
-        return sender != initSender ||
-            receiver != initReceiver ||
-            date != initDate ||
-            text != initText ||
-            summary != initSummary ||
-            !newImages.isEmpty || // 이미지 x -> 이미지 추가. 변경점 확인
-            initImagesCount != fullPathsAndUrls.count // 그 외의 이미지 변경점 확인
+        return sender != originalLetter?.writer ||
+        receiver != originalLetter?.recipient ||
+        date != originalLetter?.date ||
+        text != originalLetter?.text ||
+        summary != originalLetter?.summary ||
+        originalImagesCount != fullPathsAndUrls.count || // 그 외의 이미지 변경점 확인
+        !newImages.isEmpty // 이미지 x -> 이미지 추가. 변경점 확인
     }
 
     // MARK: - Images
@@ -212,12 +208,8 @@ class EditLetterViewModel: ObservableObject {
         fullPathsAndUrls = zip(urls, fullPaths).map { FullPathAndUrl(fullPath: $0.1, url: $0.0) }
         
         // 편지 수정 완료 시 비교할 원본 값
-        initSender = letter.writer
-        initReceiver = letter.recipient
-        initDate = letter.date
-        initText = letter.text
-        initSummary = letter.summary
-        initImagesCount = fullPathsAndUrls.count
+        originalLetter = letter
+        originalImagesCount = fullPathsAndUrls.count
     }
 
     func getSummary(isReceived: Bool) async {
