@@ -160,26 +160,26 @@ struct EditLetterView: View {
             }
         }
         .alert("편지 수정을 그만할까요?", isPresented: $editLetterViewModel.showingDismissAlert) {
-            Button(role: .destructive) {
-                dismiss()
-            } label: {
-                Text("그만 할래요")
-            }
-            Button(role: .cancel) {
+            Button {
                 
             } label: {
-                Text("계속 쓸래요")
+                Text("취소")
+            }
+            Button {
+                dismiss()
+            } label: {
+                Text("확인")
             }
         } message: {
             Text("변경된 내용이 저장되지 않아요!")
         }
         .alert("변경 사항을 저장 할까요?", isPresented: $editLetterViewModel.showingSaveAlert) {
-            Button(role: .destructive) {
+            Button {
 
             } label: {
                 Text("취소")
             }
-            Button(role: .cancel) {
+            Button {
                 Task {
                     await editLetterViewModel.updateLetter(letter: letter)
                 }
