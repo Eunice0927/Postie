@@ -34,20 +34,17 @@ class EditLetterViewModel: ObservableObject {
     @Published var selectedSummary: String = ""
     @Published var showingDismissAlert: Bool = false
     @Published var showingSaveAlert: Bool = false
+    @Published var newImages: [UIImage] = []
+    @Published var fullPathsAndUrls: [FullPathAndUrl] = []
     
     private var alertManager: AlertManager?
+    private var originalLetter: Letter? = nil
+    private var originalImagesCount: Int = 0
     private(set) var imagePickerSourceType: UIImagePickerController.SourceType = .camera
+    var deleteCandidatesFromFullPathsANdUrls: [FullPathAndUrl] = []
     
     func setAlertManager(alertManager: AlertManager) {
         self.alertManager = alertManager
-    }
-    
-    func showDismissAlert() {
-        showingDismissAlert = true
-    }
-
-    func showSaveAlert() {
-        showingSaveAlert = true
     }
 
     func removeImage(at index: Int) {
@@ -75,9 +72,13 @@ class EditLetterViewModel: ObservableObject {
     func showSummaryTextField() {
         showingSummaryTextField = true
     }
+    
+    func showDismissAlert() {
+        showingDismissAlert = true
+    }
 
-    private func dismissView() {
-        shouldDismiss = true
+    func showSaveAlert() {
+        showingSaveAlert = true
     }
 
     func showConfirmationDialog() {
@@ -88,29 +89,11 @@ class EditLetterViewModel: ObservableObject {
         showingSummaryConfirmationDialog = true
     }
     
-    // MARK: - checkIsEdited
-    
-    private var originalLetter: Letter? = nil
-    private var originalImagesCount: Int = 0
-
-    // 변경 여부 확인 함수
-    func isEdited() -> Bool {
-        return sender != originalLetter?.writer ||
-        receiver != originalLetter?.recipient ||
-        date != originalLetter?.date ||
-        text != originalLetter?.text ||
-        summary != originalLetter?.summary ||
-        originalImagesCount != fullPathsAndUrls.count || // 그 외의 이미지 변경점 확인
-        !newImages.isEmpty // 이미지 x -> 이미지 추가. 변경점 확인
+    private func dismissView() {
+        shouldDismiss = true
     }
 
     // MARK: - Images
-
-    @Published var newImages: [UIImage] = []
-
-    @Published var fullPathsAndUrls: [FullPathAndUrl] = []
-    var deleteCandidatesFromFullPathsANdUrls: [FullPathAndUrl] = []
-
     private func removeImages(docId: String, deleteCandidates: [FullPathAndUrl]) async throws {
         for deleteCandidate in deleteCandidatesFromFullPathsANdUrls {
             try await StorageManager.shared.deleteItemAsync(fullPath: deleteCandidate.fullPath)
@@ -210,6 +193,19 @@ class EditLetterViewModel: ObservableObject {
         // 편지 수정 완료 시 비교할 원본 값
         originalLetter = letter
         originalImagesCount = fullPathsAndUrls.count
+    }
+    
+    //MARK: - Other functions
+    
+    /// 편지 수정 여부 확인 함수
+    func isEdited() -> Bool {
+        return sender != originalLetter?.writer ||
+        receiver != originalLetter?.recipient ||
+        date != originalLetter?.date ||
+        text != originalLetter?.text ||
+        summary != originalLetter?.summary ||
+        fullPathsAndUrls.count != originalImagesCount || // 그 외의 이미지 변경점 확인
+        !newImages.isEmpty // 이미지 x -> 이미지 추가. 변경점 확인
     }
 
     func getSummary(isReceived: Bool) async {
