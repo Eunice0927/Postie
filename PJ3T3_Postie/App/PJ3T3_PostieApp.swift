@@ -48,7 +48,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct PJ3T3_PostieApp: App {
     
-    @Environment(\.scenePhase) var scenePhase
+    @Environment(\.scenePhase) private var scenePhase
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
     
