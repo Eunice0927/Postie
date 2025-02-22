@@ -69,4 +69,35 @@ final class AlertManager: ObservableObject {
     func showEditErrorAlert() {
         showOneButtonAlert(title: "편지 수정 실패", message: "편지 수정에 실패했어요. 다시 시도해 주세요")
     }
+    
+    func showUpdateAlert(isForceUpdate: Bool) {
+        let appleID = 6478052812 //테스트용 멜론 앱으로 연결: 415597317
+        let appStoreURL = "itms-apps://itunes.apple.com/app/apple-store/\(appleID)"
+        let alertTitle = "업데이트 알림"
+        let alertMessage = "새로운 버전 업데이트가 있어요! 더 나은 서비스를 위해 포스티를 업데이트 해 주세요."
+        let updateButtonLabel = "업데이트"
+        let updateAction = {
+            if let url = URL(string: appStoreURL) {
+                UIApplication.shared.open(url)
+            }
+        }
+        
+        if isForceUpdate {
+            showOneButtonAlert(
+                title: alertTitle,
+                message: alertMessage,
+                buttonLabel: updateButtonLabel,
+                buttonAction: updateAction
+            )
+        } else {
+            showTwoButtonAlert(
+                title: alertTitle,
+                message: alertMessage,
+                leftButtonLabel: "나중에",
+                leftButtonRole: .cancel,
+                rightButtonLabel: updateButtonLabel,
+                rightButtonAction: updateAction
+            )
+        }
+    }
 }

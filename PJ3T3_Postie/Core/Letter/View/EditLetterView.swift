@@ -23,6 +23,7 @@ struct EditLetterView: View {
 
     let letter: Letter
 
+    @State var extraBottomPadding: CGFloat = 0
     @FocusState private var focusField: Field?
     @Environment(\.dismiss) var dismiss
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
@@ -44,17 +45,23 @@ struct EditLetterView: View {
             ThemeManager.themeColors[isThemeGroupButton].backGroundColor
                 .ignoresSafeArea()
 
-            ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-                    letterInfoSection
-
-                    letterImagesSection
-
-                    letterTextSection
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 16) {
+                        letterInfoSection
+                        
+                        letterImagesSection
+                        
+                        letterTextSection
+                    }
+                    .padding()
                 }
-                .padding()
+                .customOnChange(focusField) {
+                    scrollToBotton(to: $0, proxy: proxy)
+                }
             }
         }
+        .interactiveDismissDisabled(true)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(ThemeManager.themeColors[isThemeGroupButton].backGroundColor, for: .navigationBar)
         .toolbar {
@@ -63,12 +70,18 @@ struct EditLetterView: View {
                     .bold()
                     .foregroundStyle(ThemeManager.themeColors[isThemeGroupButton].tintColor)
             }
+            
+            ToolbarItemGroup(placement: .topBarLeading) {
+                Button {
+                    editLetterViewModel.isEdited() ? editLetterViewModel.showDismissAlert() : dismiss()
+                } label: {
+                    Text("취소")
+                }
+            }
 
             ToolbarItemGroup(placement: .topBarTrailing) {
                 Button {
-                    Task {
-                        await editLetterViewModel.updateLetter(letter: letter)
-                    }
+                    editLetterViewModel.isEdited() ? editLetterViewModel.showSaveAlert() : dismiss()
                 } label : {
                     Text("완료")
                 }
@@ -150,6 +163,52 @@ struct EditLetterView: View {
         .customOnChange(editLetterViewModel.shouldDismiss) { shouldDismiss in
             if shouldDismiss {
                 dismiss()
+            }
+        }
+        .alert("편지 수정을 그만할까요?", isPresented: $editLetterViewModel.showingDismissAlert) {
+            Button {
+                
+            } label: {
+                Text("취소")
+            }
+            
+            Button {
+                dismiss()
+            } label: {
+                Text("확인")
+            }
+        } message: {
+            Text("변경된 내용이 저장되지 않아요!")
+        }
+        .alert("변경 사항을 저장 할까요?", isPresented: $editLetterViewModel.showingSaveAlert) {
+            Button {
+
+            } label: {
+                Text("취소")
+            }
+            
+            Button {
+                Task {
+                    await editLetterViewModel.updateLetter(letter: letter)
+                }
+            } label: {
+                Text("확인")
+            }
+        } message: {
+            Text("편지의 내용이 수정 되었어요!")
+        }
+    }
+    
+    private func scrollToBotton(to focusedField: Field?, proxy: ScrollViewProxy) {
+        guard focusedField == .summary else {
+            extraBottomPadding = 0
+            return
+        }
+        
+        extraBottomPadding = 10
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation {
+                proxy.scrollTo("summaryField", anchor: .bottom) // 자동 스크롤
             }
         }
     }
@@ -331,6 +390,8 @@ extension EditLetterView {
                     .background(ThemeManager.themeColors[isThemeGroupButton].receivedLetterColor)
                     .clipShape(RoundedRectangle(cornerRadius: 4))
                     .focused($focusField, equals: .summary)
+                    .padding(.bottom, extraBottomPadding)
+                    .id("summaryField")
             } else {
                 Label("편지를 요약해드릴게요.", systemImage: "text.quote.rtl")
                     .foregroundStyle(ThemeManager.themeColors[isThemeGroupButton].dividerColor)
