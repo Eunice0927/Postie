@@ -298,6 +298,7 @@ extension EditLetterView {
                                 } label: {
                                     Image(systemName: "xmark.circle.fill")
                                         .symbolRenderingMode(.palette)
+                                    // 여기 색깔 이따 바꾸기
                                         .foregroundStyle(.white, ThemeManager.themeColors[isThemeGroupButton].tintColor)
                                 }
                                 .offset(x: 8, y: -8)
