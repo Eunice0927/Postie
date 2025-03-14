@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InformationView: View {
-    @StateObject private var viewModel = InformationViewModel()
+    @StateObject private var informationViewModel = InformationViewModel()
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
     
     var body: some View {
@@ -81,7 +81,7 @@ struct InformationView: View {
                     DividerView()
                         .padding(.bottom, 5)
                     
-                    LazyVGrid(columns: viewModel.columns, spacing: 9) {
+                    LazyVGrid(columns: informationViewModel.columns, spacing: 9) {
                         ForEach(0..<PersonData.count, id: \.self) { person in
                             InformationViewModel.PersonGridView(person: PersonData[person])
                         }
@@ -96,7 +96,7 @@ struct InformationView: View {
                     DividerView()
                         .padding(.bottom, 5)
                     
-                    LazyVGrid(columns: viewModel.columns, spacing: 9) {
+                    LazyVGrid(columns: informationViewModel.columns, spacing: 9) {
                         ForEach(0..<ContributeData.count, id: \.self) { person in
                             InformationViewModel.PersonGridView(person: ContributeData[person])
                         }
