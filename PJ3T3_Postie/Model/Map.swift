@@ -1,5 +1,5 @@
 //
-//  MapViewMoel.swift
+//  Map.swift
 //  PJ3T3_Postie
 //
 //  Created by kwon ji won on 1/17/24.
