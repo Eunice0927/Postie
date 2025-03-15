@@ -18,7 +18,7 @@ struct MapView: View {
     private let name = ["우체국", "우체통"]
     
     @StateObject var naverGeocodeAPI = NaverGeocodeAPI.shared
-    @StateObject var officeInfoServiceAPI = OfficeInfoServiceAPI.shared
+    @StateObject var mapViewModel = MapViewModel()
     @StateObject var locationManager = LocationManager() // 지금 위치를 알기 위한 값
     @StateObject var coordinator: Coordinator = Coordinator.shared
     
@@ -100,7 +100,7 @@ struct MapView: View {
                                         
                                         self.coord = UserLocation(latitude, longitude)
                                         
-                                        officeInfoServiceAPI.fetchData(postDivType: selectedButtonIndex + 1, postLatitude: coord.lat, postLongitude: coord.lng)
+                                        mapViewModel.fetchData(postDivType: selectedButtonIndex + 1, postLatitude: coord.lat, postLongitude: coord.lng)
 
                                         Logger.map.info("위경도 변환 성공\(coord.lat) \(coord.lng)")
                                     } else {
@@ -260,8 +260,7 @@ struct MapView: View {
             // 초기 데이터 로드
             loadInitialData()
         }
-        .onChange(of: officeInfoServiceAPI.infos) { newInfos in
-
+        .onChange(of: mapViewModel.infos) { newInfos in
             for result in newInfos {
                 var lunchtime: String = ""
                 if result.lunchTime == "null" {
@@ -320,7 +319,7 @@ struct MapView: View {
     
     private func fetchData() {
         // 데이터 로드
-        officeInfoServiceAPI.fetchData(postDivType: selectedButtonIndex + 1, postLatitude: coord.lat, postLongitude: coord.lng)
+        mapViewModel.fetchData(postDivType: selectedButtonIndex + 1, postLatitude: coord.lat, postLongitude: coord.lng)
         coordinator.updateMapView(coord: coord, overlay: true)
     }
     
@@ -331,7 +330,7 @@ struct MapView: View {
         
         coordinator.updateMapView(coord: coord, overlay: false)
         
-        officeInfoServiceAPI.fetchData(postDivType: selectedButtonIndex + 1, postLatitude: coord.lat, postLongitude: coord.lng)
+        mapViewModel.fetchData(postDivType: selectedButtonIndex + 1, postLatitude: coord.lat, postLongitude: coord.lng)
         
         // 현 위치에서 검색 버튼 비활성화
         showResearchButton = false
