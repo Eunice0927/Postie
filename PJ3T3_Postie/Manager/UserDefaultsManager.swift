@@ -9,7 +9,7 @@ import Foundation
 
 enum UserDefaultsKey: String {
     case appFirstTimeOpend // Bool: 앱을 설치 후 처음 실행했는지 여부
-    case lastestNoticeUUID
+    case latestNoticeUUID
     
     case profileImageTemp
     case IsThemeGroupButton

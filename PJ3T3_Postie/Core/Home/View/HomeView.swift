@@ -188,7 +188,7 @@ struct HomeView: View {
                         }
                     }
                     
-                    hasNewNotice = remoteConfigManager.getString(from: .latest_notice_uuid) != UserDefaultsManager.get(forKey: .lastestNoticeUUID) ?? ""
+                    hasNewNotice = remoteConfigManager.getString(from: .latest_notice_uuid) != UserDefaultsManager.get(forKey: .latestNoticeUUID) ?? ""
                 }
             }
         }

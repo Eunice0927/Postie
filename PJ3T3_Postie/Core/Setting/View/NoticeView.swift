@@ -72,7 +72,7 @@ struct NoticeView: View {
                                             .onAppear {
                                                 if notice.id == latestNoticeUUID {
                                                     hasNewNotice = false
-                                                    UserDefaultsManager.set(latestNoticeUUID, forKey: .lastestNoticeUUID)
+                                                    UserDefaultsManager.set(latestNoticeUUID, forKey: .latestNoticeUUID)
                                                 }
                                             }
                                     }
