@@ -165,7 +165,7 @@ struct ThemeView: View {
                             .tabViewStyle(PageTabViewStyle())
                             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
                             .customOnChange(isThemeGroupButton) { newValue in
-                                saveToUserDefaults(value: newValue, key: "IsThemeGroupButton")
+                                UserDefaultsManager.set(newValue, forKey: .IsThemeGroupButton)
                             }
                         } else if selectedLayoutMode == 1 {
                             ScrollView {
@@ -276,7 +276,7 @@ struct ThemeView: View {
                             .tabViewStyle(PageTabViewStyle())
                             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
                             .customOnChange(isTabGroupButton) { newValue in
-                                saveToUserDefaults(value: newValue, key: "IsTabGroupButton")
+                                UserDefaultsManager.set(newValue, forKey: .IsTabGroupButton)
                             }
                         } else {
                             ScrollView {
@@ -352,10 +352,6 @@ struct CustomImageModifier: ViewModifier {
             .frame(height: height < 650 ? height * 0.7 : height * 0.75)
             .shadow(color: Color.postieBlack.opacity(0.1), radius: 3)
     }
-}
-
-func saveToUserDefaults<T>(value: T, key: String) {
-    UserDefaults.standard.set(value, forKey: key)
 }
 
 //#Preview {

@@ -224,10 +224,6 @@ struct DividerView: View {
     }
 }
 
-private func getValueFromUserDefaults<T>(key: String, defaultValue: T) -> T {
-    return UserDefaults.standard.object(forKey: key) as? T ?? defaultValue
-}
-
 //#Preview {
 //    HomeView()
 //}

@@ -20,6 +20,7 @@
 		0E882AEE2B6B73DE00D8F2FC /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E882AED2B6B73DE00D8F2FC /* LocationManager.swift */; };
 		0E882AF02B6B79D800D8F2FC /* CoordinaterEtc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E882AEF2B6B79D800D8F2FC /* CoordinaterEtc.swift */; };
 		0E882AF12B6B907200D8F2FC /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F6ACD2B5763CA003DFE83 /* AuthManager.swift */; };
+		9E0B2E732D85C3B300F6226B /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0B2E722D85C3B300F6226B /* UserDefaultsManager.swift */; };
 		9E0FA11C2B54D27A001CEEB9 /* PJ3T3_PostieApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0FA11B2B54D27A001CEEB9 /* PJ3T3_PostieApp.swift */; };
 		9E0FA11E2B54D27A001CEEB9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0FA11D2B54D27A001CEEB9 /* ContentView.swift */; };
 		9E0FA1202B54D27C001CEEB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E0FA11F2B54D27C001CEEB9 /* Assets.xcassets */; };
@@ -154,6 +155,7 @@
 		23E14589945C36E243AAF134 /* Pods-PJ3T3_Postie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PJ3T3_Postie.debug.xcconfig"; path = "Target Support Files/Pods-PJ3T3_Postie/Pods-PJ3T3_Postie.debug.xcconfig"; sourceTree = "<group>"; };
 		84267E897C35F8294DF9D1F2 /* Pods-PJ3T3_Postie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PJ3T3_Postie.release.xcconfig"; path = "Target Support Files/Pods-PJ3T3_Postie/Pods-PJ3T3_Postie.release.xcconfig"; sourceTree = "<group>"; };
 		9E078CBF2B7207660072E5FC /* AppleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleUser.swift; sourceTree = "<group>"; };
+		9E0B2E722D85C3B300F6226B /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		9E0FA1182B54D27A001CEEB9 /* PJ3T3_Postie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PJ3T3_Postie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E0FA11B2B54D27A001CEEB9 /* PJ3T3_PostieApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PJ3T3_PostieApp.swift; sourceTree = "<group>"; };
 		9E0FA11D2B54D27A001CEEB9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -618,6 +620,7 @@
 				9E865CC42B839CC300CD7CAD /* NotificationManager.swift */,
 				9E4ADAD12D5F584B008BE84A /* RemoteConfigManager.swift */,
 				9E7F8C772B5E69B000F1A6BF /* StorageManager.swift */,
+				9E0B2E722D85C3B300F6226B /* UserDefaultsManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -886,6 +889,7 @@
 				E36587AB2B7E34E400584965 /* GroupedLetterViewModel.swift in Sources */,
 				9E4ADAD22D5F584B008BE84A /* RemoteConfigManager.swift in Sources */,
 				9E9A8BF12B6B85640072CB75 /* PostieUser.swift in Sources */,
+				9E0B2E732D85C3B300F6226B /* UserDefaultsManager.swift in Sources */,
 				0E29F0DB2B5FDC0F005B86FB /* NaverMap.swift in Sources */,
 				0E29F0E02B602E3D005B86FB /* MyCoord.swift in Sources */,
 				E36587972B78F30F00584965 /* NoticeView.swift in Sources */,

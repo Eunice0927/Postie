@@ -96,7 +96,7 @@ struct ProfileEditView: View {
                             }
                         }
                         .customOnChange(profileImageTemp) { newValue in
-                            saveToUserDefaults(value: newValue, key: "profileImageTemp")
+                            UserDefaultsManager.set(newValue, forKey: .profileImageTemp)
                         }
                     }
                 }
