@@ -519,7 +519,6 @@
 			isa = PBXGroup;
 			children = (
 				9E9F6AC12B576393003DFE83 /* MapApi.swift */,
-				0E29F0DA2B5FDC0F005B86FB /* NaverMap.swift */,
 				0E882AED2B6B73DE00D8F2FC /* LocationManager.swift */,
 			);
 			path = ViewModel;
@@ -530,6 +529,7 @@
 			children = (
 				0E29F0DC2B5FDC6A005B86FB /* Coordinator.swift */,
 				0E882AEF2B6B79D800D8F2FC /* CoordinaterEtc.swift */,
+				0E29F0DA2B5FDC0F005B86FB /* NaverMap.swift */,
 				9E9F6AB92B5762FC003DFE83 /* MapView.swift */,
 			);
 			path = View;
