@@ -67,6 +67,15 @@ struct LetterImageFullScreenView: View {
                                 .foregroundStyle(.postieWhite)
                         }
                     }
+                    
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "square.and.arrow.down")
+                                .foregroundStyle(.postieWhite)
+                        }
+                    }
                 }
                 .modifier(SwipeToDismissModifier(onDismiss: {
                     dismiss()
