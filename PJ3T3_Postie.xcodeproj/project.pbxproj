@@ -16,7 +16,6 @@
 		0E29F0D82B5FA2FC005B86FB /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E29F0D72B5FA2FC005B86FB /* Button.swift */; };
 		0E29F0DB2B5FDC0F005B86FB /* NaverMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E29F0DA2B5FDC0F005B86FB /* NaverMap.swift */; };
 		0E29F0DD2B5FDC6A005B86FB /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E29F0DC2B5FDC6A005B86FB /* Coordinator.swift */; };
-		0E29F0E02B602E3D005B86FB /* MyCoord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E29F0DF2B602E3D005B86FB /* MyCoord.swift */; };
 		0E882AEE2B6B73DE00D8F2FC /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E882AED2B6B73DE00D8F2FC /* LocationManager.swift */; };
 		0E882AF02B6B79D800D8F2FC /* CoordinaterEtc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E882AEF2B6B79D800D8F2FC /* CoordinaterEtc.swift */; };
 		0E882AF12B6B907200D8F2FC /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F6ACD2B5763CA003DFE83 /* AuthManager.swift */; };
@@ -149,7 +148,6 @@
 		0E29F0D72B5FA2FC005B86FB /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		0E29F0DA2B5FDC0F005B86FB /* NaverMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMap.swift; sourceTree = "<group>"; };
 		0E29F0DC2B5FDC6A005B86FB /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		0E29F0DF2B602E3D005B86FB /* MyCoord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoord.swift; sourceTree = "<group>"; };
 		0E882AED2B6B73DE00D8F2FC /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		0E882AEF2B6B79D800D8F2FC /* CoordinaterEtc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinaterEtc.swift; sourceTree = "<group>"; };
 		19068E0481D2E4323D4AC3E2 /* Pods_PJ3T3_Postie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PJ3T3_Postie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -521,7 +519,6 @@
 			isa = PBXGroup;
 			children = (
 				9E9F6AC12B576393003DFE83 /* MapApi.swift */,
-				0E29F0DF2B602E3D005B86FB /* MyCoord.swift */,
 				0E29F0DA2B5FDC0F005B86FB /* NaverMap.swift */,
 				0E882AED2B6B73DE00D8F2FC /* LocationManager.swift */,
 			);
@@ -894,7 +891,6 @@
 				9E9A8BF12B6B85640072CB75 /* PostieUser.swift in Sources */,
 				9E0B2E732D85C3B300F6226B /* UserDefaultsManager.swift in Sources */,
 				0E29F0DB2B5FDC0F005B86FB /* NaverMap.swift in Sources */,
-				0E29F0E02B602E3D005B86FB /* MyCoord.swift in Sources */,
 				E36587972B78F30F00584965 /* NoticeView.swift in Sources */,
 				9E10CB1F2D2921790000F201 /* ImageAssetManager.swift in Sources */,
 				E3EECAFB2B60FB2400E639F2 /* Date.swift in Sources */,

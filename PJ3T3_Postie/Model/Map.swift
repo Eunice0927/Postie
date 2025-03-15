@@ -77,3 +77,13 @@ struct CombinedResult: Decodable, Hashable {
     let address: String
 }
 
+///사용자 정의 지도 위치
+struct UserLocation {
+    var lat: Double
+    var lng: Double
+    
+    init(_ lat: Double, _ lng: Double) {
+        self.lat = lat
+        self.lng = lng
+    }
+}

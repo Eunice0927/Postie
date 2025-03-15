@@ -33,7 +33,7 @@ struct MapView: View {
     @State private var checkAlert = false
     @State private var checkAllow = false
     @State var overlay = true
-    @State var coord: MyCoord = MyCoord(37.579081, 126.974375) //Dafult값 (서울역)
+    @State var coord: UserLocation = UserLocation(37.579081, 126.974375) //Dafult값 (서울역)
     
     @FocusState private var isSearchFocused: Bool
     
@@ -96,9 +96,9 @@ struct MapView: View {
                                     
                                     if let latitude = latitude, let longitude = longitude {
                                         //위경도 값 저장
-                                        coordinator.ButtonUpdateMapView(coord: MyCoord(latitude,longitude))
+                                        coordinator.ButtonUpdateMapView(coord: UserLocation(latitude,longitude))
                                         
-                                        self.coord = MyCoord(latitude, longitude)
+                                        self.coord = UserLocation(latitude, longitude)
                                         
                                         officeInfoServiceAPI.fetchData(postDivType: selectedButtonIndex + 1, postLatitude: coord.lat, postLongitude: coord.lng)
 
@@ -191,7 +191,7 @@ struct MapView: View {
                                             coordinator.cameraLocation?.lat = coordinate.latitude
                                             coordinator.cameraLocation?.lng = coordinate.longitude
                                             // 지도 업데이트
-                                            coordinator.updateMapView(coord: MyCoord(coordinate.latitude + 0.000001, coordinate.longitude + 0.000001), overlay: true)
+                                            coordinator.updateMapView(coord: UserLocation(coordinate.latitude + 0.000001, coordinate.longitude + 0.000001), overlay: true)
                                             checkMyLocation = false
                                         }
                                     @unknown default:
@@ -281,7 +281,7 @@ struct MapView: View {
         //초기 화면이 열리 때 위치값을 불러온다.
         .onChange(of: locationManager.location) { newLocation in
             if let location = newLocation {
-                coord = MyCoord(location.coordinate.latitude, location.coordinate.longitude)
+                coord = UserLocation(location.coordinate.latitude, location.coordinate.longitude)
                 
                 Logger.map.info("현재위치: \(coord.lat), \(coord.lng)")
 
@@ -315,7 +315,7 @@ struct MapView: View {
         // 현재 위치 업데이트
         locationManager.startUpdatingLocation()
         // 처음 들어올 때 coord 업데이트
-        coord = MyCoord(coordinator.cameraLocation?.lat ?? coord.lat, coordinator.cameraLocation?.lng ?? coord.lng)
+        coord = UserLocation(coordinator.cameraLocation?.lat ?? coord.lat, coordinator.cameraLocation?.lng ?? coord.lng)
     }
     
     private func fetchData() {
@@ -327,7 +327,7 @@ struct MapView: View {
     private func fetchInCurrentLocation() {
         locationManager.stopUpdatingLocation() // 현재 위치 추적 금지
         
-        coord = MyCoord(coordinator.cameraLocation?.lat ?? coord.lat, coordinator.cameraLocation?.lng ?? coord.lng)
+        coord = UserLocation(coordinator.cameraLocation?.lat ?? coord.lat, coordinator.cameraLocation?.lng ?? coord.lng)
         
         coordinator.updateMapView(coord: coord, overlay: false)
         

@@ -10,7 +10,7 @@ import SwiftUI
 import NMapsMap
 
 struct NaverMap: UIViewRepresentable {
-    var coord: MyCoord
+    var coord: UserLocation
     
     func makeCoordinator() -> Coordinator {
         Coordinator.shared

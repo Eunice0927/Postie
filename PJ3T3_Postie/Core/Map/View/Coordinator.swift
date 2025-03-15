@@ -25,7 +25,7 @@ class Coordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate {
     //    let startInfoWindow = NMFInfoWindow()
     
     var markers: [NMFMarker] = []
-    var coord: MyCoord = MyCoord(0.0,0.0) // 내 위치값 초기 설정
+    var coord: UserLocation = UserLocation(0.0,0.0) // 내 위치값 초기 설정
     
     @Published var currentLocation: CLLocation?
     @Published var isUpdatingLocation: Bool = true
@@ -70,7 +70,7 @@ class Coordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate {
     
     // 맵을 업데이트 -> 해당 위치에서 우체국 찾기 때 사용 예정
     // 값을 변경 할때 마다 오버레이 설정 
-    func updateMapView(coord: MyCoord, overlay: Bool) {
+    func updateMapView(coord: UserLocation, overlay: Bool) {
        
         removeCircleOverlay()
         
@@ -95,7 +95,7 @@ class Coordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate {
         drawCircleOvelay(center: center, radius: 1000)
     }
     
-    func ButtonUpdateMapView(coord: MyCoord) {
+    func ButtonUpdateMapView(coord: UserLocation) {
         self.coord = coord //클래스 속성인 coord를 함수 인자로 전달된 값으로 변경
         
         // NMGLatLng: 하나의 위경도 좌표를 나타내는 클래스
