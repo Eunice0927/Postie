@@ -19,8 +19,8 @@ import NMapsMap
 class NaverMapCoordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate {
     
     let view = NMFNaverMapView(frame: .zero) // 지도 객체 생성
-    //    let locationManager = CLLocationManager()
-    //    let startInfoWindow = NMFInfoWindow()
+//    let locationManager = CLLocationManager()
+//    let startInfoWindow = NMFInfoWindow()
     
     var markers: [NMFMarker] = []
     var coord: UserLocation = UserLocation(0.0,0.0) // 내 위치값 초기 설정
@@ -95,17 +95,14 @@ class NaverMapCoordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate 
         let updatecoord = NMGLatLng(lat: coord.lat, lng: coord.lng)
         
         moveCamera(coord: updatecoord) //카메라 바로 이동
-        
-        // 마커와 정보 창을 새롭게 추가하기 위해 기존 내용을 삭제
-        removeAllMakers()
+        removeAllMakers()// 마커와 정보 창을 새롭게 추가하기 위해 기존 내용을 삭제
         
         // 위치 오버레이
         if overlay {
             setLocationOverlay(coord: updatecoord)
         }
         
-        let center = NMGLatLng(lat: coord.lat, lng: coord.lng)
-        drawCircleOvelay(center: center, radius: 1000)
+        drawCircleOvelay(center: updatecoord, radius: 1000)
     }
     
     func ButtonUpdateMapView(coord: UserLocation) {
@@ -142,8 +139,12 @@ class NaverMapCoordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate 
         
         self.circleOverlay = circleOverlay
         
-        let cameraUpdate = NMFCameraUpdate(fit: NMGLatLngBounds(southWest: NMGLatLng(lat: center.lat - 0.01, lng: center.lng - 0.01),
-                                                                northEast: NMGLatLng(lat: center.lat + 0.01, lng: center.lng + 0.01)))
+        let cameraUpdate = NMFCameraUpdate(
+            fit: NMGLatLngBounds(
+                southWest: NMGLatLng(lat: center.lat - 0.01, lng: center.lng - 0.01),
+                northEast: NMGLatLng(lat: center.lat + 0.01, lng: center.lng + 0.01)
+            )
+        )
         view.mapView.moveCamera(cameraUpdate)
     }
     
@@ -153,8 +154,8 @@ class NaverMapCoordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate 
         let marker = NMFMarker()
         
         marker.captionText = caption
-        //        marker.iconTintColor = UIColor.red
-        //        marker.captionColor = UIColor.orange
+//        marker.iconTintColor = UIColor.red
+//        marker.captionColor = UIColor.orange
         marker.captionTextSize = 16
         marker.subCaptionText = "영업시간 \(time) \n 점심시간 \(lunchtime)"
         
