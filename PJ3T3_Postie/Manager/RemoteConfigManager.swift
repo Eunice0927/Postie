@@ -23,7 +23,7 @@ final class RemoteConfigManager: ObservableObject {
     }
     
     private func fetchConfig() {
-        settings.minimumFetchInterval = 1
+        settings.minimumFetchInterval = 3600
         remoteConfig.configSettings = settings
         
         remoteConfig.fetch() { [weak self] status, error in
