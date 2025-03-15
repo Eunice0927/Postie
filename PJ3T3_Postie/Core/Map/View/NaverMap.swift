@@ -12,7 +12,7 @@ import NMapsMap
 struct NaverMap: UIViewRepresentable {
     var coord: UserLocation
     
-    func makeCoordinator() -> Coordinator {
+    func makeCoordinator() -> NaverMapCoordinator {
         Coordinator.shared
     }
     
