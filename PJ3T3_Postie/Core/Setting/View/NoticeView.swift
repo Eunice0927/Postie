@@ -69,6 +69,12 @@ struct NoticeView: View {
                                         Text(part.0)
                                             .font(.callout)
                                             .fontWeight(part.1 ? .bold : .regular)
+                                            .onAppear {
+                                                if notice.id == latestNoticeUUID {
+                                                    hasNewNotice = false
+                                                    UserDefaultsManager.set(latestNoticeUUID, forKey: .lastestNoticeUUID)
+                                                }
+                                            }
                                     }
                                     
                                     HStack {
