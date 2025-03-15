@@ -164,7 +164,15 @@ struct HomeView: View {
                             .edgesIgnoringSafeArea(.all)
                     }
                     
-                    SettingView(isSideMenuOpen: $isSideMenuOpen, currentGroupPage: $currentGroupPage, isTabGroupButton: $isTabGroupButton, currentColorPage: $currentColorPage, profileImage: $profileImage, profileImageTemp: $profileImageTemp)
+                    SettingView(
+                        isSideMenuOpen: $isSideMenuOpen,
+                        currentGroupPage: $currentGroupPage,
+                        isTabGroupButton: $isTabGroupButton,
+                        currentColorPage: $currentColorPage,
+                        profileImage: $profileImage,
+                        profileImageTemp: $profileImageTemp,
+                        hasNewNotice: $hasNewNotice
+                    )
                         .offset(x: isSideMenuOpen ? 0 : UIScreen.main.bounds.width)
                         .animation(.easeInOut, value: 1)
                 }
