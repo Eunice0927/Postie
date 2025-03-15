@@ -20,7 +20,8 @@ struct MapView: View {
     @StateObject var naverGeocodeAPI = NaverGeocodeAPI.shared
     @StateObject var mapViewModel = MapViewModel()
     @StateObject var locationManager = LocationManager() // 지금 위치를 알기 위한 값
-    @StateObject var coordinator: NaverMapCoordinator = NaverMapCoordinator.shared
+//    @StateObject var coordinator: NaverMapCoordinator = NaverMapCoordinator.shared
+    @StateObject var coordinator: NaverMapCoordinator = NaverMapCoordinator()
     
     @State private var selectedButtonIndex: Int = 0
     @State private var postLatitude: Double = 37.56
@@ -139,7 +140,7 @@ struct MapView: View {
                     //                    .textFieldStyle(.roundedBorder)
                     
                     ZStack(alignment: .top) {
-                        NaverMap(coord: coord)
+                        NaverMap(naverMapCoordinator: coordinator, userLocation: coord)
                             .ignoresSafeArea(.all, edges: .top)
                         
                         VStack {

@@ -18,8 +18,6 @@ import NMapsMap
 
 class NaverMapCoordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate {
     
-    static let shared = NaverMapCoordinator()
-    
     let view = NMFNaverMapView(frame: .zero) // 지도 객체 생성
     //    let locationManager = CLLocationManager()
     //    let startInfoWindow = NMFInfoWindow()
@@ -68,8 +66,24 @@ class NaverMapCoordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate 
         cameraLocation = mapView.cameraPosition.target
     }
     
+    // 지도에 현재 보이는 위치를 변경
+    func moveCamera() {
+        guard let cameraLat = cameraLocation?.lat, let cameraLng = cameraLocation?.lng else { return }
+        let updatecoord = NMGLatLng(lat: cameraLat, lng: cameraLng)
+        
+        moveCamera(coord: updatecoord)
+    }
+    
+    // 카메라를 옮기는 기능
+    private func moveCamera(coord: NMGLatLng, animation: NMFCameraUpdateAnimation = .none, duration: TimeInterval = 1) {
+        let cameraUpdate = NMFCameraUpdate(scrollTo: coord)
+        cameraUpdate.animation = animation
+        cameraUpdate.animationDuration = duration
+        view.mapView.moveCamera(cameraUpdate)
+    }
+    
     // 맵을 업데이트 -> 해당 위치에서 우체국 찾기 때 사용 예정
-    // 값을 변경 할때 마다 오버레이 설정
+    // 값을 변경 할때 마다 오버레이(카메라 위치 반경 표시) 설정
     func updateMapView(coord: UserLocation, overlay: Bool) {
         
         removeCircleOverlay()
@@ -113,26 +127,6 @@ class NaverMapCoordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate 
         locationOverlay.circleRadius = 50
         locationOverlay.circleOutlineWidth = 6
 //        locationOverlay.circleColor = UIColor.blue
-    }
-    
-    // 카메라를 옮기는 기능
-    func moveCamera(coord: NMGLatLng, animation: NMFCameraUpdateAnimation = .none, duration: TimeInterval = 1) {
-        let cameraUpdate = NMFCameraUpdate(scrollTo: coord)
-        cameraUpdate.animation = animation
-        cameraUpdate.animationDuration = duration
-        view.mapView.moveCamera(cameraUpdate)
-    }
-    
-    // 카메라 위치 이동
-    func moveCameraLocation(latitude: Double, longitude: Double) {
-        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: latitude, lng: longitude), zoomTo: 15)
-        // 뷰 업데이트가 완료된 후에 checkMyLocation을 변경
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//                self.checkMyLocation = false
-        }
-        
-        Logger.map.info("움직인다 움직여 \(self.coord.lat) \(self.coord.lng)")
-        view.mapView.moveCamera(cameraUpdate)
     }
     
     // 내 위치 주변에 원 그리기
