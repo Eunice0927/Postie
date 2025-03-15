@@ -20,16 +20,16 @@ class APIClient {
     static let shared = APIClient()
     private init() {}
     private var requestId: String? {
-        get { getValueOfPlistFile("SummaryApiKeys", "RequestID")}
+        get { Utils.getValueOfPlistFile("SummaryApiKeys", "RequestID")}
     }
     private var apiKey: String? {
-        get { getValueOfPlistFile("SummaryApiKeys", "APIKey")}
+        get { Utils.getValueOfPlistFile("SummaryApiKeys", "APIKey")}
     }
     private var apiGatewayKey: String? {
-        get { getValueOfPlistFile("SummaryApiKeys", "APIGatewayKey")}
+        get { Utils.getValueOfPlistFile("SummaryApiKeys", "APIGatewayKey")}
     }
     private var apiUrl: String? {
-        get { getValueOfPlistFile("SummaryApiKeys", "APIURL")}
+        get { Utils.getValueOfPlistFile("SummaryApiKeys", "APIURL")}
     }
     
     func postRequestToAPI(content: String) async throws -> [String] {
