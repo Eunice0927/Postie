@@ -11,6 +11,7 @@ import OSLog
 
 enum RemoteConfigKeys: String {
     case is_force_update
+    case latest_notice_uuid
 }
 
 final class RemoteConfigManager: ObservableObject {
@@ -22,7 +23,7 @@ final class RemoteConfigManager: ObservableObject {
     }
     
     private func fetchConfig() {
-        settings.minimumFetchInterval = 3600
+        settings.minimumFetchInterval = 1
         remoteConfig.configSettings = settings
         
         remoteConfig.fetch() { [weak self] status, error in
