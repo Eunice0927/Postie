@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @EnvironmentObject var remoteConfigManager: RemoteConfigManager
     @ObservedObject var firestoreManager = FirestoreManager.shared
     @ObservedObject private var counter = Counter(interval: 1)
     @AppStorage("isTabGroupButton") private var isTabGroupButton: Bool = true
@@ -21,6 +23,7 @@ struct HomeView: View {
     @State private var currentColorPage: Int = 0
     @State private var scrollTarget: Int? = nil
     @State private var isBouncing = true
+    @State private var hasNewNotice: Bool = false
     
     var tabSelection: TabSelection
     
@@ -83,9 +86,17 @@ struct HomeView: View {
                                     self.isSideMenuOpen.toggle()
                                 }
                             }) {
-                                Image(systemName: "line.horizontal.3")
-                                    .imageScale(.large)
-                                    .foregroundStyle(postieColors.tabBarTintColor)
+                                if hasNewNotice {
+                                    Image("line.horizontal.3.badge")
+                                        .imageScale(.large)
+                                        .symbolRenderingMode(.multicolor)
+                                        .foregroundStyle(postieColors.tabBarTintColor, .red)
+                                        .padding(.top, 5)
+                                } else {
+                                    Image(systemName: "line.horizontal.3")
+                                        .imageScale(.large)
+                                        .foregroundStyle(postieColors.tabBarTintColor)
+                                }
                             }
                         }
                         .background(postieColors.backGroundColor)
@@ -168,6 +179,8 @@ struct HomeView: View {
                             NotificationManager.shared.requestPermission()
                         }
                     }
+                    
+                    hasNewNotice = remoteConfigManager.getString(from: .latest_notice_uuid) != UserDefaultsManager.get(forKey: .lastestNoticeUUID) ?? ""
                 }
             }
         }
