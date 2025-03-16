@@ -10,6 +10,10 @@ import SwiftUI
 import Kingfisher
 
 struct LetterImageFullScreenView: View {
+    
+    @EnvironmentObject var alertManager: AlertManager
+    @StateObject private var letterImageFullScreenViewModel = LetterImageFullScreenViewModel()
+    
     let images: [UIImage]?
     let urls: [String]?
 
@@ -70,7 +74,7 @@ struct LetterImageFullScreenView: View {
                     
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
-                            dismiss()
+                            letterImageFullScreenViewModel.showDownloadAlert()
                         } label: {
                             Image(systemName: "square.and.arrow.down")
                                 .foregroundStyle(.postieWhite)
@@ -80,6 +84,21 @@ struct LetterImageFullScreenView: View {
                 .modifier(SwipeToDismissModifier(onDismiss: {
                     dismiss()
                 }))
+            }
+            .alert("이 사진을 저장 할까요?", isPresented: $letterImageFullScreenViewModel.showingDownloadAlert) {
+                Button {
+                    dismiss()
+                } label: {
+                    Text("취소")
+                }
+                
+                Button {
+                    dismiss()
+                } label: {
+                    Text("확인")
+                }
+            } message: {
+                Text("사진 용량에 따라 시간이 오래 걸릴 수 있어요!")
             }
         }
     }
