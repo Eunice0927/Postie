@@ -29,9 +29,15 @@ struct SettingView: View {
             Text(title)
             
             if hasAlert {
-                Circle()
-                    .fill(.red)
-                    .frame(width: 8, height: 8)
+                Text("N")
+                    .foregroundStyle(.white)
+                    .font(.system(size: 9))
+                    .fontWeight(.bold)
+                    .padding(4)
+                    .background(
+                        Circle()
+                            .fill(.red)
+                    )
             }
             
             Spacer()
