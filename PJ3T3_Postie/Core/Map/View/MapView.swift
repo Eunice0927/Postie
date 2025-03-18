@@ -28,7 +28,7 @@ struct MapView: View {
     @State private var isSideMenuOpen = false
     @State private var isKeyboardVisible = false
     @State private var searchText = ""
-    @State private var showButton = false
+    @State private var showResearchButton = false
     @State private var checkMyLocation = false
     @State private var checkAlert = false
     @State private var checkAllow = false
@@ -57,9 +57,10 @@ struct MapView: View {
                     
                     HStack(spacing: 10) {
                         ForEach(0...1, id: \.self) { index in
-                            Button(action: {
+                            Button {
                                 selectedButtonIndex = index
-                            }) {
+                                fetchInCurrentLocation()
+                            } label: {
                                 ZStack {
                                     Rectangle()
                                         .foregroundColor(.clear)
@@ -142,22 +143,12 @@ struct MapView: View {
                             .ignoresSafeArea(.all, edges: .top)
                         
                         VStack {
-                            Button(action: {
+                            Button {
                                 Logger.map.info("현재 위치에서 \(name[selectedButtonIndex]) 찾기 버튼 눌림")
-                                
-                                locationManager.stopUpdatingLocation() // 현재 위치 추적 금지
-                                
-                                coord = MyCoord(coordinator.cameraLocation?.lat ?? coord.lat, coordinator.cameraLocation?.lng ?? coord.lng)
-                                
-                                coordinator.updateMapView(coord: coord, overlay: false)
-                                
-                                officeInfoServiceAPI.fetchData(postDivType: selectedButtonIndex + 1, postLatitude: coord.lat, postLongitude: coord.lng)
-                                
-                                // 버튼 비활성화
-                                showButton = false
+                                fetchInCurrentLocation()
                                 // coordinator.cameraLocation 값이 바뀌면
-                            }) {
-                                if showButton {
+                            } label: {
+                                if showResearchButton {
                                     ZStack {
                                         Rectangle()
                                             .foregroundColor(.clear)
@@ -283,7 +274,7 @@ struct MapView: View {
         }
         
         .onChange(of: coordinator.cameraLocation) { result in
-            self.showButton = true
+            self.showResearchButton = true
             self.checkMyLocation = true
         }
         
@@ -331,6 +322,19 @@ struct MapView: View {
         // 데이터 로드
         officeInfoServiceAPI.fetchData(postDivType: selectedButtonIndex + 1, postLatitude: coord.lat, postLongitude: coord.lng)
         coordinator.updateMapView(coord: coord, overlay: true)
+    }
+    
+    private func fetchInCurrentLocation() {
+        locationManager.stopUpdatingLocation() // 현재 위치 추적 금지
+        
+        coord = MyCoord(coordinator.cameraLocation?.lat ?? coord.lat, coordinator.cameraLocation?.lng ?? coord.lng)
+        
+        coordinator.updateMapView(coord: coord, overlay: false)
+        
+        officeInfoServiceAPI.fetchData(postDivType: selectedButtonIndex + 1, postLatitude: coord.lat, postLongitude: coord.lng)
+        
+        // 현 위치에서 검색 버튼 비활성화
+        showResearchButton = false
     }
 }
 
