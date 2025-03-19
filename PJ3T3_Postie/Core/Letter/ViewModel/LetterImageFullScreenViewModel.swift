@@ -57,17 +57,20 @@ class LetterImageFullScreenViewModel: ObservableObject {
                 switch status {
                 case .authorized:
                     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                    Logger.firebase.info("사진이 성공적으로 저장되었습니다!")
                     DispatchQueue.main.async {
-                        Logger.firebase.info("사진이 성공적으로 저장되었습니다!")
                         continuation.resume(returning: ())
                     }
                 case .denied, .restricted:
+                    Logger.firebase.info("사진 라이브러리 접근 권한이 없습니다.")
                     DispatchQueue.main.async {
-                        Logger.firebase.info("사진 라이브러리 접근 권한이 없습니다.")
                         continuation.resume(throwing: NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "권한 거부"]))
                     }
                 default:
-                    continuation.resume(throwing: NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "알 수 없는 에러"]))
+                    Logger.firebase.info("알수 없는 에러가 발생 했습니다.")
+                    DispatchQueue.main.async {
+                        continuation.resume(throwing: NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "알 수 없는 에러"]))
+                    }
                 }
             }
         }
