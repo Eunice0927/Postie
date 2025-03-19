@@ -113,6 +113,13 @@ final class StorageManager: ObservableObject {
         
         return letterPhoto
     }
+
+//MARK: - 사진 다운로드
+    func downloadImageData(fullPath: String) async throws -> Data {
+        let storageRef = Storage.storage().reference().child(fullPath)
+        let data = try await storageRef.data(maxSize: 10 * 1024 * 1024)
+        return data
+    }
     
 //MARK: - 사진 fetch
     //Firebase의 listAll() 메서드를 사용하여 특정 경로에 포함된 모든 항목을 images 배열에 추가

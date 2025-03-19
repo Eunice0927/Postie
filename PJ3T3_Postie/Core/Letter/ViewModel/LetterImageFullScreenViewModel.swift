@@ -6,17 +6,20 @@
 //
 
 import OSLog
-import FirebaseStorage
-import Foundation
-import UIKit
 import Photos
+import UIKit
 
 class LetterImageFullScreenViewModel: ObservableObject {
     @Published var showingDownloadAlert: Bool = false
-    @Published var isDownloading = false
+    @Published var isDownloading: Bool = false
+    @Published var isDownloadFailed: Bool = false
     
     func showDownloadAlert() {
         showingDownloadAlert = true
+    }
+    
+    func showDownloadFailedAlert() {
+        isDownloadFailed = true
     }
     
     func downloadAndSaveImage(fullPath: String) async {
@@ -25,23 +28,24 @@ class LetterImageFullScreenViewModel: ObservableObject {
         }
         
         do {
-            let storageRef = Storage.storage().reference()
-            let imageRef = storageRef.child(fullPath)
-            
-            let data = try await imageRef.data(maxSize: 10 * 1024 * 1024)
+            let data = try await StorageManager.shared.downloadImageData(fullPath: fullPath)
             guard let image = UIImage(data: data) else {
-                await MainActor.run {
+                Task {
                     Logger.firebase.info("이미지 변환 실패")
+                }
+                await MainActor.run {
                     self.isDownloading = false
                 }
-            return
-        }
-        
-        // 사진 저장
-        try await saveImageToPhotoLibrary(image: image)
+                return
+            }
+            
+            // 사진 저장
+            try await saveImageToPhotoLibrary(image: image)
         } catch {
+            Task {
+                Logger.firebase.info("다운로드 URL 가져오기 실패 혹은 앨범 저장 실패, 에러: \(error.localizedDescription)")
+            }
             await MainActor.run {
-                Logger.firebase.info("다운로드 URL 가져오기 실패, 에러: \(error.localizedDescription)")
                 self.isDownloading = false
             }
         }

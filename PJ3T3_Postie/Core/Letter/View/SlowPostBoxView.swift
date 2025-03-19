@@ -123,9 +123,7 @@ struct SlowPostBoxView: View {
         .fullScreenCover(isPresented: $slowPostBoxViewModel.showingLetterImageFullScreenView) {
             LetterImageFullScreenView(
                 images: slowPostBoxViewModel.images,
-                imageFullPaths: firestoreManager.letter.imageFullPaths ?? [],
-                pageIndex: $slowPostBoxViewModel.selectedIndex,
-                isFromLetterDetail: false
+                pageIndex: $slowPostBoxViewModel.selectedIndex
             )
         }
         .sheet(isPresented: $slowPostBoxViewModel.showingUIImagePicker) {

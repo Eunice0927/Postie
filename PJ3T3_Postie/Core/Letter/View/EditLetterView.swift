@@ -106,9 +106,7 @@ struct EditLetterView: View {
             LetterImageFullScreenView(
                 images: editLetterViewModel.newImages,
                 urls: editLetterViewModel.fullPathsAndUrls.map { $0.url },
-                imageFullPaths: firestoreManager.letter.imageFullPaths ?? [],
-                pageIndex: $editLetterViewModel.selectedIndex,
-                isFromLetterDetail: false
+                pageIndex: $editLetterViewModel.selectedIndex
             )
         }
         .sheet(isPresented: $editLetterViewModel.showingUIImagePicker) {

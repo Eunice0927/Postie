@@ -26,7 +26,7 @@ struct LetterImageFullScreenView: View {
         return urls.count
     }
     
-    init(images: [UIImage]? = nil, urls: [String]? = nil, imageFullPaths: [String]? = nil, pageIndex: Binding<Int>, isFromLetterDetail: Bool) {
+    init(images: [UIImage]? = nil, urls: [String]? = nil, imageFullPaths: [String]? = nil, pageIndex: Binding<Int>, isFromLetterDetail: Bool = false) {
         self.images = images
         self.urls = urls
         self.imageFullPaths = imageFullPaths
@@ -92,7 +92,7 @@ struct LetterImageFullScreenView: View {
                 }))
                 
                 if letterImageFullScreenViewModel.isDownloading {
-                    LoadingView(text: "사진 다운 중").background(ClearBackground())
+                    LoadingView(text: "사진 저장 중").background(ClearBackground())
                 }
             }
             .alert("이 사진을 저장 할까요?", isPresented: $letterImageFullScreenViewModel.showingDownloadAlert) {
@@ -105,6 +105,7 @@ struct LetterImageFullScreenView: View {
                 Button {
                     Task {
                         guard let fullPaths = imageFullPaths, pageIndex < fullPaths.count else {
+                            letterImageFullScreenViewModel.showDownloadFailedAlert()
                             Logger.firebase.info("사진 경로를 찾을 수 없습니다.")
                             return
                         }
@@ -115,6 +116,15 @@ struct LetterImageFullScreenView: View {
                 }
             } message: {
                 Text("사진 용량에 따라 시간이 오래 걸릴 수 있어요!")
+            }
+            .alert("다운로드에 실패했어요.", isPresented: $letterImageFullScreenViewModel.isDownloadFailed) {
+                Button {
+                    
+                } label: {
+                    Text("확인")
+                }
+            } message: {
+                Text("사진을 불러오는 중 문제가 발생했습니다. 나중에 다시 시도해주세요.")
             }
         }
     }
@@ -145,7 +155,3 @@ struct SwipeToDismissModifier: ViewModifier {
             )
     }
 }
-
-//#Preview {
-//    LetterImageFullScreenView(images: [UIImage(systemName: "heart")!], urls: nil, pageIndex: .constant(0))
-//}
