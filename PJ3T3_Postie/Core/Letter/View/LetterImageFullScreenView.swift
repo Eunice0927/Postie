@@ -5,29 +5,33 @@
 //  Created by KHJ on 2024/01/17.
 //
 
+import OSLog
 import SwiftUI
-
 import Kingfisher
 
 struct LetterImageFullScreenView: View {
     
     @EnvironmentObject var alertManager: AlertManager
     @StateObject private var letterImageFullScreenViewModel = LetterImageFullScreenViewModel()
+    @Binding var pageIndex: Int
+    @Environment(\.dismiss) var dismiss
     
     let images: [UIImage]?
     let urls: [String]?
+    let imageFullPaths: [String]?
+    let isFromLetterDetail: Bool
 
     var urlsCount: Int {
         guard let urls = urls else { return 0 }
         return urls.count
     }
-    @Binding var pageIndex: Int
-    @Environment(\.dismiss) var dismiss
     
-    init(images: [UIImage]? = nil, urls: [String]? = nil, pageIndex: Binding<Int>) {
+    init(images: [UIImage]? = nil, urls: [String]? = nil, imageFullPaths: [String]? = nil, pageIndex: Binding<Int>, isFromLetterDetail: Bool) {
         self.images = images
         self.urls = urls
+        self.imageFullPaths = imageFullPaths
         self._pageIndex = pageIndex
+        self.isFromLetterDetail = isFromLetterDetail
     }
 
     var body: some View {
@@ -72,18 +76,24 @@ struct LetterImageFullScreenView: View {
                         }
                     }
                     
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            letterImageFullScreenViewModel.showDownloadAlert()
-                        } label: {
-                            Image(systemName: "square.and.arrow.down")
-                                .foregroundStyle(.postieWhite)
+                    if isFromLetterDetail {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                letterImageFullScreenViewModel.showDownloadAlert()
+                            } label: {
+                                Image(systemName: "square.and.arrow.down")
+                                    .foregroundStyle(.postieWhite)
+                            }
                         }
                     }
                 }
                 .modifier(SwipeToDismissModifier(onDismiss: {
                     dismiss()
                 }))
+                
+                if letterImageFullScreenViewModel.isDownloading {
+                    LoadingView(text: "사진 다운 중").background(ClearBackground())
+                }
             }
             .alert("이 사진을 저장 할까요?", isPresented: $letterImageFullScreenViewModel.showingDownloadAlert) {
                 Button {
@@ -93,7 +103,13 @@ struct LetterImageFullScreenView: View {
                 }
                 
                 Button {
-                    dismiss()
+                    Task {
+                        guard let fullPaths = imageFullPaths, pageIndex < fullPaths.count else {
+                            Logger.firebase.info("사진 경로를 찾을 수 없습니다.")
+                            return
+                        }
+                        await letterImageFullScreenViewModel.downloadAndSaveImage(fullPath: fullPaths[pageIndex])
+                    }
                 } label: {
                     Text("확인")
                 }
@@ -130,7 +146,6 @@ struct SwipeToDismissModifier: ViewModifier {
     }
 }
 
-
-#Preview {
-    LetterImageFullScreenView(images: [UIImage(systemName: "heart")!], urls: nil, pageIndex: .constant(0))
-}
+//#Preview {
+//    LetterImageFullScreenView(images: [UIImage(systemName: "heart")!], urls: nil, pageIndex: .constant(0))
+//}

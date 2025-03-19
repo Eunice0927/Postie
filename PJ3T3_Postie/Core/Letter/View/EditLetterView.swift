@@ -13,6 +13,7 @@ struct EditLetterView: View {
     
     @EnvironmentObject var alertManager: AlertManager
     @StateObject private var editLetterViewModel = EditLetterViewModel()
+    @ObservedObject var firestoreManager = FirestoreManager.shared
 
     enum Field: Hashable {
         case sender
@@ -105,7 +106,9 @@ struct EditLetterView: View {
             LetterImageFullScreenView(
                 images: editLetterViewModel.newImages,
                 urls: editLetterViewModel.fullPathsAndUrls.map { $0.url },
-                pageIndex: $editLetterViewModel.selectedIndex
+                imageFullPaths: firestoreManager.letter.imageFullPaths ?? [],
+                pageIndex: $editLetterViewModel.selectedIndex,
+                isFromLetterDetail: false
             )
         }
         .sheet(isPresented: $editLetterViewModel.showingUIImagePicker) {

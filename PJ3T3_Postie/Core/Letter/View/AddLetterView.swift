@@ -117,7 +117,9 @@ struct AddLetterView: View {
         .fullScreenCover(isPresented: $addLetterViewModel.showingLetterImageFullScreenView) {
             LetterImageFullScreenView(
                 images: addLetterViewModel.images,
-                pageIndex: $addLetterViewModel.selectedIndex
+                imageFullPaths: firestoreManager.letter.imageFullPaths ?? [],
+                pageIndex: $addLetterViewModel.selectedIndex,
+                isFromLetterDetail: false
             )
         }
         .sheet(isPresented: $addLetterViewModel.showingUIImagePicker) {
