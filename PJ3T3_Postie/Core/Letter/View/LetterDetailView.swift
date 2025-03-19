@@ -84,7 +84,9 @@ struct LetterDetailView: View {
         .fullScreenCover(isPresented: $letterDetailViewModel.showLetterImageFullScreenView) {
             LetterImageFullScreenView(
                 urls: firestoreManager.letter.imageURLs ?? [],
-                pageIndex: $letterDetailViewModel.selectedIndex
+                imageFullPaths: firestoreManager.letter.imageFullPaths ?? [],
+                pageIndex: $letterDetailViewModel.selectedIndex,
+                isFromLetterDetail: true
             )
         }
         .sheet(isPresented: $letterDetailViewModel.showLetterEditSheet) {

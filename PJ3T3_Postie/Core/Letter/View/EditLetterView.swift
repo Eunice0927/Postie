@@ -13,6 +13,7 @@ struct EditLetterView: View {
     
     @EnvironmentObject var alertManager: AlertManager
     @StateObject private var editLetterViewModel = EditLetterViewModel()
+    @ObservedObject var firestoreManager = FirestoreManager.shared
 
     enum Field: Hashable {
         case sender
