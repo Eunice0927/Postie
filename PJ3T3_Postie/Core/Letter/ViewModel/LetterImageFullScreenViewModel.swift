@@ -30,9 +30,7 @@ class LetterImageFullScreenViewModel: ObservableObject {
         do {
             let data = try await StorageManager.shared.downloadImageData(fullPath: fullPath)
             guard let image = UIImage(data: data) else {
-                Task {
-                    Logger.firebase.info("이미지 변환 실패")
-                }
+                Logger.firebase.info("이미지 변환 실패")
                 await MainActor.run {
                     self.isDownloading = false
                 }
@@ -42,9 +40,7 @@ class LetterImageFullScreenViewModel: ObservableObject {
             // 사진 저장
             try await saveImageToPhotoLibrary(image: image)
         } catch {
-            Task {
-                Logger.firebase.info("다운로드 URL 가져오기 실패 혹은 앨범 저장 실패, 에러: \(error.localizedDescription)")
-            }
+            Logger.firebase.info("다운로드 URL 가져오기 실패 혹은 앨범 저장 실패, 에러: \(error.localizedDescription)")
             await MainActor.run {
                 self.isDownloading = false
             }
