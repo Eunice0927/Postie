@@ -32,16 +32,15 @@ struct ThemeData {
 
 class ThemeManager {
     static let shared = ThemeManager()
-    private let userDefaultsKey = "CurrentThemeIndex"
     
     private(set) var currentIndex: Int {
         didSet {
-            UserDefaults.standard.set(currentIndex, forKey: userDefaultsKey)
+            UserDefaultsManager.set(currentIndex, forKey: .CurrentThemeIndex)
         }
     }
     
     private init() {
-        currentIndex = UserDefaults.standard.integer(forKey: userDefaultsKey)
+        currentIndex = UserDefaultsManager.get(forKey: .CurrentThemeIndex) ?? 0
     }
     
     static let themeColors = [

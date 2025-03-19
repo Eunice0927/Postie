@@ -13,12 +13,11 @@ class AlertViewModel: ObservableObject {
     @Published var allAlert: Bool
     @Published var slowAlert: Bool
     
-    private let userDefaults = UserDefaults.standard
     
     init() {
-        self.isThemeGroupButton = userDefaults.integer(forKey: "isThemeGroupButton")
-        self.allAlert = userDefaults.bool(forKey: "allAlert")
-        self.slowAlert = userDefaults.bool(forKey: "slowAlert")
+        self.isThemeGroupButton = UserDefaultsManager.get(forKey: .IsThemeGroupButton) ?? 0
+        self.allAlert = UserDefaultsManager.get(forKey: .allAlert) ?? false
+        self.slowAlert = UserDefaultsManager.get(forKey: .slowAlert) ?? false
     }
     
     func checkNotificationPermission() async -> Bool {
