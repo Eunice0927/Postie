@@ -43,7 +43,7 @@ struct Page: View {
         }
         .scrollIndicators(.never)
         .padding()
-        .background(ThemeManager.themeColors[isThemeGroupButton].receivedLetterColor)
+        .background(postieColors.receivedLetterColor)
         .clipShape(RoundedRectangle(cornerRadius: 4))
     }
 }

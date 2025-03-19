@@ -11,7 +11,7 @@ struct NoticeView: View {
     
     @EnvironmentObject var remoteConfigManager: RemoteConfigManager
     @ObservedObject var firestoreNoticeManager = FirestoreNoticeManager.shared
-    @StateObject private var viewModel = NoticeViewModel()
+    @StateObject private var noticeViewModel = NoticeViewModel()
     
     @State var latestNoticeUUID: String = ""
     @Binding var hasNewNotice: Bool
@@ -29,7 +29,7 @@ struct NoticeView: View {
                     
                     if firestoreNoticeManager.notices.isEmpty {
                         VStack {
-                            Image(viewModel.isThemeGroupButton == 4 ? "postyThinkingSketchWhite" : "postyThinkingSketch")
+                            Image(noticeViewModel.isThemeGroupButton == 4 ? "postyThinkingSketchWhite" : "postyThinkingSketch")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 200)
@@ -63,7 +63,7 @@ struct NoticeView: View {
 //                                            .scaledToFit()
 //                                    }
                                     
-                                    let noticeText = viewModel.parseText(notice.content.replacingOccurrences(of: "\\n", with: "\n"))
+                                    let noticeText = noticeViewModel.parseText(notice.content.replacingOccurrences(of: "\\n", with: "\n"))
                                     
                                     ForEach(noticeText, id: \.0) { part in
                                         Text(part.0)

@@ -20,9 +20,8 @@ struct LetterDetailView: View {
     var letter: Letter
 
     var body: some View {
-        
         ZStack {
-            ThemeManager.themeColors[isThemeGroupButton].backGroundColor
+            postieColors.backGroundColor
                 .ignoresSafeArea()
             
             VStack(spacing: 16) {
@@ -35,12 +34,12 @@ struct LetterDetailView: View {
             .padding()
         }
         .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(ThemeManager.themeColors[isThemeGroupButton].backGroundColor, for: .navigationBar)
+        .toolbarBackground(postieColors.backGroundColor, for: .navigationBar)
         .toolbar {
             ToolbarItemGroup(placement: .principal) {
                 Text(letter.isReceived ? "받은 편지" : "보낸 편지")
                     .bold()
-                    .foregroundStyle(ThemeManager.themeColors[isThemeGroupButton].tintColor)
+                    .foregroundStyle(postieColors.tintColor)
             }
 
             ToolbarItemGroup(placement: .topBarTrailing) {
@@ -142,7 +141,7 @@ extension LetterDetailView {
                     .font(.letter(.nanumMyeongjo))
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(ThemeManager.themeColors[isThemeGroupButton].receivedLetterColor)
+                    .background(postieColors.receivedLetterColor)
                     .clipShape(RoundedRectangle(cornerRadius: 4))
             }
         }

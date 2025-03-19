@@ -11,11 +11,8 @@ struct LoadingView: View {
     @ObservedObject private var counter = Counter(interval: 1)
     
     var text: String
-    @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
     
     var body: some View {
-        let postieColors = ThemeManager.themeColors[isThemeGroupButton]
-        
         ZStack {
             Rectangle()
                 .opacity(0.7)
@@ -24,7 +21,6 @@ struct LoadingView: View {
             postieColors.backGroundColor
                 .ignoresSafeArea()
                 .opacity(0.5)
-            
             
             VStack {
                 Image("\(ImageAssetManager.sketchPostys[counter.value % ImageAssetManager.sketchPostys.count])")

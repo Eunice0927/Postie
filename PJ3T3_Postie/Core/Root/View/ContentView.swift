@@ -77,7 +77,7 @@ struct ContentView: View {
 //                                }
 //                                .tag(3)
                         }
-                        .accentColor(ThemeManager.themeColors[isThemeGroupButton].tabBarTintColor)
+                        .accentColor(postieColors.tabBarTintColor)
                     } else {
                         if authViewModel.hasAccount {
                             LoadingView(text: "포스티 시작하는 중")

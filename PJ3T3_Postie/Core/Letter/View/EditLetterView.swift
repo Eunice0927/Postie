@@ -43,7 +43,7 @@ struct EditLetterView: View {
 
     var body: some View {
         ZStack {
-            ThemeManager.themeColors[isThemeGroupButton].backGroundColor
+            postieColors.backGroundColor
                 .ignoresSafeArea()
 
             ScrollViewReader { proxy in
@@ -64,12 +64,12 @@ struct EditLetterView: View {
         }
         .interactiveDismissDisabled(true)
         .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(ThemeManager.themeColors[isThemeGroupButton].backGroundColor, for: .navigationBar)
+        .toolbarBackground(postieColors.backGroundColor, for: .navigationBar)
         .toolbar {
             ToolbarItemGroup(placement: .principal) {
                 Text(letter.isReceived ? "받은 편지 기록" : "보낸 편지 기록")
                     .bold()
-                    .foregroundStyle(ThemeManager.themeColors[isThemeGroupButton].tintColor)
+                    .foregroundStyle(postieColors.tintColor)
             }
             
             ToolbarItemGroup(placement: .topBarLeading) {
@@ -228,7 +228,7 @@ extension EditLetterView {
                           text: letter.isReceived ?
                           $editLetterViewModel.sender : $editLetterViewModel.receiver)
                 .padding(6)
-                .background(ThemeManager.themeColors[isThemeGroupButton].receivedLetterColor)
+                .background(postieColors.receivedLetterColor)
                 .clipShape(RoundedRectangle(cornerRadius: 4))
                 .focused($focusField, equals: .sender)
             }
@@ -264,7 +264,7 @@ extension EditLetterView {
             }
             if editLetterViewModel.fullPathsAndUrls.isEmpty && editLetterViewModel.newImages.isEmpty {
                 Label("사진을 추가해주세요.", systemImage: "photo.on.rectangle")
-                    .foregroundStyle(ThemeManager.themeColors[isThemeGroupButton].dividerColor)
+                    .foregroundStyle(postieColors.dividerColor)
                     .frame(maxWidth: .infinity)
                     .frame(height: 100)
                     .frame(alignment: .center)
@@ -299,7 +299,7 @@ extension EditLetterView {
                                 } label: {
                                     Image(systemName: "xmark.circle.fill")
                                         .symbolRenderingMode(.palette)
-                                        .foregroundStyle(.white, ThemeManager.themeColors[isThemeGroupButton].tintColor)
+                                        .foregroundStyle(isThemeGroupButton == 4 ? .black : .white, postieColors.tintColor)
                                 }
                                 .offset(x: 8, y: -8)
                             }
@@ -324,7 +324,7 @@ extension EditLetterView {
                                 } label: {
                                     Image(systemName: "xmark.circle.fill")
                                         .symbolRenderingMode(.palette)
-                                        .foregroundStyle(.white, ThemeManager.themeColors[isThemeGroupButton].tintColor)
+                                        .foregroundStyle(isThemeGroupButton == 4 ? .black : .white, postieColors.tintColor)
                                 }
                                 .offset(x: 8, y: -8)
                             }
@@ -347,7 +347,7 @@ extension EditLetterView {
                 if editLetterViewModel.text.isEmpty {
                     TextEditor(text: .constant("사진을 등록하면 자동으로 편지 내용이 입력됩니다."))
                         .scrollContentBackground(.hidden)
-                        .background(ThemeManager.themeColors[isThemeGroupButton].receivedLetterColor)
+                        .background(postieColors.receivedLetterColor)
                         .lineSpacing(5)
                         .clipShape(RoundedRectangle(cornerRadius: 4))
                         .frame(maxWidth: .infinity)
@@ -357,7 +357,7 @@ extension EditLetterView {
 
                 TextEditor(text: $editLetterViewModel.text)
                     .scrollContentBackground(.hidden)
-                    .background(ThemeManager.themeColors[isThemeGroupButton].receivedLetterColor)
+                    .background(postieColors.receivedLetterColor)
                     .lineSpacing(5)
                     .clipShape(RoundedRectangle(cornerRadius: 4))
                     .overlay(
@@ -388,14 +388,14 @@ extension EditLetterView {
             if editLetterViewModel.showingSummaryTextField || !editLetterViewModel.summary.isEmpty {
                 TextField("", text: $editLetterViewModel.summary)
                     .padding(6)
-                    .background(ThemeManager.themeColors[isThemeGroupButton].receivedLetterColor)
+                    .background(postieColors.receivedLetterColor)
                     .clipShape(RoundedRectangle(cornerRadius: 4))
                     .focused($focusField, equals: .summary)
                     .padding(.bottom, extraBottomPadding)
                     .id("summaryField")
             } else {
                 Label("편지를 요약해드릴게요.", systemImage: "text.quote.rtl")
-                    .foregroundStyle(ThemeManager.themeColors[isThemeGroupButton].dividerColor)
+                    .foregroundStyle(postieColors.dividerColor)
                     .frame(maxWidth: .infinity)
                     .frame(height: 30)
                     .frame(alignment: .center)
