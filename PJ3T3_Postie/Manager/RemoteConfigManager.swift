@@ -11,6 +11,7 @@ import OSLog
 
 enum RemoteConfigKeys: String {
     case is_force_update
+    case latest_notice_uuid
 }
 
 final class RemoteConfigManager: ObservableObject {

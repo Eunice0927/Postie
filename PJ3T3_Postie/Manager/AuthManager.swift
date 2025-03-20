@@ -33,12 +33,12 @@ class AuthManager: ObservableObject {
     }
     
     func checkAppLaunch() {
-        let userDefaults = UserDefaults.standard
+        let isFirstOpen: Bool? = UserDefaultsManager.get(forKey: .appFirstTimeOpend)
 
-        Logger.auth.info("UserDefault \(userDefaults.value(forKey: "appFirstTimeOpend").debugDescription)")
+        Logger.auth.info("UserDefault \(isFirstOpen.debugDescription)")
         //앱이 설치된 후 처음 실행 되는 것이라면 nil이다.
-        if userDefaults.value(forKey: "appFirstTimeOpend") == nil {
-            userDefaults.setValue(true, forKey: "appFirstTimeOpend")
+        if isFirstOpen == nil {
+            UserDefaultsManager.set(true, forKey: .appFirstTimeOpend)
             do {
                 try Auth.auth().signOut()
             } catch {

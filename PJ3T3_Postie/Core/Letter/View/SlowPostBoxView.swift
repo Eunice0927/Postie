@@ -43,7 +43,7 @@ struct SlowPostBoxView: View {
 
     var body: some View {
         ZStack {
-            ThemeManager.themeColors[isThemeGroupButton].backGroundColor
+            postieColors.backGroundColor
                 .ignoresSafeArea()
 
             ScrollViewReader { proxy in
@@ -64,7 +64,7 @@ struct SlowPostBoxView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
-        .toolbarBackground(ThemeManager.themeColors[isThemeGroupButton].backGroundColor, for: .navigationBar)
+        .toolbarBackground(postieColors.backGroundColor, for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
@@ -90,7 +90,7 @@ struct SlowPostBoxView: View {
             ToolbarItemGroup(placement: .principal) {
                 Text("느린우체통")
                     .bold()
-                    .foregroundStyle(ThemeManager.themeColors[isThemeGroupButton].tintColor)
+                    .foregroundStyle(postieColors.tintColor)
             }
 
             ToolbarItemGroup(placement: .topBarTrailing) {
@@ -209,7 +209,7 @@ extension SlowPostBoxView {
                           text: .constant(slowPostBoxViewModel.currentUserName)
                 )
                 .padding(6)
-                .background(ThemeManager.themeColors[isThemeGroupButton].receivedLetterColor)
+                .background(postieColors.receivedLetterColor)
                 .clipShape(RoundedRectangle(cornerRadius: 4))
                 .focused($focusField, equals: .sender)
                 .disabled(true)
@@ -248,7 +248,7 @@ extension SlowPostBoxView {
 
             if slowPostBoxViewModel.images.isEmpty {
                 Label("사진을 추가해주세요.", systemImage: "photo.on.rectangle")
-                    .foregroundStyle(ThemeManager.themeColors[isThemeGroupButton].dividerColor)
+                    .foregroundStyle(postieColors.dividerColor)
                     .frame(maxWidth: .infinity)
                     .frame(height: 100)
                     .frame(alignment: .center)
@@ -277,7 +277,7 @@ extension SlowPostBoxView {
                                 } label: {
                                     Image(systemName: "xmark.circle.fill")
                                         .symbolRenderingMode(.palette)
-                                        .foregroundStyle(.white, ThemeManager.themeColors[isThemeGroupButton].tintColor)
+                                        .foregroundStyle(isThemeGroupButton == 4 ? .black : .white, postieColors.tintColor)
                                 }
                                 .offset(x: 8, y: -8)
                             }
@@ -300,7 +300,7 @@ extension SlowPostBoxView {
                 if slowPostBoxViewModel.text.isEmpty {
                     TextEditor(text: .constant("사진을 등록하면 자동으로 편지 내용이 입력됩니다."))
                         .scrollContentBackground(.hidden)
-                        .background(ThemeManager.themeColors[isThemeGroupButton].receivedLetterColor)
+                        .background(postieColors.receivedLetterColor)
                         .lineSpacing(5)
                         .clipShape(RoundedRectangle(cornerRadius: 4))
                         .frame(maxWidth: .infinity)
@@ -310,7 +310,7 @@ extension SlowPostBoxView {
 
                 TextEditor(text: $slowPostBoxViewModel.text)
                     .scrollContentBackground(.hidden)
-                    .background(ThemeManager.themeColors[isThemeGroupButton].receivedLetterColor)
+                    .background(postieColors.receivedLetterColor)
                     .lineSpacing(5)
                     .clipShape(RoundedRectangle(cornerRadius: 4))
                     .overlay(
@@ -341,14 +341,14 @@ extension SlowPostBoxView {
             if slowPostBoxViewModel.showingSummaryTextField || !slowPostBoxViewModel.summary.isEmpty {
                 TextField("", text: $slowPostBoxViewModel.summary)
                     .padding(6)
-                    .background(ThemeManager.themeColors[isThemeGroupButton].receivedLetterColor)
+                    .background(postieColors.receivedLetterColor)
                     .clipShape(RoundedRectangle(cornerRadius: 4))
                     .focused($focusField, equals: .summary)
                     .padding(.bottom, extraBottomPadding)
                     .id("summaryField")
             } else {
                 Label("편지를 요약해드릴게요.", systemImage: "text.quote.rtl")
-                    .foregroundStyle(ThemeManager.themeColors[isThemeGroupButton].dividerColor)
+                    .foregroundStyle(postieColors.dividerColor)
                     .frame(maxWidth: .infinity)
                     .frame(height: 30)
                     .frame(alignment: .center)

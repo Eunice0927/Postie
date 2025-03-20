@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SettingView: View {
+    
+    @EnvironmentObject var remoteConfigManager: RemoteConfigManager
     @ObservedObject var authManager = AuthManager.shared
     
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
@@ -17,13 +19,26 @@ struct SettingView: View {
     @Binding var currentColorPage: Int
     @Binding var profileImage: String
     @Binding var profileImageTemp: String
+    @Binding var hasNewNotice: Bool
     
-    private func settingItemView(imageName: String, title: String) -> some View {
-        HStack {
+    private func settingItemView(imageName: String, title: String, hasAlert: Bool = false) -> some View {
+        HStack(alignment: .center) {
             Image(systemName: imageName)
                 .font(imageName == "megaphone" ? .callout : .body)
             
             Text(title)
+            
+            if hasAlert {
+                Text("N")
+                    .foregroundStyle(.white)
+                    .font(.system(size: 9))
+                    .fontWeight(.bold)
+                    .padding(4)
+                    .background(
+                        Circle()
+                            .fill(.red)
+                    )
+            }
             
             Spacer()
             
@@ -116,8 +131,8 @@ struct SettingView: View {
                     settingItemView(imageName: "bell", title: "알림 설정")
                 }
                 
-                NavigationLink(destination: NoticeView()) {
-                    settingItemView(imageName: "megaphone", title: "공지사항")
+                NavigationLink(destination: NoticeView(hasNewNotice: $hasNewNotice)) {
+                    settingItemView(imageName: "megaphone", title: "공지사항", hasAlert: hasNewNotice)
                 }
                 
                 NavigationLink(destination: QuestionView()) {

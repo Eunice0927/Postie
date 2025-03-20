@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct NoticeView: View {
+    
+    @EnvironmentObject var remoteConfigManager: RemoteConfigManager
     @ObservedObject var firestoreNoticeManager = FirestoreNoticeManager.shared
-    @StateObject private var viewModel = NoticeViewModel()
+    @StateObject private var noticeViewModel = NoticeViewModel()
+    
+    @State var latestNoticeUUID: String = ""
+    @Binding var hasNewNotice: Bool
     
     var body: some View {
         ZStack {
@@ -24,7 +29,7 @@ struct NoticeView: View {
                     
                     if firestoreNoticeManager.notices.isEmpty {
                         VStack {
-                            Image(viewModel.isThemeGroupButton == 4 ? "postyThinkingSketchWhite" : "postyThinkingSketch")
+                            Image(noticeViewModel.isThemeGroupButton == 4 ? "postyThinkingSketchWhite" : "postyThinkingSketch")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 200)
@@ -58,12 +63,18 @@ struct NoticeView: View {
 //                                            .scaledToFit()
 //                                    }
                                     
-                                    let noticeText = viewModel.parseText(notice.content.replacingOccurrences(of: "\\n", with: "\n"))
+                                    let noticeText = noticeViewModel.parseText(notice.content.replacingOccurrences(of: "\\n", with: "\n"))
                                     
                                     ForEach(noticeText, id: \.0) { part in
                                         Text(part.0)
                                             .font(.callout)
                                             .fontWeight(part.1 ? .bold : .regular)
+                                            .onAppear {
+                                                if notice.id == latestNoticeUUID {
+                                                    hasNewNotice = false
+                                                    UserDefaultsManager.set(latestNoticeUUID, forKey: .latestNoticeUUID)
+                                                }
+                                            }
                                     }
                                     
                                     HStack {
@@ -80,9 +91,23 @@ struct NoticeView: View {
                             .padding(.top, 10)
                         } label: {
                             VStack(alignment: .leading) {
-                                Text(notice.date.toString())
-                                    .font(.caption)
-                                    .foregroundColor(postieColors.dividerColor)
+                                HStack(alignment: .firstTextBaseline, spacing: 0) {
+                                    Text(notice.date.toString())
+                                        .font(.caption)
+                                        .foregroundColor(postieColors.dividerColor)
+                                        .padding(.trailing, 4)
+                                    
+                                    if hasNewNotice, notice.id == latestNoticeUUID {
+                                        Text("New")
+                                            .font(.caption)
+                                            .foregroundStyle(.white)
+                                            .padding(.horizontal, 4)
+                                            .background {
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .foregroundStyle(.red)
+                                            }
+                                    }
+                                }
                                 
                                 Text(notice.title)
                                     .multilineTextAlignment(.leading)
@@ -96,6 +121,7 @@ struct NoticeView: View {
                     if firestoreNoticeManager.notices.isEmpty {
                         firestoreNoticeManager.fetchAllNotices()
                     }
+                    latestNoticeUUID = remoteConfigManager.getString(from: .latest_notice_uuid) ?? ""
                 }
             }
             .padding(.leading)

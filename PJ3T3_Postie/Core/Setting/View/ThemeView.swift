@@ -12,7 +12,7 @@ struct ThemeView: View {
     @AppStorage("selectedLayoutMode") private var selectedLayoutMode: Int = 0
     @AppStorage("isSplitLayout") private var isSplitLayout: Bool = true
     @AppStorage("isThemeGroupButton") private var isThemeGroupButton: Int = 0
-    @StateObject private var viewModel = ThemeViewModel()
+    @StateObject private var themeViewModel = ThemeViewModel()
     
     @Binding var currentColorPage: Int
     @Binding var isTabGroupButton: Bool
@@ -24,27 +24,27 @@ struct ThemeView: View {
                 postieColors.backGroundColor
                     .ignoresSafeArea()
                 
-                let columns = Array(repeating: GridItem(.flexible()), count: viewModel.numberOfColumns)
+                let columns = Array(repeating: GridItem(.flexible()), count: themeViewModel.numberOfColumns)
                 
                 VStack {
                     HStack(spacing: 10) {
                         ForEach(0...1, id: \.self) { index in
                             Button(action: {
-                                viewModel.selectedThemeButton = index
+                                themeViewModel.selectedThemeButton = index
                             }) {
                                 ZStack {
                                     Rectangle()
                                         .foregroundColor(.clear)
                                         .frame(width: 72, height: 30)
-                                        .background(viewModel.selectedThemeButton == index ? postieColors.tintColor : postieColors.receivedLetterColor)
+                                        .background(themeViewModel.selectedThemeButton == index ? postieColors.tintColor : postieColors.receivedLetterColor)
                                         .cornerRadius(20)
                                         .shadow(color: Color.postieBlack.opacity(0.1), radius: 3, x: 2, y: 2)
                                     
-                                    Text(viewModel.names[index])
+                                    Text(themeViewModel.names[index])
                                         .font(.caption)
-                                        .fontWeight(viewModel.selectedThemeButton == index ? .bold : .regular)
+                                        .fontWeight(themeViewModel.selectedThemeButton == index ? .bold : .regular)
                                         .multilineTextAlignment(.center)
-                                        .foregroundColor(viewModel.selectedThemeButton == index ? postieColors.receivedLetterColor : postieColors.tabBarTintColor)
+                                        .foregroundColor(themeViewModel.selectedThemeButton == index ? postieColors.receivedLetterColor : postieColors.tabBarTintColor)
                                         .frame(width: 60, alignment: .top)
                                 }
                             }
@@ -52,7 +52,7 @@ struct ThemeView: View {
                         
                         Spacer()
                         
-                        if viewModel.selectedThemeButton == 0 {
+                        if themeViewModel.selectedThemeButton == 0 {
                             Menu {
                                 Button(action: {
                                     selectedLayoutMode = 0
@@ -134,10 +134,10 @@ struct ThemeView: View {
                     
                     Spacer()
                     
-                    if viewModel.selectedThemeButton == 0 {
+                    if themeViewModel.selectedThemeButton == 0 {
                         if selectedLayoutMode == 0 {
                             TabView(selection: $currentColorPage) {
-                                ForEach(Array(zip(viewModel.items.indices, viewModel.items)), id: \.0) { index, item in
+                                ForEach(Array(zip(themeViewModel.items.indices, themeViewModel.items)), id: \.0) { index, item in
                                     Button (action: {
                                         isThemeGroupButton = index
                                         currentColorPage = isThemeGroupButton
@@ -151,7 +151,7 @@ struct ThemeView: View {
                                                     .foregroundStyle(isThemeGroupButton == index ? postieColors.tintColor : postieColors.tabBarTintColor)
                                             }
                                             
-                                            Image(isTabGroupButton ? viewModel.groupImages[index] : viewModel.listImages[index])
+                                            Image(isTabGroupButton ? themeViewModel.groupImages[index] : themeViewModel.listImages[index])
                                                 .resizable()
                                                 .modifier(CustomImageModifier(height: geometry.size.height))
                                                 .border(isThemeGroupButton == index ? postieColors.tintColor : postieColors.tintColor.opacity(0))
@@ -165,18 +165,18 @@ struct ThemeView: View {
                             .tabViewStyle(PageTabViewStyle())
                             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
                             .customOnChange(isThemeGroupButton) { newValue in
-                                saveToUserDefaults(value: newValue, key: "IsThemeGroupButton")
+                                UserDefaultsManager.set(newValue, forKey: .IsThemeGroupButton)
                             }
                         } else if selectedLayoutMode == 1 {
                             ScrollView {
                                 LazyVGrid(columns: columns, spacing: 10) {
-                                    ForEach(Array(zip(viewModel.items.indices, viewModel.items)), id: \.0) { index, item in
+                                    ForEach(Array(zip(themeViewModel.items.indices, themeViewModel.items)), id: \.0) { index, item in
                                         Button (action: {
                                             isThemeGroupButton = index
                                             ThemeManager.shared.updateTheme(index: index)
                                         }) {
                                             VStack {
-                                                Image(isTabGroupButton ? viewModel.groupImages[index] : viewModel.listImages[index])
+                                                Image(isTabGroupButton ? themeViewModel.groupImages[index] : themeViewModel.listImages[index])
                                                     .resizable()
                                                     .scaledToFit()
                                                     .frame(height: 200)
@@ -198,14 +198,14 @@ struct ThemeView: View {
                             }
                         } else {
                             ScrollView {
-                                ForEach(Array(zip(viewModel.items.indices, viewModel.items)), id: \.0) { index, item in
+                                ForEach(Array(zip(themeViewModel.items.indices, themeViewModel.items)), id: \.0) { index, item in
                                     Button (action: {
                                         isThemeGroupButton = index
                                         ThemeManager.shared.updateTheme(index: index)
                                     }) {
                                         VStack {
                                             HStack {
-                                                Image(isTabGroupButton ? viewModel.groupImages[index] : viewModel.listImages[index])
+                                                Image(isTabGroupButton ? themeViewModel.groupImages[index] : themeViewModel.listImages[index])
                                                     .resizable()
                                                     .scaledToFit()
                                                     .frame(height: 70)
@@ -241,7 +241,7 @@ struct ThemeView: View {
                                                 .foregroundStyle(isTabGroupButton ? postieColors.tintColor : postieColors.tabBarTintColor)
                                         }
                                         
-                                        Image("postieGroup\(viewModel.stringFromNumber(isThemeGroupButton))")
+                                        Image("postieGroup\(themeViewModel.stringFromNumber(isThemeGroupButton))")
                                             .resizable()
                                             .modifier(CustomImageModifier(height: geometry.size.height))
                                             .border(isTabGroupButton ? postieColors.tintColor : postieColors.tintColor.opacity(0))
@@ -263,7 +263,7 @@ struct ThemeView: View {
                                                 .foregroundStyle(!isTabGroupButton ? postieColors.tintColor : postieColors.tabBarTintColor)
                                         }
                                         
-                                        Image("postieList\(viewModel.stringFromNumber(isThemeGroupButton))")
+                                        Image("postieList\(themeViewModel.stringFromNumber(isThemeGroupButton))")
                                             .resizable()
                                             .modifier(CustomImageModifier(height: geometry.size.height))
                                             .border(isTabGroupButton ? postieColors.tintColor.opacity(0) : postieColors.tintColor)
@@ -276,7 +276,7 @@ struct ThemeView: View {
                             .tabViewStyle(PageTabViewStyle())
                             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
                             .customOnChange(isTabGroupButton) { newValue in
-                                saveToUserDefaults(value: newValue, key: "IsTabGroupButton")
+                                UserDefaultsManager.set(newValue, forKey: .IsTabGroupButton)
                             }
                         } else {
                             ScrollView {
@@ -285,7 +285,7 @@ struct ThemeView: View {
                                         isTabGroupButton = true
                                     }) {
                                         HStack {
-                                            Image("postieGroup\(viewModel.stringFromNumber(isThemeGroupButton))")
+                                            Image("postieGroup\(themeViewModel.stringFromNumber(isThemeGroupButton))")
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(height: 70)
@@ -306,7 +306,7 @@ struct ThemeView: View {
                                         isTabGroupButton = false
                                     }) {
                                         HStack {
-                                            Image("postieList\(viewModel.stringFromNumber(isThemeGroupButton))")
+                                            Image("postieList\(themeViewModel.stringFromNumber(isThemeGroupButton))")
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(height: 70)
@@ -352,10 +352,6 @@ struct CustomImageModifier: ViewModifier {
             .frame(height: height < 650 ? height * 0.7 : height * 0.75)
             .shadow(color: Color.postieBlack.opacity(0.1), radius: 3)
     }
-}
-
-func saveToUserDefaults<T>(value: T, key: String) {
-    UserDefaults.standard.set(value, forKey: key)
 }
 
 //#Preview {

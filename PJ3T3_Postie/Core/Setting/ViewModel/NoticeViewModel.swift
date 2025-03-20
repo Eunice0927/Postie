@@ -11,10 +11,9 @@ class NoticeViewModel: ObservableObject {
     @Published var isExpanded: Bool = false
     @Published var isThemeGroupButton: Int
     
-    private let userDefaults = UserDefaults.standard
     
     init() {
-        self.isThemeGroupButton = userDefaults.integer(forKey: "isThemeGroupButton")
+        self.isThemeGroupButton = UserDefaultsManager.get(forKey: .IsThemeGroupButton) ?? 0
     }
     
     func parseText(_ text: String) -> [(String, Bool)] {
