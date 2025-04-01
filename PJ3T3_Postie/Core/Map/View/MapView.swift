@@ -191,7 +191,7 @@ struct MapView: View {
         }
         .onAppear() {
             CLLocationManager().requestWhenInUseAuthorization()
-            loadInitialData()// 초기 데이터 로드
+            updateLocation()// 초기 데이터 로드
         }
         .onChange(of: mapViewModel.infos) { newInfos in
             for result in newInfos {
@@ -222,7 +222,7 @@ struct MapView: View {
                 
                 Logger.map.info("현재위치: \(coord.lat), \(coord.lng)")
 
-                handleLocationUpdate()
+                fetchData()
                 
                 locationManager.stopUpdatingLocation()
             }
@@ -310,17 +310,6 @@ struct MapView: View {
     
     
     //MARK: - Functions
-    private func loadInitialData() {
-        updateLocation() // 현재 위치 정보 업데이트
-        fetchData() // 초기 데이터 로드
-    }
-    
-    private func handleLocationUpdate() {
-        // 위치 정보가 업데이트된 후 필요한 작업 수행
-        // 예: 데이터 업데이트 등
-        fetchData()
-    }
-    
     private func updateLocation() {
         // 현재 위치 업데이트
         locationManager.startUpdatingLocation()
