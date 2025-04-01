@@ -69,60 +69,8 @@ struct MapView: View {
                     }
                     .padding(EdgeInsets(top: 5, leading: 15, bottom: 10, trailing: 0))
                     
-                    HStack {
-                        Spacer(minLength: 10)
-                        
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
-                        
-                        TextField("장소 검색(서초구, 서초동)", text: $searchText)
-                            .foregroundColor(.primary)
-                            .disableAutocorrection(true)
-                            .onSubmit {
-                                naverGeocodeAPI.fetchLocationForPostalCode(searchText) { latitude, longitude in
-                                    locationManager.stopUpdatingLocation()
-                                    
-                                    if let latitude = latitude, let longitude = longitude {
-                                        //위경도 값 저장
-                                        coordinator.ButtonUpdateMapView(coord: UserLocation(latitude,longitude))
-                                        
-                                        self.coord = UserLocation(latitude, longitude)
-                                        
-                                        mapViewModel.fetchData(postDivType: selectedButtonIndex + 1, postLatitude: coord.lat, postLongitude: coord.lng)
-
-                                        Logger.map.info("위경도 변환 성공\(coord.lat) \(coord.lng)")
-                                    } else {
-                                        //알럿창 띄우기
-                                        Logger.map.error("위치 정보를 가져오는데 실패했습니다.\(coord.lat) \(coord.lng)")
-                                        self.checkAlert.toggle()
-                                    }
-                                }
-                            }
-                            .alert("검색어 안내.", isPresented: $checkAlert) {
-                                Button("확인", role: .cancel) { }
-                            } message: {
-                                Text("동이나 구 단위로 입력해주세요")
-                                    .foregroundColor(.gray)
-                            }
-                        
-                        if !searchText.isEmpty {
-                            Button {
-                                self.searchText = ""
-                            } label: {
-                                Image(systemName: "xmark.circle.fill")
-                                    .foregroundColor(.gray)
-                            }
-                        }
-                        Spacer(minLength: 10)
-                    }
-                    .frame(height: 35)
-                    .background(Color.gray.opacity(0.1))
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .padding(.horizontal, 15)
-                    .padding(.bottom, 15)
-                    .onAppear (perform : UIApplication.shared.hideKeyboard)
-                    //                    .background(Color(uiColor: .secondarySystemBackground))
-                    //                    .textFieldStyle(.roundedBorder)
+                    makeSearchBar()
+                        .onAppear (perform : UIApplication.shared.hideKeyboard)
                     
                     ZStack(alignment: .top) {
                         NaverMap(naverMapCoordinator: coordinator, userLocation: coord)
@@ -302,6 +250,62 @@ struct MapView: View {
                 .foregroundColor(selectedButtonIndex == index ? postieColors.receivedLetterColor : postieColors.tabBarTintColor)
                 .frame(width: 60, alignment: .top)
         }
+    }
+    
+    private func makeSearchBar() -> some View {
+        HStack {
+            Spacer(minLength: 10)
+            
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.gray)
+            
+            TextField("장소 검색(서초구, 서초동)", text: $searchText)
+                .foregroundColor(.primary)
+                .disableAutocorrection(true)
+                .onSubmit {
+                    naverGeocodeAPI.fetchLocationForPostalCode(searchText) { latitude, longitude in
+                        locationManager.stopUpdatingLocation()
+                        
+                        if let latitude: Double = latitude, let longitude: Double = longitude {
+                            //위경도 값 저장
+                            coordinator.ButtonUpdateMapView(coord: UserLocation(latitude,longitude))
+                            
+                            self.coord = UserLocation(latitude, longitude)
+                            
+                            mapViewModel.fetchData(postDivType: selectedButtonIndex + 1, postLatitude: latitude, postLongitude: longitude)
+
+                            Logger.map.info("위경도 변환 성공\(coord.lat) \(coord.lng)")
+                        } else {
+                            //알럿창 띄우기
+                            Logger.map.error("위치 정보를 가져오는데 실패했습니다.\(coord.lat) \(coord.lng)")
+                            self.checkAlert.toggle()
+                        }
+                    }
+                }
+                .alert("검색어 안내.", isPresented: $checkAlert) {
+                    Button("확인", role: .cancel) { }
+                } message: {
+                    Text("동이나 구 단위로 입력해주세요")
+                        .foregroundColor(.gray)
+                }
+            
+            if !searchText.isEmpty {
+                Button {
+                    self.searchText = ""
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.gray)
+                }
+            }
+            Spacer(minLength: 10)
+        }
+        .frame(height: 35)
+        .background(Color.gray.opacity(0.1))
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .padding(.horizontal, 15)
+        .padding(.bottom, 15)
+//                    .background(Color(uiColor: .secondarySystemBackground))
+//                    .textFieldStyle(.roundedBorder)
     }
     
     
