@@ -39,7 +39,6 @@ struct MapView: View {
     @FocusState private var isSearchFocused: Bool
     
     var body: some View {
- 
         NavigationView {
             ZStack {
                 postieColors.backGroundColor
@@ -70,8 +69,9 @@ struct MapView: View {
                     }
                     .padding(EdgeInsets(top: 5, leading: 15, bottom: 10, trailing: 0))
                     
-                    HStack() {
+                    HStack {
                         Spacer(minLength: 10)
+                        
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.gray)
                         
@@ -99,18 +99,16 @@ struct MapView: View {
                                 }
                             }
                             .alert("검색어 안내.", isPresented: $checkAlert) {
-                                Button("확인", role: .cancel) {
-                                    
-                                }
+                                Button("확인", role: .cancel) { }
                             } message: {
                                 Text("동이나 구 단위로 입력해주세요")
                                     .foregroundColor(.gray)
                             }
                         
                         if !searchText.isEmpty {
-                            Button(action: {
+                            Button {
                                 self.searchText = ""
-                            }) {
+                            } label: {
                                 Image(systemName: "xmark.circle.fill")
                                     .foregroundColor(.gray)
                             }
@@ -162,7 +160,7 @@ struct MapView: View {
                             Spacer()
                             
                             HStack {
-                                Button( action: {
+                                Button {
                                     let status = CLLocationManager().authorizationStatus
                                     switch status {
                                     case .notDetermined: break
@@ -183,11 +181,10 @@ struct MapView: View {
                                             coordinator.updateMapView(coord: UserLocation(coordinate.latitude + 0.000001, coordinate.longitude + 0.000001), overlay: true)
                                             checkMyLocation = false
                                         }
-                                    @unknown default:
+                                    default:
                                         break
                                     }
-
-                                }) {
+                                } label: {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 6)
                                             .frame(width: 46, height: 46)
@@ -257,10 +254,16 @@ struct MapView: View {
                 } else {
                     lunchtime = result.lunchTime!
                 }
-                coordinator.addMarkerAndInfoWindow(latitude: Double(result.postLat)!, longitude: Double(result.postLon)!, caption: result.postNm, time: result.postTime, lunchtime: lunchtime)
+                
+                coordinator.addMarkerAndInfoWindow(
+                    latitude: Double(result.postLat)!,
+                    longitude: Double(result.postLon)!,
+                    caption: result.postNm,
+                    time: result.postTime,
+                    lunchtime: lunchtime
+                )
             }
         }
-        
         .onChange(of: coordinator.cameraLocation) { result in
             self.showResearchButton = true
             self.checkMyLocation = true
