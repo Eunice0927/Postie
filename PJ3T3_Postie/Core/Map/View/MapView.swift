@@ -314,7 +314,12 @@ struct MapView: View {
         // 현재 위치 업데이트
         locationManager.startUpdatingLocation()
         // 처음 들어올 때 coord 업데이트
-        coord = UserLocation(coordinator.cameraLocation?.lat ?? coord.lat, coordinator.cameraLocation?.lng ?? coord.lng)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            let currentLatitude =  coordinator.cameraLocation?.lat ?? coord.lat
+            let currentLongitude = coordinator.cameraLocation?.lng ?? coord.lng
+            
+            coord = UserLocation(currentLatitude, currentLongitude)
+        }
     }
     
     private func fetchData() {
