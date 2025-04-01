@@ -62,23 +62,10 @@ struct MapView: View {
                                 selectedButtonIndex = index
                                 fetchInCurrentLocation()
                             } label: {
-                                ZStack {
-                                    Rectangle()
-                                        .foregroundColor(.clear)
-                                        .frame(width: 72, height: 30)
-                                        .background(selectedButtonIndex == index ? postieColors.tintColor : postieColors.receivedLetterColor)
-                                        .cornerRadius(20)
-                                        .shadow(color: Color.postieBlack.opacity(0.1), radius: 3, x: 2, y: 2)
-                                    
-                                    Text(name[index])
-                                        .font(.caption)
-                                        .fontWeight(selectedButtonIndex == index ? .bold : .regular)
-                                        .multilineTextAlignment(.center)
-                                        .foregroundColor(selectedButtonIndex == index ? postieColors.receivedLetterColor : postieColors.tabBarTintColor)
-                                        .frame(width: 60, alignment: .top)
-                                }
+                                makeCategoryButton(index: index)
                             }
                         }
+                        
                         Spacer()
                     }
                     .padding(EdgeInsets(top: 5, leading: 15, bottom: 10, trailing: 0))
@@ -295,6 +282,27 @@ struct MapView: View {
         .zIndex(1)
     }
     
+    //MARK: - Views
+    private func makeCategoryButton(index: Int) -> some View {
+        ZStack {
+            Rectangle()
+                .foregroundColor(.clear)
+                .frame(width: 72, height: 30)
+                .background(selectedButtonIndex == index ? postieColors.tintColor : postieColors.receivedLetterColor)
+                .cornerRadius(20)
+                .shadow(color: Color.postieBlack.opacity(0.1), radius: 3, x: 2, y: 2)
+            
+            Text(name[index])
+                .font(.caption)
+                .fontWeight(selectedButtonIndex == index ? .bold : .regular)
+                .multilineTextAlignment(.center)
+                .foregroundColor(selectedButtonIndex == index ? postieColors.receivedLetterColor : postieColors.tabBarTintColor)
+                .frame(width: 60, alignment: .top)
+        }
+    }
+    
+    
+    //MARK: - Functions
     private func loadInitialData() {
         updateLocation() // 현재 위치 정보 업데이트
         fetchData() // 초기 데이터 로드
