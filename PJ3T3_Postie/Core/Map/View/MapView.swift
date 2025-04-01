@@ -53,7 +53,7 @@ struct MapView: View {
                         
                         Spacer()
                     }
-                    .padding(.horizontal) // 옆에 리인 맞춤
+                    .padding(.horizontal)
                     .padding(.top)
                     
                     HStack(spacing: 10) {
@@ -171,6 +171,7 @@ struct MapView: View {
                                     }
                                 }
                             }
+                            
                             Spacer()
                             
                             HStack {
@@ -220,9 +221,11 @@ struct MapView: View {
                                             UIApplication.shared.open(appSetting)
                                         }
                                     }
+                                    
                                     Button("취소", role: .cancel) {}
                                         .foregroundColor(.red)
                                 }
+                                
                                 Spacer()
                             }
                             .padding(.bottom, 25)
@@ -230,8 +233,8 @@ struct MapView: View {
                         .padding()
                     }
                 }
-                Spacer()
                 
+                Spacer()
             }
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
@@ -254,16 +257,14 @@ struct MapView: View {
             isKeyboardVisible = false
             isSearchFocused = false
         }
-        
         .onAppear() {
             CLLocationManager().requestWhenInUseAuthorization()
-            
-            // 초기 데이터 로드
-            loadInitialData()
+            loadInitialData()// 초기 데이터 로드
         }
         .onChange(of: mapViewModel.infos) { newInfos in
             for result in newInfos {
                 var lunchtime: String = ""
+                
                 if result.lunchTime == "null" {
                     lunchtime = "없음"
                 } else {
@@ -277,9 +278,7 @@ struct MapView: View {
             self.showResearchButton = true
             self.checkMyLocation = true
         }
-        
-        //초기 화면이 열리 때 위치값을 불러온다.
-        .onChange(of: locationManager.location) { newLocation in
+        .onChange(of: locationManager.location) { newLocation in //초기 화면이 열리 때 위치값을 불러온다.
             if let location = newLocation {
                 coord = UserLocation(location.coordinate.latitude, location.coordinate.longitude)
                 
@@ -294,15 +293,11 @@ struct MapView: View {
             locationManager.stopUpdatingLocation()
         }
         .zIndex(1)
-        
-        
     }
+    
     private func loadInitialData() {
-        // 현재 위치 정보 업데이트
-        updateLocation()
-        
-        // 초기 데이터 로드
-        fetchData()
+        updateLocation() // 현재 위치 정보 업데이트
+        fetchData() // 초기 데이터 로드
     }
     
     private func handleLocationUpdate() {
