@@ -15,6 +15,8 @@ import NMapsMap
 
 struct MapView: View {
     
+    @EnvironmentObject var alertManager: AlertManager
+    
     private let name = ["우체국", "우체통"]
     
     @StateObject var naverGeocodeAPI = NaverGeocodeAPI.shared
@@ -117,7 +119,7 @@ struct MapView: View {
                                     case .restricted, .denied:
                                         // 위치 접근 권한이 거부됨
                                         // 사용자에게 알림 표시
-                                        checkAllow.toggle()
+                                        showLocationAuthAlert()
                                     case .authorizedAlways, .authorizedWhenInUse:
                                         // 위치 권한이 허용됨
                                         locationManager.startUpdatingLocation()
@@ -147,16 +149,6 @@ struct MapView: View {
                                     }
                                 }
                                 .disabled(!checkMyLocation)
-                                .alert("위치 접근 권한이 필요합니다", isPresented: $checkAllow) {
-                                    Button("설정") {
-                                        if let appSetting = URL(string: UIApplication.openSettingsURLString) {
-                                            UIApplication.shared.open(appSetting)
-                                        }
-                                    }
-                                    
-                                    Button("취소", role: .cancel) {}
-                                        .foregroundColor(.red)
-                                }
                                 
                                 Spacer()
                             }
@@ -273,20 +265,20 @@ struct MapView: View {
                             self.coord = UserLocation(latitude, longitude)
                             
                             mapViewModel.fetchData(postDivType: selectedButtonIndex + 1, postLatitude: latitude, postLongitude: longitude)
-
+                            
                             Logger.map.info("위경도 변환 성공\(coord.lat) \(coord.lng)")
                         } else {
                             //알럿창 띄우기
                             Logger.map.error("위치 정보를 가져오는데 실패했습니다.\(coord.lat) \(coord.lng)")
-                            self.checkAlert.toggle()
+                            
+                            alertManager.showOneButtonAlert(
+                                title: "검색어 안내",
+                                message: "동이나 구 단위로 입력해주세요",
+                                buttonLabel: "확인",
+                                buttonRole: .cancel
+                            )
                         }
                     }
-                }
-                .alert("검색어 안내.", isPresented: $checkAlert) {
-                    Button("확인", role: .cancel) { }
-                } message: {
-                    Text("동이나 구 단위로 입력해주세요")
-                        .foregroundColor(.gray)
                 }
             
             if !searchText.isEmpty {
@@ -339,6 +331,20 @@ struct MapView: View {
         
         // 현 위치에서 검색 버튼 비활성화
         showResearchButton = false
+    }
+    
+    func showLocationAuthAlert() {
+        alertManager.showTwoButtonAlert(
+            title: "위치 접근 권한이 필요합니다",
+            message: "우체국, 우체통 위치를 확인하고 싶다면 권한을 허용해 주세요.",
+            leftButtonLabel: "취소", //TODO: 추후 label foreground color 설정 기능 추가
+            leftButtonRole: .cancel,
+            rightButtonLabel: "설정",
+            rightButtonRole: .none) {
+                if let appSetting = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(appSetting)
+                }
+            }
     }
 }
 
