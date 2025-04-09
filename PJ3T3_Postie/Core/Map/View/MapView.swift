@@ -22,7 +22,6 @@ struct MapView: View {
     @StateObject var naverGeocodeAPI = NaverGeocodeAPI.shared
     @StateObject var mapViewModel = MapViewModel()
     @StateObject var locationManager = LocationManager() // 지금 위치를 알기 위한 값
-//    @StateObject var coordinator: NaverMapCoordinator = NaverMapCoordinator.shared
     @StateObject var coordinator: NaverMapCoordinator = NaverMapCoordinator()
     
     @State private var selectedButtonIndex: Int = 0
@@ -296,8 +295,6 @@ struct MapView: View {
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .padding(.horizontal, 15)
         .padding(.bottom, 15)
-//                    .background(Color(uiColor: .secondarySystemBackground))
-//                    .textFieldStyle(.roundedBorder)
     }
     
     
