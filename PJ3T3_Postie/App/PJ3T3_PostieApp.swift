@@ -56,7 +56,7 @@ struct PJ3T3_PostieApp: App {
     @StateObject private var remoteConfig = RemoteConfigManager()
     
     private var clientID: String? {
-        get { getValueOfPlistFile("MapApiKeys", "NAVER_GEOCODE_ID") }
+        get { Utils.getValueOfPlistFile("MapApiKeys", "NAVER_GEOCODE_ID") }
     }
     
     init() {

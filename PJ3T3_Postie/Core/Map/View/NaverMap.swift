@@ -10,10 +10,12 @@ import SwiftUI
 import NMapsMap
 
 struct NaverMap: UIViewRepresentable {
-    var coord: MyCoord
     
-    func makeCoordinator() -> Coordinator {
-        Coordinator.shared
+    @ObservedObject var naverMapCoordinator: NaverMapCoordinator
+    var userLocation: UserLocation
+    
+    func makeCoordinator() -> NaverMapCoordinator {
+        return naverMapCoordinator
     }
     
     func makeUIView(context: Context) -> NMFNaverMapView {
@@ -21,7 +23,6 @@ struct NaverMap: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
-        //위치 입력?
-        context.coordinator.updateMapView(coord: coord, overlay: false)
+        context.coordinator.moveCamera()
     }
 }
