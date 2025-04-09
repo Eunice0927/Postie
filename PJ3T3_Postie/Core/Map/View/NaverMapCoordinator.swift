@@ -1,5 +1,5 @@
 //
-//  Coordinator.swift
+//  NaverMapCoordinator.swift
 //  PJ3T3_Postie
 //
 //  Created by kwon ji won on 1/23/24.
@@ -16,16 +16,14 @@ import NMapsMap
 // - NMFMapViewTouchDelegate 맵 터치할 때 필요한 델리게이트,
 // - CLLocationManagerDelegate 위치 관련해서 필요한 델리게이트
 
-class Coordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate {
-    
-    static let shared = Coordinator()
+class NaverMapCoordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate {
     
     let view = NMFNaverMapView(frame: .zero) // 지도 객체 생성
-    //    let locationManager = CLLocationManager()
-    //    let startInfoWindow = NMFInfoWindow()
+//    let locationManager = CLLocationManager()
+//    let startInfoWindow = NMFInfoWindow()
     
     var markers: [NMFMarker] = []
-    var coord: MyCoord = MyCoord(0.0,0.0) // 내 위치값 초기 설정
+    var coord: UserLocation = UserLocation(0.0,0.0) // 내 위치값 초기 설정
     
     @Published var currentLocation: CLLocation?
     @Published var isUpdatingLocation: Bool = true
@@ -68,10 +66,26 @@ class Coordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate {
         cameraLocation = mapView.cameraPosition.target
     }
     
+    // 지도에 현재 보이는 위치를 변경
+    func moveCamera() {
+        guard let cameraLat = cameraLocation?.lat, let cameraLng = cameraLocation?.lng else { return }
+        let updatecoord = NMGLatLng(lat: cameraLat, lng: cameraLng)
+        
+        moveCamera(coord: updatecoord)
+    }
+    
+    // 카메라를 옮기는 기능
+    private func moveCamera(coord: NMGLatLng, animation: NMFCameraUpdateAnimation = .none, duration: TimeInterval = 1) {
+        let cameraUpdate = NMFCameraUpdate(scrollTo: coord)
+        cameraUpdate.animation = animation
+        cameraUpdate.animationDuration = duration
+        view.mapView.moveCamera(cameraUpdate)
+    }
+    
     // 맵을 업데이트 -> 해당 위치에서 우체국 찾기 때 사용 예정
-    // 값을 변경 할때 마다 오버레이 설정 
-    func updateMapView(coord: MyCoord, overlay: Bool) {
-       
+    // 값을 변경 할때 마다 오버레이(카메라 위치 반경 표시) 설정
+    func updateMapView(coord: UserLocation, overlay: Bool) {
+        
         removeCircleOverlay()
         
         self.coord = coord //클래스 속성인 coord를 함수 인자로 전달된 값으로 변경
@@ -81,21 +95,17 @@ class Coordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate {
         let updatecoord = NMGLatLng(lat: coord.lat, lng: coord.lng)
         
         moveCamera(coord: updatecoord) //카메라 바로 이동
-        
-        // 마커와 정보 창을 새롭게 추가하기 위해 기존 내용을 삭제
-        removeAllMakers()
+        removeAllMakers()// 마커와 정보 창을 새롭게 추가하기 위해 기존 내용을 삭제
         
         // 위치 오버레이
-//        setLocationOverlay(coord: updatecoord)
         if overlay {
-                    setLocationOverlay(coord: updatecoord)
-                }
+            setLocationOverlay(coord: updatecoord)
+        }
         
-        let center = NMGLatLng(lat: coord.lat, lng: coord.lng)
-        drawCircleOvelay(center: center, radius: 1000)
+        drawCircleOvelay(center: updatecoord, radius: 1000)
     }
     
-    func ButtonUpdateMapView(coord: MyCoord) {
+    func ButtonUpdateMapView(coord: UserLocation) {
         self.coord = coord //클래스 속성인 coord를 함수 인자로 전달된 값으로 변경
         
         // NMGLatLng: 하나의 위경도 좌표를 나타내는 클래스
@@ -107,7 +117,6 @@ class Coordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate {
         removeAllMakers()
     }
     
-    //이건 뭐야
     func setLocationOverlay(coord: NMGLatLng) {
         let locationOverlay = view.mapView.locationOverlay
         locationOverlay.hidden = false
@@ -117,35 +126,9 @@ class Coordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate {
 //        locationOverlay.circleColor = UIColor.blue
     }
     
-    // 카메라를 옮기는 기능
-    func moveCamera(coord: NMGLatLng, animation: NMFCameraUpdateAnimation = .none, duration: TimeInterval = 1) {
-        let cameraUpdate = NMFCameraUpdate(scrollTo: coord)
-        cameraUpdate.animation = animation
-        cameraUpdate.animationDuration = duration
-        view.mapView.moveCamera(cameraUpdate)
-        
-        
-        // 뷰 업데이트가 완료된 후에 checkMyLocation을 변경
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//                self.checkMyLocation = false
-//            }
-    }
-    
-    // 카메라 위치 이동
-    func moveCameraLocation(latitude: Double, longitude: Double) {
-        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: latitude, lng: longitude), zoomTo: 15)
-        // 뷰 업데이트가 완료된 후에 checkMyLocation을 변경
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//                self.checkMyLocation = false
-            }
-        
-        Logger.map.info("움직인다 움직여 \(self.coord.lat) \(self.coord.lng)")
-        view.mapView.moveCamera(cameraUpdate)
-    }
-    
     // 내 위치 주변에 원 그리기
     func drawCircleOvelay(center: NMGLatLng, radius: Double) {
-
+        
         let circleOverlay = NMFCircleOverlay()
         circleOverlay.center = center
         circleOverlay.radius = radius // 미터 단위
@@ -156,27 +139,43 @@ class Coordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate {
         
         self.circleOverlay = circleOverlay
         
-        let cameraUpdate = NMFCameraUpdate(fit: NMGLatLngBounds(southWest: NMGLatLng(lat: center.lat - 0.01, lng: center.lng - 0.01),
-                                                                northEast: NMGLatLng(lat: center.lat + 0.01, lng: center.lng + 0.01)))
+        let cameraUpdate = NMFCameraUpdate(
+            fit: NMGLatLngBounds(
+                southWest: NMGLatLng(lat: center.lat - 0.01, lng: center.lng - 0.01),
+                northEast: NMGLatLng(lat: center.lat + 0.01, lng: center.lng + 0.01)
+            )
+        )
         view.mapView.moveCamera(cameraUpdate)
     }
     
     // 마커 찍는 행위
     func addMarkerAndInfoWindow(latitude: Double, longitude: Double, caption: String, time: String, lunchtime: String) {
-        
         let marker = NMFMarker()
+        var subCation: String = ""
+        
+        if !time.isEmpty {
+            subCation = "영업시간 \(time)"
+        }
+        
+        if !lunchtime.isEmpty {
+            if !subCation.isEmpty {
+                subCation += "\n점심시간 \(lunchtime)"
+            } else {
+                subCation = "점심시간 \(lunchtime)"
+            }
+        }
         
         marker.captionText = caption
-        //        marker.iconTintColor = UIColor.red
-        //        marker.captionColor = UIColor.orange
+//        marker.iconTintColor = UIColor.red
+//        marker.captionColor = UIColor.orange
         marker.captionTextSize = 16
-        marker.subCaptionText = "영업시간 \(time) \n 점심시간 \(lunchtime)"
+        marker.subCaptionText = subCation
         
         marker.position = NMGLatLng(lat: latitude, lng: longitude)
         marker.mapView = view.mapView
         markers.append(marker)
     }
-
+    
     // 기존 마커 삭제
     func removeAllMakers() {
         markers.forEach { marker in
@@ -186,10 +185,10 @@ class Coordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate {
     }
     
     func removeCircleOverlay() {
-            // circleOverlay가 nil이 아닌 경우에만 제거하도록 수정
-            if let circleOverlay = circleOverlay {
-                circleOverlay.mapView = nil
-            }
+        // circleOverlay가 nil이 아닌 경우에만 제거하도록 수정
+        if let circleOverlay = circleOverlay {
+            circleOverlay.mapView = nil
         }
+    }
 }
 
