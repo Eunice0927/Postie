@@ -263,12 +263,7 @@ struct MapView: View {
         .onChange(of: officeInfoServiceAPI.infos) { newInfos in
 
             for result in newInfos {
-                var lunchtime: String = ""
-                if result.lunchTime == "null" {
-                    lunchtime = "없음"
-                } else {
-                    lunchtime = result.lunchTime!
-                }
+                var lunchtime = result.lunchTime ?? "없음"
                 coordinator.addMarkerAndInfoWindow(latitude: Double(result.postLat)!, longitude: Double(result.postLon)!, caption: result.postNm, time: result.postTime, lunchtime: lunchtime)
             }
         }
