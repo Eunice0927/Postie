@@ -200,15 +200,11 @@ struct MapView: View {
             isKeyboardVisible = false
             isSearchFocused = false
         }
-        
         .onAppear() {
             CLLocationManager().requestWhenInUseAuthorization()
-            
-            // 초기 데이터 로드
-            loadInitialData()
+            updateLocation()
         }
         .onChange(of: officeInfoServiceAPI.infos) { newInfos in
-
             for result in newInfos {
                 var lunchtime: String = ""
                 if result.lunchTime == "null" {
@@ -219,21 +215,16 @@ struct MapView: View {
                 coordinator.addMarkerAndInfoWindow(latitude: Double(result.postLat)!, longitude: Double(result.postLon)!, caption: result.postNm, time: result.postTime, lunchtime: lunchtime)
             }
         }
-        
         .onChange(of: coordinator.cameraLocation) { result in
             self.showResearchButton = true
             self.checkMyLocation = true
         }
-        
-        //초기 화면이 열리 때 위치값을 불러온다.
         .onChange(of: locationManager.location) { newLocation in
+            //초기 화면이 열리 때 위치값을 불러온다.
             if let location = newLocation {
                 coord = MyCoord(location.coordinate.latitude, location.coordinate.longitude)
-                
                 Logger.map.info("현재위치: \(coord.lat), \(coord.lng)")
-
-                handleLocationUpdate()
-                
+                fetchData()
                 locationManager.stopUpdatingLocation()
             }
         }
@@ -241,8 +232,6 @@ struct MapView: View {
             locationManager.stopUpdatingLocation()
         }
         .zIndex(1)
-        
-        
     }
     
     private func makeSearchBar() -> some View {
@@ -303,20 +292,6 @@ struct MapView: View {
     
     
     //MARK: - functions
-    private func loadInitialData() {
-        // 현재 위치 정보 업데이트
-        updateLocation()
-        
-        // 초기 데이터 로드
-        fetchData()
-    }
-    
-    private func handleLocationUpdate() {
-        // 위치 정보가 업데이트된 후 필요한 작업 수행
-        // 예: 데이터 업데이트 등
-        fetchData()
-    }
-    
     private func updateLocation() {
         // 현재 위치 업데이트
         locationManager.startUpdatingLocation()
